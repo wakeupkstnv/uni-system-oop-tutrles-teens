@@ -1,4 +1,6 @@
-package Users.Models-class-diagram-uni-system ;
+package Users.Models;
+
+import Post.News;;
 
 
 /**
@@ -47,10 +49,7 @@ public class Manager
 	 * @ordered
 	 */
 	
-	public void () {
-		// TODO implement me	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -79,10 +78,7 @@ public class Manager
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void () {
-		// TODO implement me	
-	}
+
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,10 +87,7 @@ public class Manager
 	 * @ordered
 	 */
 	
-	public void () {
-		// TODO implement me	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -112,10 +105,7 @@ public class Manager
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void PostNews() {
-		// TODO implement me	
-	}
+
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,9 +114,7 @@ public class Manager
 	 * @ordered
 	 */
 	
-	public Manager PostNews(newsContent() {
-		// TODO implement me
-		return null;	
+	public void PostNews(News news) {
 	}
 	
 	/**
@@ -179,11 +167,7 @@ public class Manager
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void manageRegistration()( parameter,  parameter2) {
-		// TODO implement me	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

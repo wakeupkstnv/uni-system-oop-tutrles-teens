@@ -1,4 +1,4 @@
-package Users-class-diagram-uni-system ;
+package Users;
 
 /**
  * <!-- begin-user-doc -->

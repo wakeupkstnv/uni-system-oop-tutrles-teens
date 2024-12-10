@@ -1,5 +1,11 @@
-package Users.Models-class-diagram-uni-system ;
+package Users.Models;
 
+
+import Papers.ResearchPaper;
+
+import java.util.Date;
+import java.util.Objects;
+import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,8 +58,6 @@ public abstract class User
 	 * @ordered
 	 */
 	
-	private  ;
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -71,34 +75,7 @@ public abstract class User
 	 */
 	
 	public Date birthDate;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String uuid;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String firstName;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String lastName;
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -124,16 +101,8 @@ public abstract class User
 	 * @ordered
 	 */
 	
-	private Date birthDate;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Vector allNotifications;
+
+	private Vector<ResearchPaper> allNotifications;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,16 +113,39 @@ public abstract class User
 		super();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(uuid, user.uuid) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(login, user.login) && Objects.equals(birthDate, user.birthDate) && Objects.equals(middleName, user.middleName) && Objects.equals(hashedPassword, user.hashedPassword) && Objects.equals(allNotifications, user.allNotifications);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(uuid, firstName, lastName, email, login, birthDate, middleName, hashedPassword, allNotifications);
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void () {
-		// TODO implement me	
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"uuid='" + uuid + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", login='" + login + '\'' +
+				", birthDate=" + birthDate +
+				", middleName='" + middleName + '\'' +
+				", hashedPassword='" + hashedPassword + '\'' +
+				", allNotifications=" + allNotifications +
+				'}';
 	}
-	
 }
 

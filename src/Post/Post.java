@@ -21,8 +21,10 @@ abstract public class Post
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Post(){
-		super();
+	public Post(User author, String text, Date date){
+		this.author = author;
+		this.text = text;
+		this.date = date;
 	}
 
 }

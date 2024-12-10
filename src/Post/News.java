@@ -1,7 +1,10 @@
 package Post;
 
 
+import Users.Models.User;
+
 import javax.xml.stream.events.Comment;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -38,15 +41,25 @@ public class News extends Post
 	 */
 	
 	public String topic;
-	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 *
+	 * @param author
+	 * @param text
+	 * @param date
+	 * @generated
+	 */
+	public News(User author, String text, Date date) {
+		super(author, text, date);
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public News(){
-		super();
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

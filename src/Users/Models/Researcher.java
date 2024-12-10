@@ -1,4 +1,4 @@
-package Users.Models-class-diagram-uni-system ;
+package Users.Models;
 
 
 /**

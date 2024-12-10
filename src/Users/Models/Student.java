@@ -1,4 +1,4 @@
-package Users.Models-class-diagram-uni-system ;
+package Users.Models;
 
 
 /**
@@ -7,8 +7,9 @@ package Users.Models-class-diagram-uni-system ;
  * @generated
  */
 
-public class Student
+public class Student extends User
 {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

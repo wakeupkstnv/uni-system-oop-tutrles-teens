@@ -1,6 +1,9 @@
 package Users.Models;
 
 
+import Post.Message;
+import jdk.incubator.vector.Vector;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -25,8 +28,7 @@ public class Employee extends User
 	 * @ordered
 	 */
 	
-	private Vector<Message> allMessages;
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -34,7 +36,7 @@ public class Employee extends User
 	 * @ordered
 	 */
 	
-	private  reseacherProfile;
+	private Researcher reseacherProfile;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -54,7 +56,6 @@ public class Employee extends User
 	
 	public void sendMessgae(Employee employee, String text) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**

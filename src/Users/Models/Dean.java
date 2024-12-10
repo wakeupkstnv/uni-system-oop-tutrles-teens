@@ -58,11 +58,7 @@ public class Dean extends Employee
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void () {
-		// TODO implement me	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -72,7 +68,6 @@ public class Dean extends Employee
 	
 	public void signRequest(Request request) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -84,7 +79,6 @@ public class Dean extends Employee
 	
 	public void redirectRequest(Request request, Manager manager) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -92,9 +86,5 @@ public class Dean extends Employee
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public  interface Interface 
-	{
-		
-	}
 	}
 

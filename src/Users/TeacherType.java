@@ -1,4 +1,4 @@
-package Users-class-diagram-uni-system ;
+package Users;
 
 /**
  * <!-- begin-user-doc -->
@@ -7,5 +7,5 @@ package Users-class-diagram-uni-system ;
  */
 public enum TeacherType
 {
-	;
+	TUTOR, SENIOR_LECTURE, LECTURE, ASSISTENT
 }

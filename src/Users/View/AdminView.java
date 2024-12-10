@@ -1,6 +1,10 @@
 package Users.View;
 
 
+import Post.News;
+
+import java.util.Vector;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -27,7 +31,6 @@ public class AdminView extends EmployeeView
 	
 	public void showLoginResult(boolean success) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -39,7 +42,6 @@ public class AdminView extends EmployeeView
 	
 	public void showLogoutMessage() {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -51,7 +53,6 @@ public class AdminView extends EmployeeView
 	
 	public void showMessage(Vector<Messages> messages) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -62,10 +63,8 @@ public class AdminView extends EmployeeView
 	 */
 	
 	public void showSubscriptionResult(boolean subscribed) {
-		// TODO implement me
-		return null;	
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -75,7 +74,6 @@ public class AdminView extends EmployeeView
 	
 	public void showNotifications(Vector<News> notifications) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -87,7 +85,6 @@ public class AdminView extends EmployeeView
 	
 	public void showError(String msg) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -99,7 +96,6 @@ public class AdminView extends EmployeeView
 	
 	public void showAllLogs() {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -111,7 +107,6 @@ public class AdminView extends EmployeeView
 	
 	public void showUserLogs(String id) {
 		// TODO implement me
-		return null;	
 	}
 	
 }

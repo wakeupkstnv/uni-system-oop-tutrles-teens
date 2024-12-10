@@ -1,4 +1,4 @@
-package Users-class-diagram-uni-system ;
+package Users;
 
 
 /**
@@ -7,16 +7,8 @@ package Users-class-diagram-uni-system ;
  * @generated
  */
 
-public class Faculty
+public enum Faculty
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Faculty(){
-		super();
-	}
-
+	SITE, BS, KMA
 }
 

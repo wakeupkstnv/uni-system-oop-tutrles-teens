@@ -27,7 +27,6 @@ public class DeanView extends EmployeeView
 	
 	public void showSignedRequests() {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -39,7 +38,6 @@ public class DeanView extends EmployeeView
 	
 	public void showRejectedRequests() {
 		// TODO implement me
-		return null;	
 	}
 	
 }

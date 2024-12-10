@@ -1,37 +1,20 @@
 package Users.View;
 
 
+import Post.News;
+import Post.Request;
+import Users.Models.Teacher;
+
+import java.util.Vector;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  * @generated
  */
 
-public class ManagerView extends EmployeeView implements CanViewRequests
+public class ManagerView extends EmployeeView implements CanViewRequest
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Vector<Course> CourseList;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Vector<Request> Requests;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public ManagerView(){
 		super();
 	}
@@ -42,48 +25,7 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void showLoginResult(boolean success) {
-		// TODO implement me
-		return null;	
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void showLogoutMessage() {
-		// TODO implement me
-		return null;	
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void showMessage(Vector<Messages> messages) {
-		// TODO implement me
-		return null;	
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void (boolean subscribed) {
-		// TODO implement me
-		return null;	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -92,8 +34,6 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showNotifications(Vector<News> notifications) {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -104,8 +44,6 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showError(String msg) {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -116,8 +54,6 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showTeacherList() {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -140,10 +76,8 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showCourseList() {
-		// TODO implement me
-		return null;	
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -163,8 +97,6 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showEmployeeRequests() {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -187,8 +119,6 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	 */
 	
 	public void showStudentsList() {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -200,8 +130,11 @@ public class ManagerView extends EmployeeView implements CanViewRequests
 	
 	public void showRequests() {
 		// TODO implement me
-		return null;	
 	}
-	
+
+	@Override
+	public void viewAllRequest() {
+
+	}
 }
 

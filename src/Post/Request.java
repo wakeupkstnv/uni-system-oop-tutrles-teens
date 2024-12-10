@@ -1,6 +1,10 @@
 package Post;
 
 
+import Users.Models.User;
+
+import java.util.Date;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -35,15 +39,25 @@ public class Request extends Post
 	 */
 	
 	private String description;
-	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 *
+	 * @param author
+	 * @param text
+	 * @param date
+	 * @generated
+	 */
+	public Request(User author, String text, Date date) {
+		super(author, text, date);
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Request(){
-		super();
-	}
 
 }
 

@@ -1,6 +1,11 @@
 package Users.View;
 
 
+import Post.Message;
+import Post.News;
+
+import java.util.Vector;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -27,7 +32,6 @@ public class EmployeeView extends UserView
 	
 	public void showLoginResult(boolean success) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -39,7 +43,6 @@ public class EmployeeView extends UserView
 	
 	public void showLogoutMessage() {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -49,9 +52,8 @@ public class EmployeeView extends UserView
 	 * @ordered
 	 */
 	
-	public void showMessage(Vector<Messages> messages) {
+	public void showChat(Vector<Message> messages) {
 		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -62,8 +64,6 @@ public class EmployeeView extends UserView
 	 */
 	
 	public void showSubscriptionResult(boolean subscribed) {
-		// TODO implement me
-		return null;	
 	}
 	
 	/**
@@ -74,10 +74,15 @@ public class EmployeeView extends UserView
 	 */
 	
 	public void showNotifications(Vector<News> notifications) {
-		// TODO implement me
-		return null;	
 	}
-	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -85,23 +90,9 @@ public class EmployeeView extends UserView
 	 * @ordered
 	 */
 	
-	public void showError(String msg) {
-		// TODO implement me
-		return null;	
+	public void showMessage(Vector<Message> messages) {
 	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void showMessage(Vector<Messages> messages) {
-		// TODO implement me
-		return null;	
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -110,8 +101,6 @@ public class EmployeeView extends UserView
 	 */
 	
 	public void showRequest() {
-		// TODO implement me
-		return null;	
 	}
 	
 }
