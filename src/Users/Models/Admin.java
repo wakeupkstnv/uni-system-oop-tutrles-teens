@@ -1,6 +1,15 @@
 package Users.Models;
 
 
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+import java.text.ParseException;
+
+
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -59,10 +68,7 @@ public class Admin extends Manager
 	 * @ordered
 	 */
 	// надо добавить логику подключений к базе данных
-	// нет:
-	// 		"7: Graduated Student\n"
-    // 		"8: PHD Student\n"
-	// 		"9: Master Student\n"
+
 	public void registerUser() {
 	    Scanner scanner = new Scanner(System.in);
 	    UserFactory userFactory = new UserFactory(); // Создаем объект фабрики
@@ -218,9 +224,72 @@ public class Admin extends Manager
 	                User researcher = userFactory.createUser(researcherId, researcherFirstName, researcherLastName, reBirthDate, UserType.RESEARCHER, scanner);
 	                System.out.println("Researcher registered: " + researcher);
 	                break;
+	            case 7: // Graduated Student
+	                System.out.println("You chose: Graduated Student");
+	                // Code for Graduated Student
+	                System.out.print("Enter ID: ");
+	                String graduatedId = scanner.nextLine();
+	                System.out.print("Enter First Name: ");
+	                String graduatedFirstName = scanner.nextLine();
+	                System.out.print("Enter Last Name: ");
+	                String graduatedLastName = scanner.nextLine();
+	                System.out.print("Enter Birth Date (yyyy-MM-dd): ");
+	                String graduatedBirthDateStr = scanner.nextLine();
+	                Date graduatedBirthDate = null;
+	                try {
+	                    graduatedBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(graduatedBirthDateStr);
+	                } catch (ParseException e) {
+	                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+	                    continue;
+	                }
+	                User graduatedStudent = userFactory.createUser(graduatedId, graduatedFirstName, graduatedLastName, graduatedBirthDate, UserType.GRADUATED_STUDENT, scanner);
+	                System.out.println("Graduated Student registered: " + graduatedStudent);
+	                break;
 
-	            // Для других типов студентов можно добавить подобные кейсы (7: Graduated Student, 8: PHD Student, 9: Master Student)
+	            case 8: // PhD Student
+	                System.out.println("You chose: PhD Student");
+	                // Code for PhD Student
+	                System.out.print("Enter ID: ");
+	                String phdId = scanner.nextLine();
+	                System.out.print("Enter First Name: ");
+	                String phdFirstName = scanner.nextLine();
+	                System.out.print("Enter Last Name: ");
+	                String phdLastName = scanner.nextLine();
+	                System.out.print("Enter Birth Date (yyyy-MM-dd): ");
+	                String phdBirthDateStr = scanner.nextLine();
+	                Date phdBirthDate = null;
+	                try {
+	                    phdBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(phdBirthDateStr);
+	                } catch (ParseException e) {
+	                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+	                    continue;
+	                }
+	                User phdStudent = userFactory.createUser(phdId, phdFirstName, phdLastName, phdBirthDate, UserType.PHD_STUDENT, scanner);
+	                System.out.println("PhD Student registered: " + phdStudent);
+	                break;
 
+	            case 9: // Master Student
+	                System.out.println("You chose: Master Student");
+	                // Code for Master Student
+	                System.out.print("Enter ID: ");
+	                String masterId = scanner.nextLine();
+	                System.out.print("Enter First Name: ");
+	                String masterFirstName = scanner.nextLine();
+	                System.out.print("Enter Last Name: ");
+	                String masterLastName = scanner.nextLine();
+	                System.out.print("Enter Birth Date (yyyy-MM-dd): ");
+	                String masterBirthDateStr = scanner.nextLine();
+	                Date masterBirthDate = null;
+	                try {
+	                    masterBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(masterBirthDateStr);
+	                } catch (ParseException e) {
+	                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+	                    continue;
+	                }
+	                User masterStudent = userFactory.createUser(masterId, masterFirstName, masterLastName, masterBirthDate, UserType.MASTER_STUDENT, scanner);
+	                System.out.println("Master Student registered: " + masterStudent);
+	                break;
+	                
 	            case 10:
 	                System.out.println("Info about types:\n" +
 	                        "1: Employee - Works at the institution.\n" +
