@@ -93,6 +93,7 @@ public class UserFactory
                 teacherType = TeacherType.valueOf(typeStr);
                 validType = true;
             } catch (IllegalArgumentException e) {
+            	
                 System.out.println("Invalid teacher type. Please try again.");
             }
         }

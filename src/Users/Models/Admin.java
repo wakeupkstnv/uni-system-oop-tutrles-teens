@@ -160,6 +160,7 @@ public class Admin extends Manager
 
 	            case 4: // Admin
 	                System.out.println("You chose: Admin");
+	                
 	                // Чтение данных для Admin
 	                System.out.print("Enter ID: ");
 	                String adminId = scanner.nextLine();
