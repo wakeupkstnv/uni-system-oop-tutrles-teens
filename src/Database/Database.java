@@ -2,6 +2,21 @@ package Database;
 // TODO import all using classes! 
 // TODO logic of using DB who can and who can't ( maybe by checking instanceof ) 
 
+import Papers.Journal;
+import Papers.ResearchPaper;
+import Papers.ResearchProject;
+import Post.News;
+import Post.Post;
+import Study.Period;
+import Study.Utils.Course;
+import Users.Models.Researcher;
+import Users.Models.Student;
+import Users.Models.Teacher;
+import Users.Models.User;
+import Post.Request;
+
+import java.util.Vector;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -52,17 +67,6 @@ public class Database implements Serializable {
 	// Singletone pattern
 	
 	private Database() {
-        courses = new Vector<>();
-        logs = new Vector<>();
-        teachers = new Vector<>();
-        users = new Vector<>();
-        researchers = new Vector<>();
-        researchPapers = new Vector<>();
-        researchProjects = new Vector<>();
-        news = new Vector<>();
-        posts = new Vector<>();
-        journals = new Vector<>();
-        requests = new Vector<>();
     }
 
 	
