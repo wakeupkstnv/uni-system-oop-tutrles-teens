@@ -1,5 +1,6 @@
 package Database;
-
+// TODO import all using classes! 
+// TODO logic of using DB who can and who can't ( maybe by checking instanceof ) 
 
 /**
  * <!-- begin-user-doc -->
@@ -8,7 +9,6 @@ package Database;
  */
 
 public class Database implements Serializable {
-    private static final long serialVersionUID = 1L;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -20,9 +20,11 @@ public class Database implements Serializable {
 	
 	private Vector<Teacher> teachers;
 	
+	private Vector<Student> students;
+	
 	private Vector<User> users;
 	
-	private Vector<CanBecomeResearcher> researchers;
+	private Vector<Researcher> researchers;
 	
 	private Vector<ResearchPaper> researchPapers;
 	
@@ -42,7 +44,7 @@ public class Database implements Serializable {
 	
 	private boolean isOpenToReg = true;
 	
-	
+	private int year;
 	
 	private static Database instance;
 	
@@ -84,56 +86,34 @@ public class Database implements Serializable {
         return logs;
     }
 
-    public void setLogs(Vector<String> logs) {
-        this.logs = logs;
-    }
 
     public Vector<Teacher> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(Vector<Teacher> teachers) {
-        this.teachers = teachers;
-    }
 
     public Vector<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Vector<User> users) {
-        this.users = users;
-    }
 
-    public Vector<CanBecomeResearcher> getResearchers() {
+    public Vector<Researcher> getResearchers() {
         return researchers;
     }
 
-    public void setResearchers(Vector<CanBecomeResearcher> researchers) {
-        this.researchers = researchers;
-    }
 
     public Vector<ResearchPaper> getResearchPapers() {
         return researchPapers;
     }
 
-    public void setResearchPapers(Vector<ResearchPaper> researchPapers) {
-        this.researchPapers = researchPapers;
-    }
 
     public Vector<ResearchProject> getResearchProjects() {
         return researchProjects;
     }
 
-    public void setResearchProjects(Vector<ResearchProject> researchProjects) {
-        this.researchProjects = researchProjects;
-    }
 
     public Vector<News> getNews() {
         return news;
-    }
-
-    public void setNews(Vector<News> news) {
-        this.news = news;
     }
 
     public Vector<Post> getPosts() {
@@ -148,25 +128,16 @@ public class Database implements Serializable {
         return period;
     }
 
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
 
     public Vector<Journal> getJournals() {
         return journals;
     }
 
-    public void setJournals(Vector<Journal> journals) {
-        this.journals = journals;
-    }
 
     public Vector<Request> getRequests() {
         return requests;
     }
 
-    public void setRequests(Vector<Request> requests) {
-        this.requests = requests;
-    }
 
     public Researcher getTopCitedResearcher() {
         return topCitedResearcher;
@@ -230,6 +201,39 @@ public class Database implements Serializable {
         }
         return null;
     }
+    
+ // Research papers management
+    public void addResearcher(Researcher researcher) {
+    	researchers.add(researcher);
+    	updateTopCitedResearcher();
+    	
+    }
+
+    public void removeResearcher(Researcher researcher) {
+    	researchers.remove(researcher);
+    	updateTopCitedResearcher();
+    	
+    }
+    
+    public void addStudent(Student student) {
+        if (!students.contains(student)) {
+            students.add(student);
+        }
+    }
+
+    public void removeStudent(Student student) {
+        students.remove(student);
+    }
+
+    public void addTeacher(Teacher teacher) {
+        if (!teachers.contains(teacher)) {
+            teachers.add(teacher);
+        }
+    }
+
+    public void removeTeacher(Teacher teacher) {
+        teachers.remove(teacher);
+    }
 
     // Research papers management
     public void addResearchPaper(ResearchPaper paper) {
@@ -250,6 +254,23 @@ public class Database implements Serializable {
         }
         return papersByAuthor;
     }
+    
+    private void updateTopCitedResearcher() {
+        Researcher topCited = null;
+        int maxCitations = 0;
+
+        for (ResearchPaper paper : researchPapers) {
+            for (Researcher author : paper.getAuthors()) {
+                int citations = paper.getCitations(); 
+                if (citations > maxCitations) {
+                    maxCitations = citations;
+                    topCited = author;
+                }
+            }
+        }
+
+        this.topCitedResearcher = topCited;
+    }
 
 
     // Requests management
@@ -264,7 +285,7 @@ public class Database implements Serializable {
 	public Vector<Request> getPendingRequests() {
         Vector<Request> pendingRequests = new Vector<>();
         for (Request request : requests) {
-	            if (request.isSigned()) {
+	            if (!request.isSigned()) {
 	                pendingRequests.add(request);
 	            }
 	        }
