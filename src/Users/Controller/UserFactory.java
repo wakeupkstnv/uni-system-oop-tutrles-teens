@@ -1,5 +1,6 @@
 package Users.Controller;
 
+import Papers.ResearchPaper;
 import Users.Models.User;
 import Users.UserType;
 import Users.TeacherType;
@@ -9,7 +10,6 @@ import Users.Models.Dean;
 import Users.Models.Teacher;
 import Users.Models.Admin;
 import Users.Models.Researcher;
-import Users.Models.ResearchPaper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +39,7 @@ public class UserFactory
 	 * @generated
 	 * @ordered
 	 */
+
 	
     public User createUser(String id, String firstName, String lastName, Date birthDate, UserType userType, Scanner scanner) {
         switch (userType) {

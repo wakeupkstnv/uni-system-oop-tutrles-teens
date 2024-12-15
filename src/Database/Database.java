@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 
 /**
@@ -11,11 +11,20 @@ public class Database
 {
 	/**
 	 * <!-- begin-user-doc -->
+	 * 
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Database(){
-		super();
+	private static Database databaseInstance;
+
+	public static Database getInstanceOfDatabse(){
+		if (Database.databaseInstance == null)
+			return new Database();
+		return new Database();
+	}
+
+	private Database(){
+
 	}
 
 }

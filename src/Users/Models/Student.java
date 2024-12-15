@@ -1,6 +1,8 @@
 package Users.Models;
 
 
+import java.util.Date;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -18,6 +20,7 @@ public class Student extends User
 	public Student(){
 		super();
 	}
+
 
 }
 

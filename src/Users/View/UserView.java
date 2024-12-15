@@ -3,6 +3,7 @@ package Users.View;
 
 import Post.Message;
 import Post.News;
+import Users.Models.User;
 
 import java.util.Vector;
 
@@ -12,12 +13,8 @@ import java.util.Vector;
  * @generated
  */
 
-public class UserView
+public class UserView <Model extends User>
 {
-	public UserView(){
-		super();
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -27,7 +24,11 @@ public class UserView
 	
 	public void showLoginResult(boolean success) {
 	}
-	
+
+	public void showProfile(Model user){
+		System.out.println(user);
+		// TODO:
+	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

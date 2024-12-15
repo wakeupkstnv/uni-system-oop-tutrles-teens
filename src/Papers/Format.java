@@ -7,5 +7,5 @@ package Papers;
  */
 public enum Format
 {
-	PlainText, Bibtex;
+	PLAINTEXT, BIBTEXT;
 }

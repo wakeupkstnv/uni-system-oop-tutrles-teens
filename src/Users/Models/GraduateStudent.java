@@ -9,11 +9,6 @@ package Users.Models;
 
 public class GraduateStudent extends Student
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public GraduateStudent(){
 		super();
 	}

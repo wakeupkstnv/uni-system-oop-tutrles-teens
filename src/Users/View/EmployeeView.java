@@ -3,6 +3,8 @@ package Users.View;
 
 import Post.Message;
 import Post.News;
+import Users.Models.Employee;
+import Users.Models.User;
 
 import java.util.Vector;
 
@@ -12,7 +14,7 @@ import java.util.Vector;
  * @generated
  */
 
-public class EmployeeView extends UserView
+public class EmployeeView<Model extends Employee> extends UserView<Employee>
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,7 +33,9 @@ public class EmployeeView extends UserView
 	 */
 	
 	public void showLoginResult(boolean success) {
-		// TODO implement me
+		if (success) System.out.println("Nice!");
+		else System.out.println("Not nice!");
+		// TODO: change it!
 	}
 	
 	/**
