@@ -1,14 +1,11 @@
-package database;
-
-
+package papers;
 
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface Serializable 
+public enum Format
 {
-	
+	PLAINTEXT, BIBTEXT;
 }
-

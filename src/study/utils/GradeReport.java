@@ -1,5 +1,7 @@
-package core;
+package study.utils;
 
+
+import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
@@ -7,7 +9,7 @@ package core;
  * @generated
  */
 
-public class System
+public class GradeReport
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -16,7 +18,7 @@ public class System
 	 * @ordered
 	 */
 	
-	private static String systemName;
+	private Vector<Course> courses;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -25,23 +27,14 @@ public class System
 	 * @ordered
 	 */
 	
-	private static System SYSTEM_INSTANCE;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Core.Language languageMode;
+	private Vector<Mark> mark;
 	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public System(){
+	public GradeReport(){
 		super();
 	}
 
@@ -52,8 +45,32 @@ public class System
 	 * @ordered
 	 */
 	
-	public void setLanguageMode(Core.Language languageMode) {
-		this.languageMode = languageMode;
+	public void getGradeReportStudent() {
+		// TODO implement me
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Vector<Mark> getMarks() {
+		// TODO implement me
+		return null;	
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Vector<Course> getStudentCourses() {
+		// TODO implement me
+		return null;	
 	}
 	
 }

@@ -1,4 +1,4 @@
-package core;
+package study.utils;
 
 
 /**
@@ -7,7 +7,7 @@ package core;
  * @generated
  */
 
-public class System
+public class Transcript extends GradeReport
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -16,32 +16,14 @@ public class System
 	 * @ordered
 	 */
 	
-	private static String systemName;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private static System SYSTEM_INSTANCE;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Core.Language languageMode;
+	private GPA gpa;
 	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public System(){
+	public Transcript(){
 		super();
 	}
 
@@ -52,8 +34,19 @@ public class System
 	 * @ordered
 	 */
 	
-	public void setLanguageMode(Core.Language languageMode) {
-		this.languageMode = languageMode;
+	public double calculateGPA() {
+		// TODO implement me
+		return 0;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public void getTranscript() {
 	}
 	
 }

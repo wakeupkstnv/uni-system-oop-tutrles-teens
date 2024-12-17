@@ -1,14 +1,11 @@
-package database;
-
-
+package study;
 
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface Serializable 
+public enum Period
 {
-	
+	FALL, SPRING;
 }
-

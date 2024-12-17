@@ -1,7 +1,7 @@
-package Comparators;
+package comparators;
 
 
-import Papers.ResearchPaper;
+import papers.ResearchPaper;
 
 import java.util.Comparator;
 
@@ -18,11 +18,7 @@ public class CitationsComparator implements Comparator<ResearchPaper>
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public CitationsComparator(){
-		super();
-	}
 
-	@Override
 	public int compare(ResearchPaper o1, ResearchPaper o2) {
 		return 0;
 	}

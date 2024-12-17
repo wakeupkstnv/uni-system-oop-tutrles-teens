@@ -1,14 +1,11 @@
-package database;
-
-
+package post;
 
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface Serializable 
+public enum Urgency
 {
-	
+	U, LOW, MEDIUM, HIGH;
 }
-

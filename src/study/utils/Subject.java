@@ -1,5 +1,9 @@
-package core;
+package study.utils;
 
+
+import study.CourseType;
+
+import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
@@ -7,7 +11,7 @@ package core;
  * @generated
  */
 
-public class System
+public class Subject
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -16,7 +20,7 @@ public class System
 	 * @ordered
 	 */
 	
-	private static String systemName;
+	private String code;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -25,7 +29,7 @@ public class System
 	 * @ordered
 	 */
 	
-	private static System SYSTEM_INSTANCE;
+	private int ects;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -34,27 +38,25 @@ public class System
 	 * @ordered
 	 */
 	
-	private Core.Language languageMode;
+	private String name;
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Vector<CourseType> subjectType;
 	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public System(){
+	public Subject(){
 		super();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void setLanguageMode(Core.Language languageMode) {
-		this.languageMode = languageMode;
-	}
-	
 }
 

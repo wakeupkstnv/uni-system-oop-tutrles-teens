@@ -1,33 +1,30 @@
-package Database;
-// TODO import all using classes! 
-// TODO logic of using DB who can and who can't ( maybe by checking instanceof ) 
 
-import Papers.Journal;
-import Papers.ResearchPaper;
-import Papers.ResearchProject;
-import Post.News;
-import Post.Post;
-import Study.Period;
-import Study.Utils.Course;
-import Users.Models.Researcher;
-import Users.Models.Student;
-import Users.Models.Teacher;
-import Users.Models.User;
-import Post.Request;
+package database;
+
+import papers.Journal;
+import papers.ResearchPaper;
+import papers.ResearchProject;
+import post.News;
+import post.Post;
+import study.Period;
+import study.utils.Course;
+import users.models.Researcher;
+import users.models.Student;
+import users.models.Teacher;
+import users.models.User;
+import post.Request;
 
 import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
- * @generated
  */
 
 public class Database implements Serializable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
-	 * @generated
 	 */
 	private Vector<Course> courses;
 	
@@ -57,19 +54,14 @@ public class Database implements Serializable {
 	
 	private Researcher topCitedResearcher;
 	
-	private boolean isOpenToReg = true;
+	private boolean registationState = false;
 	
 	private int year;
 	
 	private static Database instance;
-	
-	
-	// Singletone pattern
-	
-	private Database() {
-    }
 
-	
+	private Database() {}
+
 	public static synchronized Database getInstance() {
         if (instance == null) {
             instance = new Database();
@@ -90,7 +82,6 @@ public class Database implements Serializable {
         return logs;
     }
 
-
     public Vector<Teacher> getTeachers() {
         return teachers;
     }
@@ -100,21 +91,17 @@ public class Database implements Serializable {
         return users;
     }
 
-
     public Vector<Researcher> getResearchers() {
         return researchers;
     }
-
 
     public Vector<ResearchPaper> getResearchPapers() {
         return researchPapers;
     }
 
-
     public Vector<ResearchProject> getResearchProjects() {
         return researchProjects;
     }
-
 
     public Vector<News> getNews() {
         return news;
@@ -142,7 +129,9 @@ public class Database implements Serializable {
         return requests;
     }
 
+    public Boolean getRegistationState() {return this.registationState}
 
+    public void setRegistationState(Boolean registationState) {this.registationState = registationState}
     public Researcher getTopCitedResearcher() {
         return topCitedResearcher;
     }
@@ -151,17 +140,7 @@ public class Database implements Serializable {
         this.topCitedResearcher = topCitedResearcher;
     }
 
-    public boolean isOpenToReg() {
-        return isOpenToReg;
-    }
 
-    public void setOpenToReg(boolean isOpenToReg) {
-        this.isOpenToReg = isOpenToReg;
-    }
-	
-    // Additional Methods
-
-    // Logs management
     public void addLog(String log) {
         logs.add(log);
     }
@@ -178,6 +157,7 @@ public class Database implements Serializable {
     public void removeCourse(Course course) {
         courses.remove(course);
     }
+
 
     public Course findCourseByName(String name) {
         for (Course course : courses) {
@@ -218,7 +198,7 @@ public class Database implements Serializable {
     	updateTopCitedResearcher();
     	
     }
-    
+
     public void addStudent(Student student) {
         if (!students.contains(student)) {
             students.add(student);
@@ -258,7 +238,14 @@ public class Database implements Serializable {
         }
         return papersByAuthor;
     }
-    
+
+    public void addNews(News news){
+        getNews().add(news);
+    }
+
+    public void editNews(String topic){
+
+    }
     private void updateTopCitedResearcher() {
         Researcher topCited = null;
         int maxCitations = 0;
@@ -275,7 +262,6 @@ public class Database implements Serializable {
 
         this.topCitedResearcher = topCited;
     }
-
 
     // Requests management
     public void addRequest(Request request) {
@@ -294,9 +280,16 @@ public class Database implements Serializable {
 	            }
 	        }
 	        return pendingRequests;
-	    }
-	
-	
+    }
 
+
+
+	private static Database databaseInstance;
+
+	public static Database getInstanceOfDatabse(){
+		if (Database.databaseInstance == null)
+			return new Database();
+		return new Database();
+	}
 }
 

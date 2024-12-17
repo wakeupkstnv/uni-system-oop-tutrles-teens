@@ -1,4 +1,4 @@
-package core;
+package study.utils;
 
 
 /**
@@ -7,7 +7,7 @@ package core;
  * @generated
  */
 
-public class System
+public class GPA
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ public class System
 	 * @ordered
 	 */
 	
-	private static String systemName;
+	private double numericGrade;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -25,23 +25,14 @@ public class System
 	 * @ordered
 	 */
 	
-	private static System SYSTEM_INSTANCE;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Core.Language languageMode;
+	private String letterGrade;
 	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public System(){
+	public GPA(){
 		super();
 	}
 
@@ -52,8 +43,21 @@ public class System
 	 * @ordered
 	 */
 	
-	public void setLanguageMode(Core.Language languageMode) {
-		this.languageMode = languageMode;
+	public double getNumGrade() {
+		// TODO implement me
+		return 0;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public String getLetGrade() {
+		// TODO implement me
+		return "";	
 	}
 	
 }

@@ -1,7 +1,7 @@
-package Comparators;
+package comparators;
 
 
-import Papers.ResearchPaper;
+import papers.ResearchPaper;
 
 import java.util.Comparator;
 

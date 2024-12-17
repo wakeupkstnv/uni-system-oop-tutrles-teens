@@ -1,5 +1,4 @@
-package database;
-
+package users;
 
 
 /**
@@ -7,8 +6,9 @@ package database;
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface Serializable 
+
+public enum Faculty
 {
-	
+	SITE, BS, KMA
 }
 
