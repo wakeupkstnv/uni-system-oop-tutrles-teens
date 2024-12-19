@@ -1,62 +1,40 @@
 package users.models;
 
-import post.News;
-import post.Request;;import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.Vector;
 
-public class Manager
-{
+import post.Request;
 
-	private Vector<Request> allRequests;
+/**
+ * Класс для менеджера, наследующий от Employee
+ */
+public class Manager extends Employee {
 
-	public Manager(){
-		allRequests = new Vector<Request>();
-	}
+    protected Vector<Request> allRequests;
 
-	public void operation() {
-		// TODO implement me	
-	}
+    /**
+     * Конструктор для создания объекта Manager
+     */
+    public Manager(String id, String firstName, String lastName, String email, String login, Date birthDate, 
+                   String hashedPassword, java.util.Vector<String> allNotifications) {
+        super(id, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+        this.allRequests = new Vector<>();
+    }
 
-	public void operation2() {
-		// TODO implement me	
-	}
+    /**
+     * Геттер для всех заявок
+     */
+    public Vector<Request> getAllRequests() {
+        return allRequests;
+    }
 
-	public void operation4() {
-		// TODO implement me	
-	}
+    /**
+     * Сеттер для всех заявок
+     */
+    public void setAllRequests(Vector<Request> allRequests) {
+        this.allRequests = allRequests;
+    }
 
-	
-	public void operation5() {
-		// TODO implement me	
-	}
 
-	public void d() {
-		// TODO implement me	
-	}
-
-	public void PostNews(News news) {
-
-	}
-
-	public void operation3() {
-		// TODO implement me	
-	}
-
-	public void PostNews() {
-		// TODO implement me	
-	}
-
-	public void editNews() {
-		// TODO implement me	
-	}
-
-	public void deleteNews() {
-		// TODO implement me	
-	}
-
-	public void addCourseForRegistration() {
-		// TODO implement me	
-	}
-	
+    
 }
-

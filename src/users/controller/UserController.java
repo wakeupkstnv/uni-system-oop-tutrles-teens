@@ -3,7 +3,7 @@ package users.controller;
 import papers.Journal;
 import users.models.User;
 import users.view.UserView;
-import database.Database;
+import Database.Database;
 
 import javax.xml.crypto.Data;
 
@@ -11,6 +11,10 @@ public class UserController<Model extends User, View extends UserView> {
     private Model currentModel;
     private final Database database = Database.getInstanceOfDatabse();
     private View currentView;
+
+    public UserController(){
+
+    }
 
     public UserController(Model currentModel, View currentView){
         this.currentModel = currentModel;

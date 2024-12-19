@@ -1,197 +1,157 @@
 package users.models;
 
 import papers.ResearchPaper;
-
 import java.util.Date;
 import java.util.Objects;
 import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
-
  * <!--  end-user-doc  -->
  * @generated
  */
-public abstract class User {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
-	public String uuid;
+public abstract class User
+{
+    protected String id;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String login;
+    protected Date birthDate;
+    protected String hashedPassword;
+    protected Vector<String> allNotifications;
+    protected boolean isActive;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
-	public String firstName;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+    /**
+     * Конструктор с параметрами для инициализации всех полей
+     */
+    public User(){
+        
+    }
+    public User(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> allNotifications) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.login = login;
+        this.birthDate = birthDate;
+        this.hashedPassword = hashedPassword;
+        this.allNotifications = allNotifications != null ? allNotifications : new Vector<String>(); // Проверяем на null
+        this.isActive = false;
+    }
 
-	public String lastName;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+    // Геттеры и сеттеры для всех полей
 
-	public String email;
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String login;
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public Date birthDate;
+    public String getLastName() {
+        return lastName;
+    }
 
-	private String middleName;
-	private int year;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	private Vector<ResearchPaper> allNotifications;
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public User() {
-		super();
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	// Constructor with parameters
-	public User(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String middleName, int year) {
-		this.uuid = uuid;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.login = login;
-		this.birthDate = birthDate;
-		this.middleName = middleName;
-		this.year = year;
-	}
+    public String getLogin() {
+        return login;
+    }
 
-	// Getters and Setters
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public Date getBirthDate() {
+        return birthDate;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public Vector<String> getAllNotifications() {
+        return allNotifications;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setAllNotifications(Vector<String> allNotifications) {
+        this.allNotifications = allNotifications;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    // Переопределение методов equals и hashCode
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+               Objects.equals(firstName, user.firstName) &&
+               Objects.equals(lastName, user.lastName) &&
+               Objects.equals(email, user.email) &&
+               Objects.equals(login, user.login) &&
+               Objects.equals(birthDate, user.birthDate) &&
+               Objects.equals(hashedPassword, user.hashedPassword) &&
+               Objects.equals(allNotifications, user.allNotifications);
+    }
 
-	public Date getBirthDate() {
-		return birthDate;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+    }
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public Vector<ResearchPaper> getAllNotifications() {
-		return allNotifications;
-	}
-
-	public void setAllNotifications(Vector<ResearchPaper> allNotifications) {
-		this.allNotifications = allNotifications;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		User user = (User) o;
-		return year == user.year && Objects.equals(uuid, user.uuid) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(login, user.login) && Objects.equals(birthDate, user.birthDate) && Objects.equals(middleName, user.middleName) && Objects.equals(allNotifications, user.allNotifications);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, firstName, lastName, email, login, birthDate, middleName, year, allNotifications);
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"uuid='" + uuid + '\'' +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", login='" + login + '\'' +
-				", birthDate=" + birthDate +
-				", middleName='" + middleName + '\'' +
-				", year=" + year +
-				", allNotifications=" + allNotifications +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", birthDate=" + birthDate +
+                ", hashedPassword='" + hashedPassword + '\'' +
+                ", allNotifications=" + allNotifications.size() +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

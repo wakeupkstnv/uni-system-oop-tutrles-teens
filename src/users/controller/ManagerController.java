@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import post.News;
 import study.utils.Course;
 import users.models.Manager;
@@ -12,6 +12,11 @@ import users.view.UserView;
 import java.util.Objects;
 
 public class ManagerController<Model extends Manager, View extends ManagerView> extends UserController<User, UserView> {
+
+    public ManagerController(){
+        super();
+    }
+
     public ManagerController(User currentModel, UserView currentView) {
         super(currentModel, currentView);
     }
@@ -22,7 +27,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
     void editNews(String topic, String newTopic){
 
-        News newsToEdit = getDatabase().getNews().stream()
+        News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
                 .findFirst()
                 .orElse(null);
@@ -41,18 +46,18 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     void deleteNews(News news){
-        getDatabase().getNews().remove(news);
+        Database.getInstance().getNews().remove(news);
     }
 
     void deleteNews(String topic){
 
-        News newsToEdit = getDatabase().getNews().stream()
+        News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
                 .findFirst()
                 .orElse(null);
 
         if (newsToEdit != null) {
-            getDatabase().getNews().remove(newsToEdit);
+            Database.getInstance().getNews().remove(newsToEdit);
             getCurrentView().showSomeText("News updated successfully.", getCurrentModel());
         } else {
             getCurrentView().showError("News with the topic '" + topic + "' not found.");
@@ -60,30 +65,30 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     void openRegistation(){
-        if (getDatabase().getRegistationState()){
+        if (Database.getInstance().getRegistationState()){
             getCurrentView().showSomeText("Registation is already open", getCurrentModel());
         } else {
-            getDatabase().setRegistationState(true);
+            Database.getInstance().setRegistationState(true);
             getCurrentView().showSomeText("Registation is open!", getCurrentModel());
         }
     }
 
     void closeRegistation(){
-        if (!getDatabase().getRegistationState()){
+        if (!Database.getInstance().getRegistationState()){
             getCurrentView().showSomeText("Registation is already close", getCurrentModel());
         } else {
-            getDatabase().setRegistationState(true);
+            Database.getInstance().setRegistationState(true);
             getCurrentView().showSomeText("Registation is close!", getCurrentModel());
         }
     }
 
     void addTeacherToCourse(String uuidOfTeacher, String uuidOfCourse){
-        Teacher teacher = getDatabase().getTeachers()
+        Teacher teacher = Database.getInstance().getTeachers()
                 .stream()
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfTeacher))
                 .findFirst().orElse(null);
 
-        Course course = getDatabase().getCourses()
+        Course course = Database.getInstance().getCourses()
                 .stream()
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfCourse))
                 .findFirst().orElse(null);

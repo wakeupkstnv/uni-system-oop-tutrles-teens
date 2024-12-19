@@ -7,7 +7,7 @@ package users.models;
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface CanBecomeResearcher 
+public interface CanBecomeResearcher 
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ public  interface CanBecomeResearcher
 	 * @ordered
 	 */
 	
-	public void becomeResearcher() ;
+	public void becomeResearcher();
 	
 	
 }

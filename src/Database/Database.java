@@ -192,7 +192,13 @@ public class Database implements Serializable {
     	updateTopCitedResearcher();
     	
     }
-
+    public Researcher findResearcher(String id){
+            for(Researcher r: this.researchers){
+                if(r.getId().equals(id)){
+                    return r;
+                }
+            }
+     }
     public void removeResearcher(Researcher researcher) {
     	researchers.remove(researcher);
     	updateTopCitedResearcher();

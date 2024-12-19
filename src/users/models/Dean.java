@@ -3,6 +3,7 @@ package users.models;
 
 import post.Request;
 import users.Faculty;
+import users.TeacherType;
 
 import java.util.Date;
 import java.util.Vector;
@@ -13,7 +14,7 @@ import java.util.Vector;
  * @generated
  */
 
-public class Dean extends Employee
+public class Dean extends Manager
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -22,7 +23,6 @@ public class Dean extends Employee
 	 * @ordered
 	 */
 	
-	private Vector<Request> allRequests;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -32,32 +32,18 @@ public class Dean extends Employee
 	 */
 	
 	private Faculty faculty;
-
-	/**
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
-	 *
-	 * @param uuid
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param login
-	 * @param birthDate
-	 * @param middleName
-	 * @param year
 	 * @generated
 	 */
-	public Dean(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String middleName, int year) {
-		super(uuid, firstName, lastName, email, login, birthDate, middleName, year);
-		allRequests = new Vector<>();
+	public Dean(String id, String firstName, String lastName, String email, String login, Date birthDate, 
+			String hashedPassword, Vector<String> notifications, Faculty faculty) {
+		super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+		this.faculty = faculty;
+		this.allRequests = new Vector<>();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,7 +53,7 @@ public class Dean extends Employee
 	 */
 	
 	public void rejectRequest(Request request) {
-		request.setSigned(false);
+		// TODO implement me
 	}
 	
 	/**
@@ -85,7 +71,7 @@ public class Dean extends Employee
 	 */
 	
 	public void signRequest(Request request) {
-		request.setSigned(true);
+		// TODO implement me
 	}
 	
 	/**
@@ -96,7 +82,7 @@ public class Dean extends Employee
 	 */
 	
 	public void redirectRequest(Request request, Manager manager) {
-
+		// TODO implement me
 	}
 	
 	/**
