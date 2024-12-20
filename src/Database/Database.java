@@ -70,7 +70,6 @@ public class Database implements Serializable {
         return instance;
     }
 
-    // Getters and Setters
     public Vector<Course> getCourses() {
         return courses;
     }
@@ -150,7 +149,6 @@ public class Database implements Serializable {
         return logs;
     }
 
-    // Courses management
     public void addCourse(Course course) {
         courses.add(course);
     }
@@ -169,7 +167,7 @@ public class Database implements Serializable {
         return null;
     }
 
-    // Users management
+
     public void addUser(User user) {
         users.add(user);
     }
@@ -186,8 +184,7 @@ public class Database implements Serializable {
         }
         return null;
     }
-    
- // Research papers management
+
     public void addResearcher(Researcher researcher) {
     	researchers.add(researcher);
     	updateTopCitedResearcher();
@@ -270,7 +267,6 @@ public class Database implements Serializable {
         this.topCitedResearcher = topCited;
     }
 
-    // Requests management
     public void addRequest(Request request) {
         requests.add(request);
     }
@@ -288,8 +284,6 @@ public class Database implements Serializable {
 	        }
 	        return pendingRequests;
     }
-
-
 
 	private static Database databaseInstance;
 

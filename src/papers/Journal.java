@@ -19,6 +19,7 @@ public class Journal implements Comparable<Journal>{
 	 * @generated
 	 * @ordered
 	 */
+	public String uuid;
 	public String title;
 
 	/**
@@ -46,7 +47,8 @@ public class Journal implements Comparable<Journal>{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Journal(String title){
+	public Journal(String uuid, String title){
+		this.uuid = uuid;
 		if (title == null || title.trim().isEmpty()) {
 			throw new IllegalArgumentException("Title cannot be null or empty.");
 		}
@@ -69,6 +71,15 @@ public class Journal implements Comparable<Journal>{
 		} else {
 			System.out.println("User " + subscriber.getFirstName() + " is already subscribed to the journal " + this.title + ".");
 		}
+	}
+
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**

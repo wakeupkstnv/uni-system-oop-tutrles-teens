@@ -256,6 +256,7 @@ public class UserFactory {
         return result;
     }
 
+
     /**
      * Reads a double from BufferedReader with a prompt and error handling.
      *

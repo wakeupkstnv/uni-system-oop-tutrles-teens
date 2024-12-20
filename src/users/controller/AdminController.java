@@ -31,15 +31,16 @@ public class AdminController extends ManagerController {
         this.currentUser = user;
     }
 
-    /**
-     * TODO: implement banUser and unBanUser methods
-     */
-    public void banUser() {
-        // TODO implement me
+    public void banUser(User user) {
+        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
+        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+        u.setBanned(true);
     }
 
-    public void unBanUser() {
-        // TODO implement me
+    public void unBanUser(User user) {
+        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
+        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+        u.setBanned(false);
     }
 
     public void deleteUser(User user) {

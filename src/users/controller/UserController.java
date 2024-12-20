@@ -2,6 +2,7 @@ package users.controller;
 
 import database.Database;
 import papers.Journal;
+import post.News;
 import users.models.User;
 import users.view.UserView;
 
@@ -61,10 +62,32 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public Boolean subscribeToJournal(Journal journal){
-        return false;
+        Journal j = Database.getInstance().getJournals().stream().filter(n->n.equals(journal)).findFirst().orElse(null);
+
+        if (j == null) return false; // TODO: exception!!
+
+        j.getSubscribers().add(currentModel);
+        return true;
     }
 
+    public Boolean subscribeToJournal(String uuid){
+        Journal j = Database.getInstance().getJournals().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
+        if (j == null) return false; //TODO: EXCEPTION!!
 
+        j.getSubscribers().add(currentModel);
+        return true;
+    }
 
+    public boolean giveLike(News news){
+        News n = Database.getInstance().getNews().stream().filter(n->n.equals(news)).findFirst().orElse(null);
+        if (n == null) return false; //TODO: EXCETION!!
+        n.setLikeCount(n.getLikeCount() + 1);
+        return true;
+    }
+
+    public boolean giveLike(String uuid){
+        //TODO: do with uuid its very easy
+        return false;
+    }
 
 }

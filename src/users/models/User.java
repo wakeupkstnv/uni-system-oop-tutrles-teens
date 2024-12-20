@@ -21,7 +21,7 @@ public abstract class User
     protected Date birthDate;
     protected String hashedPassword;
     protected Vector<String> allNotifications;
-    protected boolean isActive;
+    protected boolean isBanned;
 
 
 
@@ -40,7 +40,7 @@ public abstract class User
         this.birthDate = birthDate;
         this.hashedPassword = hashedPassword;
         this.allNotifications = allNotifications != null ? allNotifications : new Vector<String>(); // Проверяем на null
-        this.isActive = false;
+        this.isBanned = false;
     }
 
 
@@ -111,12 +111,12 @@ public abstract class User
         this.allNotifications = allNotifications;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isBanned() {
+        return this.isBanned;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setBanned(boolean isBanned) {
+        this.isBanned = isBanned;
     }
 
 
