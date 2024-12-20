@@ -1,9 +1,9 @@
 package users.controller;
 
+import database.Database;
 import papers.Journal;
 import users.models.User;
 import users.view.UserView;
-import Database.Database;
 
 import javax.xml.crypto.Data;
 
@@ -20,7 +20,6 @@ public class UserController<Model extends User, View extends UserView> {
         this.currentModel = currentModel;
         this.currentView = currentView;
     }
-
 
     protected Database getDatabase() {
         return database;
@@ -43,7 +42,14 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public boolean login(String email, String password){
-        Database.getInstance().getUsers().stream().;
+        //TODO: DODELAT
+        User u =  Database.getInstance()
+                .getUsers()
+                .stream()
+                .filter(user -> user.getLogin().equals(email))
+                .findFirst()
+                .orElse(null);
+        return false;
     }
 
     public boolean logout(){
