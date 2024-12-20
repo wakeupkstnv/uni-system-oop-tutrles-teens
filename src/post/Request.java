@@ -4,6 +4,7 @@ package post;
 import users.models.User;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Request extends Post
 {
@@ -18,6 +19,7 @@ public class Request extends Post
 		super(author, text, date);
 		this.urgency = urgency;
 		this.description = description;
+		this.isSigned = false;
 	}
 
 	public String getDescription() {
@@ -40,5 +42,31 @@ public class Request extends Post
 		isSigned = signed;
 	}
 
+	public boolean getSigned(){
+		return this.isSigned;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Request request = (Request) o;
+		return isSigned == request.isSigned && urgency == request.urgency && Objects.equals(description, request.description);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(isSigned, urgency, description);
+	}
+
+	@Override
+	public String
+	toString() {
+		return "Request{" +
+				"isSigned=" + isSigned +
+				", urgency=" + urgency +
+				", description='" + description + '\'' +
+				'}';
+	}
 }
 

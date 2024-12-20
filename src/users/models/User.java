@@ -13,7 +13,7 @@ import java.util.Vector;
 
 public abstract class User
 {
-    protected String id;
+    protected String uuid;
     protected String firstName;
     protected String lastName;
     protected String email;
@@ -31,8 +31,8 @@ public abstract class User
     public User(){
         
     }
-    public User(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> allNotifications) {
-        this.id = id;
+    public User(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> allNotifications) {
+        this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -46,12 +46,13 @@ public abstract class User
 
     // Геттеры и сеттеры для всех полей
 
-    public String getId() {
-        return id;
+
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getFirstName() {
@@ -118,14 +119,14 @@ public abstract class User
         isActive = active;
     }
 
-    // Переопределение методов equals и hashCode
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return Objects.equals(uuid, user.uuid) &&
                Objects.equals(firstName, user.firstName) &&
                Objects.equals(lastName, user.lastName) &&
                Objects.equals(email, user.email) &&
@@ -137,13 +138,13 @@ public abstract class User
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+        return Objects.hash(uuid, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id='" + uuid + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

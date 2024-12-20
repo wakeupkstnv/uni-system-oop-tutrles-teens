@@ -14,6 +14,7 @@ import users.models.Teacher;
 import users.models.User;
 import post.Request;
 
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -129,9 +130,9 @@ public class Database implements Serializable {
         return requests;
     }
 
-    public Boolean getRegistationState() {return this.registationState}
+    public Boolean getRegistationState() {return this.registationState;}
 
-    public void setRegistationState(Boolean registationState) {this.registationState = registationState}
+    public void setRegistationState(Boolean registationState) {this.registationState = registationState;}
     public Researcher getTopCitedResearcher() {
         return topCitedResearcher;
     }
@@ -159,9 +160,9 @@ public class Database implements Serializable {
     }
 
 
-    public Course findCourseByName(String name) {
+    public Course findCourseByTitle(String title) {
         for (Course course : courses) {
-            if (course.getName().equals(name)) {
+            if (course.getTitle().equals(title)) {
                 return course;
             }
         }
@@ -177,9 +178,9 @@ public class Database implements Serializable {
         users.remove(user);
     }
 
-    public User findUserById(int id) {
+    public User findUserById(String uuid) {
         for (User user : users) {
-            if (user.getId() == id) {
+            if (Objects.equals(user.getUuid(), uuid)) {
                 return user;
             }
         }
@@ -192,12 +193,13 @@ public class Database implements Serializable {
     	updateTopCitedResearcher();
     	
     }
-    public Researcher findResearcher(String id){
+    public Researcher findResearcher(String uuid){
             for(Researcher r: this.researchers){
-                if(r.getId().equals(id)){
+                if(r.getUuid().equals(uuid)){
                     return r;
                 }
             }
+            return null;
      }
     public void removeResearcher(Researcher researcher) {
     	researchers.remove(researcher);
@@ -225,7 +227,6 @@ public class Database implements Serializable {
         teachers.remove(teacher);
     }
 
-    // Research papers management
     public void addResearchPaper(ResearchPaper paper) {
         researchPapers.add(paper);
     }
@@ -281,7 +282,7 @@ public class Database implements Serializable {
 	public Vector<Request> getPendingRequests() {
         Vector<Request> pendingRequests = new Vector<>();
         for (Request request : requests) {
-	            if (!request.isSigned()) {
+	            if (!request.getSigned()) {
 	                pendingRequests.add(request);
 	            }
 	        }

@@ -1,6 +1,8 @@
 package papers;
 
 import users.models.User;
+
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Vector;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Journal {
+public class Journal implements Comparable<Journal>{
 	/**
 	 * Название журнала.
 	 * <!-- begin-user-doc -->
@@ -147,11 +149,29 @@ public class Journal {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Journal journal = (Journal) o;
+		return Objects.equals(title, journal.title) && Objects.equals(articles, journal.articles) && Objects.equals(subscribers, journal.subscribers);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(title, articles, subscribers);
+	}
+
+	@Override
 	public String toString() {
 		return "Journal{" +
 				"title='" + title + '\'' +
 				", articles=" + articles.size() +
 				", subscribers=" + subscribers.size() +
 				'}';
+	}
+
+	@Override
+	public int compareTo(Journal o) {
+		return this.getTitle().compareTo(o.getTitle());
 	}
 }
