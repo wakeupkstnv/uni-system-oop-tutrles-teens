@@ -1,28 +1,18 @@
 package users.controller;
 
 import java.util.Date;
-import java.util.Vector;
+
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import Database.Database;
-import exceptions.UserNotFoundException;
+import users.exceptions.UserNotFoundException;
 import users.models.User;
 import users.view.AdminView;
-import users.view.ManagerView;
+
 import users.UserType;
-import users.models.Employee;
-import users.models.Manager;
-import users.models.Student;
+
 import users.models.Admin;
-import users.models.Dean;
-import users.models.Teacher;
-import users.models.*;
-import users.models.User;
-import users.UserType;
-import users.view.AdminView;
+
 
 
 public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView>{
@@ -30,11 +20,10 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         super();
     }
 
-    public AdminController(Model currentModel, AdminView av) {
+    public AdminController(Model currentModel, AdminView currentView) {
         this.currentModel = currentModel;
-        this.currentView = av;
+        this.currentView = currentView;
         }
-
 
     public void banUser(User user)  throws UserNotFoundException {
         User u = Database.getInstance().getUsers()
@@ -45,8 +34,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
 
         if (u == null) {
             throw new UserNotFoundException(user.getFirstName());
-        } 
-        
+        }
         u.setBanned(true);
     }
 
@@ -143,8 +131,9 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для регистрации конкретного типа пользователя
      */
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
-    	Database.getInstance().addLog(" "+userType);
-    	Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+        Database.getInstance().addLog(""+userType);
+        Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+
         System.out.println(userType + " successfully registered!");
     }
 

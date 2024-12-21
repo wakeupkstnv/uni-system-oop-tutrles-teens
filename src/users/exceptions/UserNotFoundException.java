@@ -1,4 +1,4 @@
-package exceptions;
+package users.exceptions;
 
 import Core.CoreSystem;
 import Core.Language;

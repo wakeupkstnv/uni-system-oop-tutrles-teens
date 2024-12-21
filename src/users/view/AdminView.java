@@ -56,19 +56,30 @@ public class AdminView extends ManagerView
 							+ "10: View info about types!\n"
 							+ "0: Exit\n");
 
-			int choice = reader.read();
+			int choice;
+			try {
+				choice = Integer.parseInt(reader.readLine());
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid choice! Please enter a valid number.");
+				return;
+			}
 
 			try {
 				System.out.print("Enter ID: ");
 				String uuid = reader.readLine();
+
 				System.out.print("Enter First Name: ");
 				String firstName = reader.readLine();
+
 				System.out.print("Enter Last Name: ");
 				String lastName = reader.readLine();
+
 				System.out.print("Enter Email: ");
 				String email = reader.readLine();
+
 				System.out.print("Enter Login: ");
 				String login = reader.readLine();
+
 				System.out.print("Enter Birth Date (yyyy-MM-dd): ");
 				String birthDateStr = reader.readLine();
 				Date birthDate = null;
@@ -78,11 +89,12 @@ public class AdminView extends ManagerView
 					System.out.println("Invalid date format. Please use yyyy-MM-dd.");
 					return;
 				}
-				adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
-				} catch (IOException e) {
-					System.out.println("An error occurred while reading input. Please try again.");
-				}
 
+				adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
+
+			} catch (IOException e) {
+				System.out.println("An error occurred while reading input. Please try again.");
+			}
 		}
 		else if (language == Language.KZ) {
 			System.out.println(
@@ -171,8 +183,8 @@ public class AdminView extends ManagerView
 
 		}
 		
-		
 	}
+
 
 	public void showLoginResult(boolean success) {
 		// TODO implement me
