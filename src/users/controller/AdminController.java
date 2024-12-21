@@ -142,39 +142,10 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     /**
      * Метод для регистрации конкретного типа пользователя
      */
-    private void registerSpecificUser(BufferedReader reader, UserFactory userFactory, UserType userType, String userTypeName) {
-        try {
-            System.out.println("You chose: " + userTypeName);
-            System.out.print("Enter ID: ");
-            String id = reader.readLine();
-            System.out.print("Enter First Name: ");
-            String firstName = reader.readLine();
-            System.out.print("Enter Last Name: ");
-            String lastName = reader.readLine();
-            System.out.print("Enter Email: ");
-            String email = reader.readLine();
-            System.out.print("Enter Login: ");
-            String login = reader.readLine();
-            System.out.print("Enter Birth Date (yyyy-MM-dd): ");
-            String birthDateStr = reader.readLine();
-            Date birthDate = null;
-            try {
-                birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDateStr);
-            } catch (ParseException e) {
-                System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-                return;
-            }
-
-            User user = userFactory.createUser(id, firstName, lastName, email, login, birthDate, userType, reader);
-            String logEntry = userTypeName + " registered: " + user;
-            Database.getInstance().addLog(logEntry);
-            Database.getInstance().addUser(user);
-            System.out.println(userTypeName + " successfully registered!");
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading input. Please try again.");
-        }
-
+    private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
+    	Database.getInstance().addLog(" "+userType);
+    	Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+        System.out.println(userType + " successfully registered!");
     }
 
     /**
