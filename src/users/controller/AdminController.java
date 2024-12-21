@@ -20,10 +20,14 @@ import users.models.Student;
 import users.models.Admin;
 import users.models.Dean;
 import users.models.Teacher;
+import users.models.*;
+import users.models.User;
+import users.UserType;
+import users.view.AdminView;
+import users.view.ManagerView;
 import users.models.Researcher;
 
 public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView>{
-
 	public AdminController(){
         super();
     }
@@ -31,18 +35,34 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     public AdminController(Model currentModel, AdminView av) {
         this.currentModel = currentModel;
         this.currentView = av;
-    }
+        }
 
 
-    public void banUser(User user) {
-        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
-        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+    public void banUser(User user)  throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        } 
+        
         u.setBanned(true);
     }
 
-    public void unBanUser(User user) {
-        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
-        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+    public void unBanUser(User user)  throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        } 
+        
         u.setBanned(false);
     }
 

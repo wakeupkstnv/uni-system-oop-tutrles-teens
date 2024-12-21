@@ -2,7 +2,13 @@ package users.view;
 
 
 import post.News;
+import users.controller.AdminController;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -28,7 +34,35 @@ public class AdminView extends ManagerView
 	 * @generated
 	 * @ordered
 	 */
-	
+
+	public static void showRegisterUser(AdminController adminController, BufferedReader reader) {
+		try {
+			System.out.print("Enter ID: ");
+			String id = reader.readLine();
+			System.out.print("Enter First Name: ");
+			String firstName = reader.readLine();
+			System.out.print("Enter Last Name: ");
+			String lastName = reader.readLine();
+			System.out.print("Enter Email: ");
+			String email = reader.readLine();
+			System.out.print("Enter Login: ");
+			String login = reader.readLine();
+			System.out.print("Enter Birth Date (yyyy-MM-dd): ");
+			String birthDateStr = reader.readLine();
+			Date birthDate = null;
+			try {
+				birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDateStr);
+			} catch (ParseException e) {
+				System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+				return;
+			}
+			} catch (IOException e) {
+				System.out.println("An error occurred while reading input. Please try again.");
+			}
+
+		adminController.registerUser(uuid, ..);
+	}
+
 	public void showLoginResult(boolean success) {
 		// TODO implement me
 	}

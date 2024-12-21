@@ -7,6 +7,8 @@ import papers.ResearchProject;
 import papers.comparators.ResearchPapersCitationComparator;
 import post.News;
 import users.models.User;
+import users.view.AdminView;
+import users.view.ManagerView;
 import users.view.UserView;
 
 import java.util.Vector;
