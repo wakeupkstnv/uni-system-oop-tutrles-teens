@@ -19,11 +19,16 @@ public class MasterStudent extends GraduateStudent {
 		super();
 	}
     public MasterStudent(String id, String firstName, String lastName, String email, String login,
-                         Date birthDate, String hashedPassword, Vector<String> notifications,
+                         Date birthDate, String hashedPassword,
                          int masterCourse, int masterEnrollmentYear) {
-        super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
-
-    }
+        super(id, firstName, lastName, email, login, birthDate, hashedPassword);
+        this.masterCourse = masterCourse;
+        this.masterEnrollmentYear = masterEnrollmentYear;
+        this.reseacherProfile = new Researcher(
+                this.uuid, 
+                this,
+                0.0
+            );    }
 
     /**
      * Геттер для курса магистратуры

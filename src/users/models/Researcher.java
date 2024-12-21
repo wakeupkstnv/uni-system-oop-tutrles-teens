@@ -18,7 +18,6 @@ public class Researcher implements Comparable<Researcher>
 	private String uuid;
 	private double hindex;
 	private Vector<ResearchPaper> articles;
-
 	private User userInstance;
 	public Researcher(String uuid, User user){
 		this.uuid = uuid;

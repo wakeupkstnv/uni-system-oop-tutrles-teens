@@ -19,8 +19,8 @@ public class Employee extends User implements CanBecomeResearcher
 	 * @generated
 	 * @ordered
 	 */
-	public Employee(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, java.util.Vector<String> allNotifications) {
-	    super(id, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+	public Employee(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
+	    super(id, firstName, lastName, email, login, birthDate, hashedPassword);
 	    this.allMessages = new Vector<>();
 	}
 

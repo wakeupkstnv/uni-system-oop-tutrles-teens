@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import users.models.User;
 import users.UserType;
 import users.Faculty;
@@ -55,28 +55,27 @@ public class UserFactory {
     public User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
         String generatedPassword = generatePassword();
         String hashedPassword = hashPassword(generatedPassword);
-        Vector<String> notifications = new Vector<>();
 
         System.out.println("Generated password for user " + login + ": " + generatedPassword);
         switch (userType) {
             case EMPLOYEE:
-                return new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+                return new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
             case MANAGER:
-                return createManager(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+                return createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
             case STUDENT:
-                return createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             case DEAN:
-                return createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             case TEACHER:
-                return createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             case ADMIN:
-                return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+                return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
             case GRADUATED_STUDENT:
-                return createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             case PHD_STUDENT:
-                return createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             case MASTER_STUDENT:
-                return createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, reader);
+                return createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
             default:
                 throw new IllegalArgumentException("Invalid user type");
         }
@@ -122,12 +121,12 @@ public class UserFactory {
     /**
      * Creates a Student object.
      */
-    private Student createStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications, BufferedReader reader) {
+    private Student createStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int year = readInt(reader, "Enter year of study: ");
             Faculty faculty = readFaculty(reader);
             Major major = selectMajorForFaculty(faculty, reader);
-            return new Student(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, faculty, major, year);
+            return new Student(id, firstName, lastName, email, login, birthDate, hashedPassword, faculty, major, year);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
             return null;
@@ -137,10 +136,10 @@ public class UserFactory {
     /**
      * Creates a Dean object.
      */
-    private Dean createDean(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications, BufferedReader reader) {
+    private Dean createDean(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             Faculty deanFaculty = readFaculty(reader);
-            return new Dean(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, deanFaculty);
+            return new Dean(id, firstName, lastName, email, login, birthDate, hashedPassword, deanFaculty);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
             return null;
@@ -148,13 +147,15 @@ public class UserFactory {
     }
 
     /**
+     * 
+     * 
      * Creates a Teacher object.
      */
-    private Teacher createTeacher(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications, BufferedReader reader) {
+    private Teacher createTeacher(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             Faculty teacherFaculty = readFaculty(reader);
             TeacherType teacherType = readTeacherType(reader);
-            return new Teacher(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, teacherFaculty, teacherType);
+            return new Teacher(id, firstName, lastName, email, login, birthDate, hashedPassword, teacherFaculty, teacherType);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
             return null;
@@ -164,10 +165,10 @@ public class UserFactory {
     /**
      * Creates a GraduateStudent object.
      */
-    private GraduateStudent createGraduatedStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications, BufferedReader reader) {
+    private GraduateStudent createGraduatedStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int graduationYear = readInt(reader, "Enter graduation year: ");
-            return new GraduateStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications, graduationYear);
+            return new GraduateStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, graduationYear);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
             return null;
@@ -178,7 +179,7 @@ public class UserFactory {
      * Creates a PhdStudent object.
      */
     private PhdStudent createPhDStudent(String id, String firstName, String lastName, String email, String login,
-                                        Date birthDate, String hashedPassword, Vector<String> notifications, BufferedReader reader) {
+                                        Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int masterCourse = readInt(reader, "Enter master course: ");
             int masterEnrollmentYear = readInt(reader, "Enter master enrollment year: ");
@@ -193,7 +194,7 @@ public class UserFactory {
                 return null;
             }
 
-            return new PhdStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications,
+            return new PhdStudent(id, firstName, lastName, email, login, birthDate, hashedPassword,
                     masterCourse, masterEnrollmentYear, dissertationTitle, supervisor);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
@@ -205,12 +206,12 @@ public class UserFactory {
      * Creates a MasterStudent object.
      */
     private MasterStudent createMasterStudent(String id, String firstName, String lastName, String email, String login,
-                                              Date birthDate, String hashedPassword, Vector<String> notifications,
+                                              Date birthDate, String hashedPassword,
                                               BufferedReader reader) {
         try {
             int masterCourse = readInt(reader, "Enter master course: ");
             int masterEnrollmentYear = readInt(reader, "Enter master enrollment year: ");
-            return new MasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications,
+            return new MasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword,
                     masterCourse, masterEnrollmentYear);
         } catch (IOException e) {
             System.out.println("Error reading input. User creation canceled.");
@@ -221,15 +222,15 @@ public class UserFactory {
     /**
      * Creates a Manager object.
      */
-    private Manager createManager(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications) {
-        return new Manager(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+    private Manager createManager(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
+        return new Manager(id, firstName, lastName, email, login, birthDate, hashedPassword);
     }
 
     /**
      * Creates an Admin object.
      */
-    private Admin createAdmin(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> notifications) {
-        return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+    private Admin createAdmin(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
+        return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
     }
 
 

@@ -18,8 +18,8 @@ public class Manager extends Employee {
      * Конструктор для создания объекта Manager
      */
     public Manager(String id, String firstName, String lastName, String email, String login, Date birthDate, 
-                   String hashedPassword, java.util.Vector<String> allNotifications) {
-        super(id, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+                   String hashedPassword) {
+        super(id, firstName, lastName, email, login, birthDate, hashedPassword);
         this.allRequests = new Vector<>();
     }
 

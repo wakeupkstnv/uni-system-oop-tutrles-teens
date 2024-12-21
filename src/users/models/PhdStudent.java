@@ -23,10 +23,10 @@ public class PhdStudent extends MasterStudent
 	}
 
     public PhdStudent(String id, String firstName, String lastName, String email, String login, Date birthDate,
-            String hashedPassword, Vector<String> notifications, int masterCourse, int masterEnrollmentYear,
+            String hashedPassword, int masterCourse, int masterEnrollmentYear,
             String dissertationTitle, Researcher supervisor) {
         //TODO Auto-generated constructor stub
-		super(id,firstName,lastName,email,login,birthDate,hashedPassword,notifications,masterCourse,masterEnrollmentYear);
+		super(id,firstName,lastName,email,login,birthDate,hashedPassword,masterCourse,masterEnrollmentYear);
 		this.dissertationTitle=dissertationTitle;
 		this.supervisor=supervisor;
     }
