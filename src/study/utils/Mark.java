@@ -26,15 +26,19 @@ public class Mark
 	}
 
 	public void addPointsForFirstAttestation(float points){
-		this.firstAttestation += points;
+		if(firstAttestation + points < 30){
+			this.firstAttestation += points;
+		};
 	}
 
 	public void addPointsForSecondAttestation(float points){
-		this.secondAttestation += points;
+		if(secondAttestation + points < 30){
+			this.secondAttestation += points;
+		}
 	}
 
 	public int calculateAttestation(){
-		return (int) Math.ceil(Math.min(this.firstAttestation + this.secondAttestation, 60));
+		return Math.ceil(Math.min(this.firstAttestation + this.secondAttestation, 60)) + finalExam;
 	}
 
 	public void putPointToFinal(float point){
