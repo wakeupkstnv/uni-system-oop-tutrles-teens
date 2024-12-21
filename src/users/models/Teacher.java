@@ -43,7 +43,7 @@ public class Teacher extends Employee {
     }
 
 	public String getUuid(){
-		return this.id;
+		return this.uuid;
 	}
     /**
      * Переопределение метода toString() для вывода информации о преподавателе
@@ -51,7 +51,7 @@ public class Teacher extends Employee {
     @Override
     public String toString() {
         return "Teacher {" +
-                "ID: " + getId() +
+                "ID: " + getUuid() +
                 ", Name: " + getFirstName() + " " + getLastName() +
                 ", Faculty: " + faculty +
                 ", Type: " + teacherType +

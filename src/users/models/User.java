@@ -152,7 +152,7 @@ public abstract class User
                 ", birthDate=" + birthDate +
                 ", hashedPassword='" + hashedPassword + '\'' +
                 ", allNotifications=" + allNotifications.size() +
-                ", isActive=" + isActive +
+                ", isBanned=" + isBanned +
                 '}';
     }
 }

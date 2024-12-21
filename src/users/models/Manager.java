@@ -8,6 +8,8 @@ import post.Request;
 /**
  * Класс для менеджера, наследующий от Employee
  */
+
+
 public class Manager extends Employee {
 
     protected Vector<Request> allRequests;

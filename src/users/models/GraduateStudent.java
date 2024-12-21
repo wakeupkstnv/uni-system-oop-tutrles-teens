@@ -31,33 +31,17 @@ public class GraduateStudent extends Student
 		super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
 		this.graduationYear = graduationYear;
 		this.reseacherProfile = new Researcher(
-                this.id, 
-                this.firstName, 
-                this.lastName, 
-                this.email, 
-                this.login, 
-                this.birthDate, 
-                this.hashedPassword, 
-                this.getAllNotifications(), 
-                0.0, // Здесь можно задать индекс H по умолчанию
-                new Vector<ResearchPaper>()// Пустой список статей на начальном этапе
-            );
+                this.uuid,
+				this
+		);
 	}
 		
 		public GraduateStudent(String id, String firstName, String lastName, String email, String login,
 	            Date birthDate, String hashedPassword, Vector<String> notifications){
 			super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
 			this.reseacherProfile = new Researcher(
-	                this.id, 
-	                this.firstName, 
-	                this.lastName, 
-	                this.email, 
-	                this.login, 
-	                this.birthDate, 
-	                this.hashedPassword, 
-	                this.getAllNotifications(), 
-	                0.0, // Здесь можно задать индекс H по умолчанию
-	                new Vector<ResearchPaper>() // Пустой список статей на начальном этапе
+	                this.uuid,
+					this
 	            );
 	}
 

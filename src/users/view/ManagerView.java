@@ -32,10 +32,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	 * @generated
 	 * @ordered
 	 */
-	
-	public void showNotifications(Vector<News> notifications) {
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

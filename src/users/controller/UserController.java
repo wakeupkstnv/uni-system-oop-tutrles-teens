@@ -13,9 +13,9 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class UserController<Model extends User, View extends UserView> {
-    private Model currentModel;
+    protected Model currentModel;
     private final Database database = Database.getInstanceOfDatabse();
-    private View currentView;
+    protected View currentView;
 
     public UserController(){
 
@@ -67,15 +67,7 @@ public class UserController<Model extends User, View extends UserView> {
 
     public void viewNotifactions() {currentView.showNotifications(currentModel.getAllNotifications());}
     public Boolean subscribeToJournal(Journal journal){
-        Journal j = Database.getInstance().getJournals()
-                .stream()
-                .filter(n->n.equals(journal))
-                .findFirst()
-                .orElse(null);
-
-        if (j == null) return false; // TODO: exception!!
-
-        j.getSubscribers().add(currentModel);
+        journal.getSubscribers().add(currentModel);
         return true;
     }
 
@@ -93,14 +85,7 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public boolean giveLike(News news){
-        News ns = Database.getInstance().getNews()
-                .stream()
-                .filter(n->n.equals(news))
-                .findFirst()
-                .orElse(null);
-
-        if (ns == null) return false; //TODO: EXCETION!!
-        ns.setLikeCount(ns.getLikeCount() + 1);
+        news.setLikeCount(news.getLikeCount() + 1);
         return true;
     }
 
@@ -123,6 +108,10 @@ public class UserController<Model extends User, View extends UserView> {
                 .limit(10)
                 .collect(Collectors.toCollection(Vector::new));
         currentView.showPapers(topPapers);
+    }
+
+    public void viewNews(){
+        System.out.println(Database.getInstance().getNews());
     }
 
     public boolean resetPassword(){

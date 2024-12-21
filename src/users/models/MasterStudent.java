@@ -22,20 +22,7 @@ public class MasterStudent extends GraduateStudent {
                          Date birthDate, String hashedPassword, Vector<String> notifications,
                          int masterCourse, int masterEnrollmentYear) {
         super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
-        this.masterCourse = masterCourse;
-        this.masterEnrollmentYear = masterEnrollmentYear;
-        this.reseacherProfile = new Researcher(
-                this.id, 
-                this.firstName, 
-                this.lastName, 
-                this.email, 
-                this.login, 
-                this.birthDate, 
-                this.hashedPassword, 
-                this.getAllNotifications(), 
-                0.0, // Здесь можно задать индекс H по умолчанию
-                new Vector<ResearchPaper>() // Пустой список статей на начальном этапе
-            );
+
     }
 
     /**

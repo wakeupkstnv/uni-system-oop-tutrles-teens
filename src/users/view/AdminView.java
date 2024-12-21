@@ -51,10 +51,7 @@ public class AdminView extends EmployeeView
 	 * @ordered
 	 */
 	
-	public void showMessage(Vector<Messages> messages) {
-		// TODO implement me
-	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -72,9 +69,7 @@ public class AdminView extends EmployeeView
 	 * @ordered
 	 */
 	
-	public void showNotifications(Vector<News> notifications) {
-		// TODO implement me
-	}
+
 	
 	/**
 	 * <!-- begin-user-doc -->

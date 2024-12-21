@@ -94,16 +94,7 @@ public class Student extends User implements CanBecomeResearcher {
     @Override
     public void becomeResearcher() {
         this.reseacherProfile = new Researcher(
-                this.id, 
-                this.firstName, 
-                this.lastName, 
-                this.email, 
-                this.login, 
-                this.birthDate, 
-                this.hashedPassword, 
-                this.getAllNotifications(), 
-                0.0, // Здесь можно задать индекс H по умолчанию
-                new Vector<ResearchPaper>() // Пустой список статей на начальном этапе
-            );
+                this.uuid, this
+        );
     }
 }

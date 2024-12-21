@@ -11,21 +11,22 @@ import users.view.UserView;
 
 import java.util.Objects;
 
-public class ManagerController<Model extends Manager, View extends ManagerView> extends UserController<User, UserView> {
+public class ManagerController<Model extends Manager, View extends ManagerView> extends UserController<Manager, ManagerView> {
 
     public ManagerController(){
         super();
     }
 
-    public ManagerController(User currentModel, UserView currentView) {
-        super(currentModel, currentView);
+    public ManagerController(Model currentModel, ManagerView mv) {
+        this.currentModel = currentModel;
+        this.currentView = mv;
     }
 
-    void addNews(News news){
-        Database.getInstance().addNews(news);
+    public void addNews(News news){
+        Database.getInstance().addNewsToDatabase(news);
     }
 
-    void editNews(String topic, String newTopic){
+    public void editNews(String topic, String newTopic){
 
         News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
@@ -49,7 +50,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         Database.getInstance().getNews().remove(news);
     }
 
-    void deleteNews(String topic){
+    public void deleteNews(String topic){
 
         News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
@@ -64,7 +65,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         }
     }
 
-    void openRegistation(){
+    public void openRegistation(){
         if (Database.getInstance().getRegistationState()){
             getCurrentView().showSomeText("Registation is already open", getCurrentModel());
         } else {

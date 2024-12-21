@@ -76,7 +76,7 @@ public class UserView <Model extends User>
 	}
 
 	public void showPapers(Vector<ResearchPaper> rp){
-		//TODO: make the view of this shit
+
 	}
 	
 	/**

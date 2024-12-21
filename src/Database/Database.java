@@ -61,7 +61,20 @@ public class Database implements Serializable {
 	
 	private static Database instance;
 
-	private Database() {}
+	private Database() {
+        this.courses = new Vector<>();
+        this.logs = new Vector<>();
+        this.teachers = new Vector<>();
+        this.students = new Vector<>();
+        this.users = new Vector<>();
+        this.researchers = new Vector<>();
+        this.researchPapers = new Vector<>();
+        this.researchProjects = new Vector<>();
+        this.news = new Vector<>();
+        this.posts = new Vector<>();
+        this.journals = new Vector<>();
+        this.requests = new Vector<>();
+    }
 
 	public static synchronized Database getInstance() {
         if (instance == null) {
@@ -243,7 +256,7 @@ public class Database implements Serializable {
         return papersByAuthor;
     }
 
-    public void addNews(News news){
+    public void addNewsToDatabase(News news){
         getNews().add(news);
     }
 

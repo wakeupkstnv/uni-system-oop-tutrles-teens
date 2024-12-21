@@ -1,14 +1,17 @@
 package core;
 
 
+import Core.Language;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  * @generated
  */
 
-public class System
+public class CoreSystem
 {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -16,16 +19,7 @@ public class System
 	 * @ordered
 	 */
 	
-	private static String systemName;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private static System SYSTEM_INSTANCE;
+	public static String systemName;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -34,6 +28,15 @@ public class System
 	 * @ordered
 	 */
 	
+	private static CoreSystem SYSTEM_INSTANCE;
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+
 	private Core.Language languageMode;
 	
 	/**
@@ -41,8 +44,13 @@ public class System
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public System(){
+
+	private CoreSystem(){
 		super();
+	}
+
+	public Language getLanguageMode() {
+		return languageMode;
 	}
 
 	/**
@@ -51,7 +59,8 @@ public class System
 	 * @generated
 	 * @ordered
 	 */
-	
+
+
 	public void setLanguageMode(Core.Language languageMode) {
 		this.languageMode = languageMode;
 	}
