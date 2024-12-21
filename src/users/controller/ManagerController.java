@@ -11,7 +11,7 @@ import users.view.UserView;
 
 import java.util.Objects;
 
-public class ManagerController<Model extends Manager, View extends ManagerView> extends UserController<Manager, ManagerView> {
+public class ManagerController<Model extends Manager, View extends ManagerView> extends EmployeeController<Manager, ManagerView> {
 
     public ManagerController(){
         super();
