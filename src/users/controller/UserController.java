@@ -2,11 +2,15 @@ package users.controller;
 
 import database.Database;
 import papers.Journal;
+import papers.ResearchPaper;
+import papers.ResearchProject;
+import papers.comparators.ResearchPapersCitationComparator;
 import post.News;
 import users.models.User;
 import users.view.UserView;
 
-import javax.xml.crypto.Data;
+import java.util.Vector;
+import java.util.stream.Collectors;
 
 public class UserController<Model extends User, View extends UserView> {
     private Model currentModel;
@@ -61,8 +65,13 @@ public class UserController<Model extends User, View extends UserView> {
         currentView.showProfile(currentModel);
     }
 
+    public void viewNotifactions() {currentView.showNotifications(currentModel.getAllNotifications());}
     public Boolean subscribeToJournal(Journal journal){
-        Journal j = Database.getInstance().getJournals().stream().filter(n->n.equals(journal)).findFirst().orElse(null);
+        Journal j = Database.getInstance().getJournals()
+                .stream()
+                .filter(n->n.equals(journal))
+                .findFirst()
+                .orElse(null);
 
         if (j == null) return false; // TODO: exception!!
 
@@ -71,7 +80,12 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public Boolean subscribeToJournal(String uuid){
-        Journal j = Database.getInstance().getJournals().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
+        Journal j = Database.getInstance().getJournals()
+                .stream()
+                .filter(n->n.getUuid().equals(uuid))
+                .findFirst()
+                .orElse(null);
+
         if (j == null) return false; //TODO: EXCEPTION!!
 
         j.getSubscribers().add(currentModel);
@@ -79,15 +93,40 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public boolean giveLike(News news){
-        News n = Database.getInstance().getNews().stream().filter(n->n.equals(news)).findFirst().orElse(null);
-        if (n == null) return false; //TODO: EXCETION!!
-        n.setLikeCount(n.getLikeCount() + 1);
+        News ns = Database.getInstance().getNews()
+                .stream()
+                .filter(n->n.equals(news))
+                .findFirst()
+                .orElse(null);
+
+        if (ns == null) return false; //TODO: EXCETION!!
+        ns.setLikeCount(ns.getLikeCount() + 1);
         return true;
     }
 
     public boolean giveLike(String uuid){
-        //TODO: do with uuid its very easy
-        return false;
+        News ns = Database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
+        if (ns == null) return false; //TODO: EXCETION!!
+        ns.setLikeCount(ns.getLikeCount() + 1);
+        return true;
     }
 
+    public void viewPapers(){
+        currentView.showPapers(Database.getInstance().getResearchPapers());
+    }
+
+    public void viewTopPapers(){
+        Vector<ResearchPaper> topPapers = Database.getInstance()
+                .getResearchPapers()
+                .stream()
+                .sorted(new ResearchPapersCitationComparator())
+                .limit(10)
+                .collect(Collectors.toCollection(Vector::new));
+        currentView.showPapers(topPapers);
+    }
+
+    public boolean resetPassword(){
+        // TODO: need to realize this method
+        return false;
+    }
 }

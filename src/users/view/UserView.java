@@ -1,6 +1,7 @@
 package users.view;
 
 
+import papers.ResearchPaper;
 import post.Message;
 import post.News;
 import users.models.User;
@@ -72,6 +73,10 @@ public class UserView <Model extends User>
 	 */
 	
 	public void showNotifications(Vector<News> notifications) {
+	}
+
+	public void showPapers(Vector<ResearchPaper> rp){
+		//TODO: make the view of this shit
 	}
 	
 	/**
