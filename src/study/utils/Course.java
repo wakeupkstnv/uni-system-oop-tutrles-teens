@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class Course
 {
-	private Lesson lesson;
+	private Vector<Lesson> lesson;
 	private String uuid;
 	private String title;
 
