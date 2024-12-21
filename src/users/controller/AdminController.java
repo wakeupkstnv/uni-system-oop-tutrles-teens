@@ -9,26 +9,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import database.Database;
-import users.models.User;
+import users.models.*;
 import users.UserType;
-import users.models.Employee;
-import users.models.Manager;
-import users.models.Student;
-import users.models.Dean;
-import users.models.Teacher;
-import users.models.Researcher;
+import users.view.AdminView;
+import users.view.ManagerView;
 
-public class AdminController extends ManagerController {
+public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
     private Database db;
-    private User currentUser;
+
 
     public AdminController(Database db) {
         super();
         this.db = db;
     }
 
-    public void setModel(User user) {
-        this.currentUser = user;
+    public void setModel(Manager model, AdminView view) {
+        this.currentModel = model;
+        this.currentView = view;
     }
 
     public void banUser(User user) {
@@ -133,38 +130,12 @@ public class AdminController extends ManagerController {
     /**
      * Метод для регистрации конкретного типа пользователя
      */
-    private void registerSpecificUser(BufferedReader reader, UserFactory userFactory, UserType userType, String userTypeName) {
-        try {
-            System.out.println("You chose: " + userTypeName);
-            System.out.print("Enter ID: ");
-            String id = reader.readLine();
-            System.out.print("Enter First Name: ");
-            String firstName = reader.readLine();
-            System.out.print("Enter Last Name: ");
-            String lastName = reader.readLine();
-            System.out.print("Enter Email: ");
-            String email = reader.readLine();
-            System.out.print("Enter Login: ");
-            String login = reader.readLine();
-            System.out.print("Enter Birth Date (yyyy-MM-dd): ");
-            String birthDateStr = reader.readLine();
-            Date birthDate = null;
-            try {
-                birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDateStr);
-            } catch (ParseException e) {
-                System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-                return;
-            }
-
-            User user = userFactory.createUser(id, firstName, lastName, email, login, birthDate, userType, reader);
-            String logEntry = userTypeName + " registered: " + user;
-            db.addLog(logEntry);
-            db.addUser(user);
-            System.out.println(userTypeName + " successfully registered!");
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading input. Please try again.");
-        }
+    private void registerSpecificUser(String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, UserType userType, String userTypeName, BufferedReader reader) {
+        User user = userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader);
+        String logEntry = userTypeName + " registered: " + user;
+        db.addLog(logEntry);
+        db.addUser(user);
+        System.out.println(userTypeName + " successfully registered!");
     }
 
     /**
