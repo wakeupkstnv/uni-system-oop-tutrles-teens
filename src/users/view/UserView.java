@@ -1,3 +1,4 @@
+
 package users.view;
 
 
@@ -9,6 +10,9 @@ import users.models.User;
 import java.util.Objects;
 import java.util.Vector;
 
+import Core.CoreSystem;
+import Core.Language;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -17,6 +21,7 @@ import java.util.Vector;
 
 public class UserView <Model extends User>
 {
+	protected static Language language = CoreSystem.getLanguageMode();
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
