@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import Core.CoreSystem;
-=======
-
-<<<<<<< HEAD
-import database.Database;
-import database.ReaderWriter;
-=======
->>>>>>> b1490337331f2c528d456f35a4a61e00e436bceb
->>>>>>> b09cae0e0dea3d0a1dae453862ed2e82950f031b
 import post.News;
 import users.controller.AdminController;
 import users.controller.ManagerController;

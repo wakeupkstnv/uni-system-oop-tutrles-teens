@@ -311,7 +311,6 @@ public class Database implements Serializable{
         saveVector(requests, "./project-x/src/database/data/requests.txt");
     }
 
-    // Универсальные методы для загрузки и сохранения векторов
     @SuppressWarnings("unchecked")
     private <T> Vector<T> loadVector(String filePath) {
         Object deserializedObject = ReaderWriter.deserialize(filePath);
