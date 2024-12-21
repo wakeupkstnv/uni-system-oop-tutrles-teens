@@ -20,11 +20,12 @@ public class Student extends User implements CanBecomeResearcher {
      */
 	public Student(){
 		super();
+	
 	}
     public Student(String id, String firstName, String lastName, String email, String login,
-                   Date birthDate, String hashedPassword, Vector<String> notifications,
+                   Date birthDate, String hashedPassword,
                    Faculty faculty, Major major, int yearOfStudy) {
-        super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+        super(id, firstName, lastName, email, login, birthDate, hashedPassword);
         
         this.faculty = faculty;
         
@@ -40,8 +41,8 @@ public class Student extends User implements CanBecomeResearcher {
 
     
     public Student(String id, String firstName, String lastName, String email, String login,
-            Date birthDate, String hashedPassword, Vector<String> notifications) {
-    		super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+            Date birthDate, String hashedPassword) {
+    		super(id, firstName, lastName, email, login, birthDate, hashedPassword);
  
     }
     /**
@@ -94,7 +95,9 @@ public class Student extends User implements CanBecomeResearcher {
     @Override
     public void becomeResearcher() {
         this.reseacherProfile = new Researcher(
-                this.uuid, this
-        );
-    }
+                this.uuid, 
+                this,
+                0.0
+                );
+       }
 }

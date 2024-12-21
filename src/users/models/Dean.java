@@ -39,8 +39,8 @@ public class Dean extends Manager
 	 * @generated
 	 */
 	public Dean(String id, String firstName, String lastName, String email, String login, Date birthDate, 
-			String hashedPassword, Vector<String> notifications, Faculty faculty) {
-		super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+			String hashedPassword, Faculty faculty) {
+		super(id, firstName, lastName, email, login, birthDate, hashedPassword);
 		this.faculty = faculty;
 		this.allRequests = new Vector<>();
 	}

@@ -23,6 +23,7 @@ public abstract class User
     protected Vector<String> allNotifications;
     protected boolean isBanned;
 
+   
 
 
     /**
@@ -31,7 +32,7 @@ public abstract class User
     public User(){
         
     }
-    public User(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, Vector<String> allNotifications) {
+    public User(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
         this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,7 +40,7 @@ public abstract class User
         this.login = login;
         this.birthDate = birthDate;
         this.hashedPassword = hashedPassword;
-        this.allNotifications = allNotifications != null ? allNotifications : new Vector<String>(); // Проверяем на null
+        this.allNotifications = new Vector<>();
         this.isBanned = false;
     }
 

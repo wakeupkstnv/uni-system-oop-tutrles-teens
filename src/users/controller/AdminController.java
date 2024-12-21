@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import database.Database;
+import Database.Database;
 import users.models.User;
 import users.UserType;
 import users.models.Employee;

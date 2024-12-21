@@ -18,8 +18,8 @@ public class Teacher extends Employee {
      * Конструктор для инициализации Teacher
      */
     public Teacher(String id, String firstName, String lastName, String email, String login, Date birthDate, 
-                   String hashedPassword, Vector<String> notifications, Faculty faculty, TeacherType teacherType) {
-        super(id, firstName, lastName, email, login, birthDate, hashedPassword, notifications);
+                   String hashedPassword, Faculty faculty, TeacherType teacherType) {
+        super(id, firstName, lastName, email, login, birthDate, hashedPassword);
         this.faculty = faculty;
         this.teacherType = teacherType;
     }
