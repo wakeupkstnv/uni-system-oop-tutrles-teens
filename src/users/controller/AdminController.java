@@ -9,27 +9,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import Database.Database;
+import exceptions.UserNotFoundException;
 import users.models.User;
+import users.view.AdminView;
+import users.view.ManagerView;
 import users.UserType;
 import users.models.Employee;
 import users.models.Manager;
 import users.models.Student;
+import users.models.Admin;
 import users.models.Dean;
 import users.models.Teacher;
 import users.models.Researcher;
 
-public class AdminController extends ManagerController {
-    private Database db;
-    private User currentUser;
+public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView>{
 
-    public AdminController(Database db) {
+	public AdminController(){
         super();
-        this.db = db;
     }
 
-    public void setModel(User user) {
-        this.currentUser = user;
+    public AdminController(Model currentModel, AdminView av) {
+        this.currentModel = currentModel;
+        this.currentView = av;
     }
+
 
     public void banUser(User user) {
         User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
@@ -43,9 +46,17 @@ public class AdminController extends ManagerController {
         u.setBanned(false);
     }
 
-    public void deleteUser(User user) {
-        db.removeUser(user);
-        System.out.println("User " + user.getLogin() + " has been deleted.");
+    public void deleteUser(User user) throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        }
+        Database.getInstance().removeUser(u);
     }
 
     /**
@@ -158,8 +169,8 @@ public class AdminController extends ManagerController {
 
             User user = userFactory.createUser(id, firstName, lastName, email, login, birthDate, userType, reader);
             String logEntry = userTypeName + " registered: " + user;
-            db.addLog(logEntry);
-            db.addUser(user);
+            Database.getInstance().addLog(logEntry);
+            Database.getInstance().addUser(user);
             System.out.println(userTypeName + " successfully registered!");
 
         } catch (IOException e) {
@@ -187,7 +198,7 @@ public class AdminController extends ManagerController {
     /**
      * Метод для просмотра логов
      */
-    public Vector<String> viewLogs() {
-        return db.getAllLogs();
+    public void viewLogs() {
+    	 System.out.println(Database.getInstance().getAllLogs());
     }
 }

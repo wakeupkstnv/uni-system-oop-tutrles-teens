@@ -24,13 +24,6 @@ public class Dean extends Manager
 	 */
 	
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
 	private Faculty faculty;
 	
 	/**
@@ -53,6 +46,10 @@ public class Dean extends Manager
 	 */
 	
 	public void rejectRequest(Request request) {
+		if(allRequests.contains(request)) {
+			 allRequests.remove(request);
+			 request.setSigned();
+		}
 		// TODO implement me
 	}
 	

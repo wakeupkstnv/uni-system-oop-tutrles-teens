@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import post.News;
 import study.utils.Course;
 import users.models.Manager;
@@ -11,7 +11,7 @@ import users.view.UserView;
 
 import java.util.Objects;
 
-public class ManagerController<Model extends Manager, View extends ManagerView> extends UserController<Manager, ManagerView> {
+public class ManagerController<Model extends Manager, View extends ManagerView> extends EmployeeController<Manager, ManagerView> {
 
     public ManagerController(){
         super();

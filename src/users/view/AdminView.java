@@ -11,7 +11,7 @@ import java.util.Vector;
  * @generated
  */
 
-public class AdminView extends EmployeeView
+public class AdminView extends ManagerView
 {
 	/**
 	 * <!-- begin-user-doc -->
