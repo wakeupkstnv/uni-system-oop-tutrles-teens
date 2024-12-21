@@ -1,46 +1,68 @@
 package users.controller;
 
 import java.util.Date;
-import java.util.Vector;
+
 import java.io.BufferedReader;
 
-
-import database.Database;
-import users.models.*;
-
+import Database.Database;
+import users.exceptions.UserNotFoundException;
 import users.models.User;
-
-import users.UserType;
 import users.view.AdminView;
 
-public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
-    private Database db;
+import users.UserType;
+
+import users.models.Admin;
 
 
-    public AdminController(Admin adminModel, AdminView adminView) {
-        this.currentModel = adminModel;
-        this.currentView = adminView;
+
+public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView>{
+	public AdminController(){
+        super();
     }
 
-    public void setModel(Manager model) {
-        this.currentModel = model;
-    }
+    public AdminController(Model currentModel, AdminView currentView) {
+        this.currentModel = currentModel;
+        this.currentView = currentView;
+        }
 
-    public void banUser(User user) {
-        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
-        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+    public void banUser(User user)  throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        }
         u.setBanned(true);
     }
 
-    public void unBanUser(User user) {
-        User u = Database.getInstance().getUsers().stream().filter(n->n.equals(user)).findFirst().orElse(null);
-        if (u == null) return; // TODO: эксепшены пилите тут создаете их там
+    public void unBanUser(User user)  throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        } 
+        
         u.setBanned(false);
     }
 
-    public void deleteUser(User user) {
-        db.removeUser(user);
-        System.out.println("User " + user.getLogin() + " has been deleted.");
+    public void deleteUser(User user) throws UserNotFoundException {
+        User u = Database.getInstance().getUsers()
+                .stream()
+                .filter(n -> n.equals(user))
+                .findFirst()
+                .orElse(null);
+
+        if (u == null) {
+            throw new UserNotFoundException(user.getFirstName());
+        }
+        Database.getInstance().removeUser(u);
     }
 
     /**
@@ -109,10 +131,9 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для регистрации конкретного типа пользователя
      */
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
-
-
         Database.getInstance().addLog(""+userType);
         Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+
         System.out.println(userType + " successfully registered!");
     }
 
@@ -136,7 +157,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     /**
      * Метод для просмотра логов
      */
-    public Vector<String> viewLogs() {
-        return db.getAllLogs();
+    public void viewLogs() {
+    	 System.out.println(Database.getInstance().getAllLogs());
     }
 }

@@ -1,4 +1,4 @@
-import core.CoreSystem;
+
 import post.News;
 import users.controller.AdminController;
 import users.controller.ManagerController;

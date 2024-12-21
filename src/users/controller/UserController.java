@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import papers.Journal;
 import papers.ResearchPaper;
 import papers.ResearchProject;

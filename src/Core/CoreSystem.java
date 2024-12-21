@@ -1,5 +1,4 @@
-package core;
-
+package Core;
 
 import Core.Language;
 
@@ -37,7 +36,7 @@ public class CoreSystem
 	 * @ordered
 	 */
 
-	private Core.Language languageMode;
+	private static Core.Language languageMode;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -49,7 +48,7 @@ public class CoreSystem
 		super();
 	}
 
-	public Language getLanguageMode() {
+	public static Language getLanguageMode() {
 		return languageMode;
 	}
 

@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import post.News;
 import study.utils.Course;
 import users.models.Manager;

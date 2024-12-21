@@ -1,5 +1,5 @@
 
-package database;
+package Database;
 
 import papers.Journal;
 import papers.ResearchPaper;

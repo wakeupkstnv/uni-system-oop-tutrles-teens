@@ -24,13 +24,6 @@ public class Dean extends Manager
 	 */
 	
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
 	private Faculty faculty;
 	
 	/**

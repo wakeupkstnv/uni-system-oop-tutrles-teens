@@ -1,6 +1,6 @@
 package users.controller;
 
-import database.Database;
+import Database.Database;
 import users.models.User;
 import users.UserType;
 import users.Faculty;
@@ -55,6 +55,7 @@ public class UserFactory {
     public User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
         String generatedPassword = generatePassword();
         String hashedPassword = hashPassword(generatedPassword);
+        // TODO our hash function!
 
         System.out.println("Generated password for user " + login + ": " + generatedPassword);
         switch (userType) {
