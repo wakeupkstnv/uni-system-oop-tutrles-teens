@@ -17,14 +17,13 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     private Database db;
 
 
-    public AdminController(Database db) {
-        super();
-        this.db = db;
+    public AdminController(Admin adminModel, AdminView adminView) {
+        this.currentModel = adminModel;
+        this.currentView = adminView;
     }
 
-    public void setModel(Manager model, AdminView view) {
+    public void setModel(Manager model) {
         this.currentModel = model;
-        this.currentView = view;
     }
 
     public void banUser(User user) {
@@ -112,8 +111,8 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
 
 
-        db.addLog(""+userType);
-        db.addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+        Database.getInstance().addLog(""+userType);
+        Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
         System.out.println(userType + " successfully registered!");
     }
 
