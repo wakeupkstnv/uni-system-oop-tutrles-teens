@@ -35,10 +35,26 @@ public class AdminView extends ManagerView
 	 * @ordered
 	 */
 
-	public static void showRegisterUser(AdminController adminController, BufferedReader reader) {
+	public static void showRegisterUser(AdminController adminController, BufferedReader reader) throws IOException {
+		System.out.println(
+				"Please choose a type of User!\n"
+						+ "1: Employee \n"
+						+ "2: Student \n"
+						+ "3: Teacher\n"
+						+ "4: Admin\n"
+						+ "5: Dean\n"
+						+ "6: Graduated Student\n"
+						+ "7: PhD Student\n"
+						+ "8: Master Student\n"
+						+ "9: Manager\n"
+						+ "10: View info about types!\n"
+						+ "0: Exit\n");
+
+		int choice = reader.read();
+
 		try {
 			System.out.print("Enter ID: ");
-			String id = reader.readLine();
+			String uuid = reader.readLine();
 			System.out.print("Enter First Name: ");
 			String firstName = reader.readLine();
 			System.out.print("Enter Last Name: ");
@@ -56,11 +72,11 @@ public class AdminView extends ManagerView
 				System.out.println("Invalid date format. Please use yyyy-MM-dd.");
 				return;
 			}
+			adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
 			} catch (IOException e) {
 				System.out.println("An error occurred while reading input. Please try again.");
 			}
 
-		adminController.registerUser(uuid, ..);
 	}
 
 	public void showLoginResult(boolean success) {

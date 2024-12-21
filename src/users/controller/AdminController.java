@@ -1,12 +1,8 @@
 package users.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 
 import database.Database;
@@ -16,7 +12,6 @@ import users.models.User;
 
 import users.UserType;
 import users.view.AdminView;
-import users.view.ManagerView;
 
 public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
     private Database db;
@@ -52,64 +47,46 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     /**
      * Метод для регистрации пользователей через BufferedReader
      */
-    public void registerUser() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        UserFactory userFactory = new UserFactory(); // Создаем объект фабрики
-        System.out.println(
-                "Please choose a type of User!\n"
-                        + "1: Employee \n"
-                        + "2: Student \n"
-                        + "3: Teacher\n"
-                        + "4: Admin\n"
-                        + "5: Dean\n"
-                        + "6: Graduated Student\n"
-                        + "7: PhD Student\n"
-                        + "8: Master Student\n"
-                        + "9: Manager\n"
-                        + "10: View info about types!\n"
-                        + "0: Exit\n");
-        int choice = -1;
+    public void registerUser(int choice, String uuid, String firstName, String lastName, String email, String login, Date birthDate, BufferedReader reader) {
+
         while (choice != 0) {
             try {
-                System.out.print("Enter your choice: ");
-                String input = reader.readLine();
-                choice = Integer.parseInt(input);
 
                 switch (choice) {
                     case 1:
-                        registerSpecificUser(reader, userFactory, UserType.EMPLOYEE, "Employee");
+                        registerSpecificUser(UserType.EMPLOYEE, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 2:
-                        registerSpecificUser(reader, userFactory, UserType.STUDENT, "Student");
+                        registerSpecificUser(UserType.STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 3:
-                        registerSpecificUser(reader, userFactory, UserType.TEACHER, "Teacher");
+                        registerSpecificUser(UserType.TEACHER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 4:
-                        registerSpecificUser(reader, userFactory, UserType.ADMIN, "Admin");
+                        registerSpecificUser(UserType.ADMIN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 5:
-                        registerSpecificUser(reader, userFactory, UserType.DEAN, "Dean");
+                        registerSpecificUser(UserType.DEAN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 6:
-                        registerSpecificUser(reader, userFactory, UserType.GRADUATED_STUDENT, "Graduated Student");
+                        registerSpecificUser(UserType.GRADUATED_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 7:
-                        registerSpecificUser(reader, userFactory, UserType.PHD_STUDENT, "PhD Student");
+                        registerSpecificUser(UserType.PHD_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 8:
-                        registerSpecificUser(reader, userFactory, UserType.MASTER_STUDENT, "Master Student");
+                        registerSpecificUser(UserType.MASTER_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 9:
-                        registerSpecificUser(reader, userFactory, UserType.MANAGER, "Manager");
+                        registerSpecificUser(UserType.MANAGER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
                         break;
 
                     case 10:
@@ -123,8 +100,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
                     default:
                         System.out.println("Invalid choice! Please try again.");
                 }
-            } catch (IOException e) {
-                System.out.println("An error occurred while reading input. Please try again.");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number format. Please enter a valid integer.");
             }
@@ -134,12 +109,12 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     /**
      * Метод для регистрации конкретного типа пользователя
      */
-    private void registerSpecificUser(String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, UserType userType, String userTypeName, BufferedReader reader) {
-        User user = userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader);
-        String logEntry = userTypeName + " registered: " + user;
-        db.addLog(logEntry);
-        db.addUser(user);
-        System.out.println(userTypeName + " successfully registered!");
+    private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
+
+
+        db.addLog(""+userType);
+        db.addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+        System.out.println(userType + " successfully registered!");
     }
 
     /**

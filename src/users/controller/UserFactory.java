@@ -1,6 +1,6 @@
 package users.controller;
 
-import Database.Database;
+import database.Database;
 import users.models.User;
 import users.UserType;
 import users.Faculty;
@@ -59,23 +59,46 @@ public class UserFactory {
         System.out.println("Generated password for user " + login + ": " + generatedPassword);
         switch (userType) {
             case EMPLOYEE:
-                return new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                Employee employee = new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                Database.getInstance().addUser(employee);
+                //TODO if you want you can save emplaoyee in databse
             case MANAGER:
-                return createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                Manager manager = createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                Database.getInstance().addUser(manager);
+                //TODO if you want you can save manager in databse
+                return manager;
             case STUDENT:
-                return createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Student student = createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Database.getInstance().addStudent(student);
+                return student;
             case DEAN:
-                return createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Dean dean = createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                //TODO if you want you can save Deam in database
+                return dean;
             case TEACHER:
-                return createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Teacher teacher = createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Database.getInstance().addTeacher(teacher);
+                return teacher;
             case ADMIN:
-                return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                Admin admin = new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                //todo: you can save admin in db
+                return admin;
             case GRADUATED_STUDENT:
-                return createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                GraduateStudent graduateStudent = createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Database.getInstance().addStudent(graduateStudent);
+                //todo: if you want you can save graduateStudent in db
+                return graduateStudent;
+
             case PHD_STUDENT:
-                return createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                PhdStudent phdStudent =  createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                // todo: if you want you can save in db
+                Database.getInstance().addStudent(phdStudent);
+                return phdStudent;
             case MASTER_STUDENT:
-                return createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                MasterStudent masterStudent = createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Database.getInstance().addStudent(masterStudent);
+                return masterStudent;
+
             default:
                 throw new IllegalArgumentException("Invalid user type");
         }
