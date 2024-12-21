@@ -46,10 +46,6 @@ public class Dean extends Manager
 	 */
 	
 	public void rejectRequest(Request request) {
-		if(allRequests.contains(request)) {
-			 allRequests.remove(request);
-			 request.setSigned();
-		}
 		// TODO implement me
 	}
 	
