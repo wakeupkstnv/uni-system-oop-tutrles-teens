@@ -16,6 +16,7 @@ import java.util.Vector;
 
 public class Course
 {
+	private Lesson lesson;
 	private String uuid;
 	private String title;
 
@@ -34,6 +35,7 @@ public class Course
 		this.year = year;
 		this.period = period;
 		this.capacity = capacity;
+		Lesson lesson = new Lesson(this.title);
 	}
 
 	public double getClassMaxAndMin() {
