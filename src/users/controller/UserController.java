@@ -1,6 +1,6 @@
 package users.controller;
 
-import Database.Database;
+import database.Database;
 import papers.Journal;
 import papers.ResearchPaper;
 import papers.ResearchProject;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class UserController<Model extends User, View extends UserView> {
     protected Model currentModel;
-    private final Database database = Database.getInstanceOfDatabse();
+    private final Database database = Database.getInstance();
     protected View currentView;
 
     public UserController(){

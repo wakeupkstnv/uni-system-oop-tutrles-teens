@@ -4,7 +4,7 @@ import java.util.Date;
 
 import java.io.BufferedReader;
 
-import Database.Database;
+import database.Database;
 import users.exceptions.UserNotFoundException;
 import users.models.User;
 import users.view.AdminView;
@@ -158,6 +158,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для просмотра логов
      */
     public void viewLogs() {
-    	 System.out.println(Database.getInstance().getAllLogs());
+    	 System.out.println(Database.getInstance().getLogs());
     }
 }

@@ -1,6 +1,6 @@
 package users.controller;
 
-import Database.Database;
+import database.Database;
 import users.models.User;
 import users.UserType;
 import users.Faculty;
@@ -256,6 +256,7 @@ public class UserFactory {
     private Admin createAdmin(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
         return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
     }
+
 
 
     /**

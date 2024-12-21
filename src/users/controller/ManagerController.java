@@ -1,6 +1,6 @@
 package users.controller;
 
-import Database.Database;
+import database.Database;
 import post.News;
 import study.utils.Course;
 import users.models.Manager;
@@ -23,7 +23,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     public void addNews(News news){
-        Database.getInstance().addNewsToDatabase(news);
+        Database.getInstance().getNews().add(news);
     }
 
     public void editNews(String topic, String newTopic){

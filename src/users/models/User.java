@@ -1,6 +1,8 @@
 package users.models;
 
 import papers.ResearchPaper;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Vector;
@@ -11,7 +13,7 @@ import java.util.Vector;
  * @generated
  */
 
-public abstract class User
+public abstract class User implements Serializable
 {
     protected String uuid;
     protected String firstName;
