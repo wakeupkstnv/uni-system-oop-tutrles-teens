@@ -2,9 +2,9 @@ package users.models;
 import users.Faculty;
 
 import java.util.Date;
-import java.util.Vector;
 
-import papers.ResearchPaper;
+import Core.CoreSystem;
+import Core.Language;
 
 /**
  * Класс Student
@@ -33,7 +33,13 @@ public class Student extends User implements CanBecomeResearcher {
         if (major.getFaculty() == faculty) {
             this.major = major;
         } else {
-            throw new IllegalArgumentException("Специальность не соответствует факультету.");
+            if(CoreSystem.getLanguageMode() == Language.RUS){
+                throw new IllegalArgumentException("Специальность не соответствует факультету.");
+            } else if(CoreSystem.getLanguageMode() == Language.ENG){
+                throw new IllegalArgumentException("The speciality does not match the faculty.");
+            }else{
+                throw new IllegalArgumentException("Мамандық факультетке сәйкес келмейді.");
+            }
         }
         
         this.yearOfStudy = yearOfStudy;
@@ -74,7 +80,13 @@ public class Student extends User implements CanBecomeResearcher {
         if (major.getFaculty() == this.faculty) {
             this.major = major;
         } else {
-            System.out.println("Ошибка: выбранная специальность не соответствует факультету.");
+            if(CoreSystem.getLanguageMode() == Language.RUS){
+                System.out.println("Ошибка: выбранная специальность не соответствует факультету.");
+            } else if(CoreSystem.getLanguageMode() == Language.ENG){
+                System.out.println("Error: the selected major does not match the faculty.");
+            }else{
+                System.out.println("Қате: таңдалған мамандық факультетке сәйкес келмейді.");
+            }
         }
     }
 

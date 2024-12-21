@@ -1,7 +1,5 @@
 package users.models;
 
-import java.util.Comparator;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -19,6 +17,11 @@ public class Researcher implements Comparable<Researcher>
 	private double hindex;
 	private Vector<ResearchPaper> articles;
 	private User userInstance;
+
+	public Researcher() {
+
+	}
+	
 	public Researcher(String uuid, User user){
 		this.uuid = uuid;
 		this.userInstance = user;

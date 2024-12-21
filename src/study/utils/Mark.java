@@ -37,6 +37,18 @@ public class Mark
 		return (int) Math.ceil(Math.min(this.firstAttestation + this.secondAttestation, 60));
 	}
 
+	public float getFirstAttestation(){
+		return this.firstAttestation;
+	}
+
+	public float getSecondAttestation(){
+		return this.secondAttestation;
+	}
+
+	public float getFinal(){
+		return this.finalExam;
+	}
+
 	public void putPointToFinal(float point){
 		if (calculateAttestation() < 30){
 			this.finalExam = 0;

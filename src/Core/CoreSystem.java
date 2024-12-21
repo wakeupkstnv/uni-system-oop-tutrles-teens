@@ -1,6 +1,5 @@
 package Core;
 
-import Core.Language;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +26,7 @@ public class CoreSystem
 	 * @ordered
 	 */
 	
+	@SuppressWarnings("unused")
 	private static CoreSystem SYSTEM_INSTANCE;
 	
 	/**
@@ -36,7 +36,7 @@ public class CoreSystem
 	 * @ordered
 	 */
 
-	private static Core.Language languageMode;
+	private static Language languageMode=Language.ENG;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -60,6 +60,7 @@ public class CoreSystem
 	 */
 
 
+	@SuppressWarnings("static-access")
 	public void setLanguageMode(Core.Language languageMode) {
 		this.languageMode = languageMode;
 	}

@@ -6,6 +6,7 @@ import users.models.Student;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -45,6 +46,9 @@ public class Course
 		return 0;
 	}
 	
+    public Set<Student> getStudents() {
+		return gradebook.keySet();
+	}
 
 	public String outputBarChart() {
 		// TODO implement me
@@ -76,6 +80,9 @@ public class Course
 		this.uuid = uuid;
 	}
 
+	public Mark getMark(Student student) {
+		return gradebook.get(student);
+	}
 	public String getUuid() {
 		return uuid;
 	}

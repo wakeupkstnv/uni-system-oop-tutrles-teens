@@ -1,4 +1,4 @@
-package database;
+package Database;
 
 import papers.Journal;
 import papers.ResearchPaper;
@@ -14,7 +14,7 @@ import users.models.User;
 import post.Request;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -57,7 +57,7 @@ public class Database implements Serializable{
 
     private boolean registationState = false;
 
-    private int year;
+    private int year=2024;
 
     private static Database instance;
 
