@@ -8,13 +8,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-<<<<<<< HEAD
+
 import database.Database;
 import users.models.*;
-=======
-import Database.Database;
+
 import users.models.User;
->>>>>>> b0d9b3193248d0e6a4e2afb5d85d44daba28cf47
+
 import users.UserType;
 import users.view.AdminView;
 import users.view.ManagerView;
