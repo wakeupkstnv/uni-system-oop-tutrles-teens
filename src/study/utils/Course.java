@@ -17,7 +17,7 @@ import java.util.Vector;
 
 public class Course
 {
-	private Vector<Lesson> lesson;
+	private HashMap<Lesson,Vector<Student>> lessons;
 	private String uuid;
 	private String title;
 
@@ -29,23 +29,29 @@ public class Course
 
 	private int capacity;
 	
-	public void Course(String uuid, String title, int year, Period period, int capacity){
+	public Course(String uuid, String title, int year, Period period, int capacity){
 		gradebook = new HashMap<Student, Mark>();
 		this.title = title;
 		this.uuid = uuid;
 		this.year = year;
 		this.period = period;
 		this.capacity = capacity;
+		for (int i = 0; i < 5; i++) {
 		Lesson lesson = new Lesson(this.title);
+		this.lessons.put(lesson, new Vector<Student>());
+		}
 	}
 
-	public double getClassMaxAndMin() {
+	public double getCourseMaxAndMin() {
+		double max = 0;
 		for (Mark m: gradebook.values()){
-
+			max=Math.max(max,m.calculateAttestation());
 		}
 		return 0;
 	}
-	
+	public HashMap<Lesson,Vector<Student>> getLessons() {
+		return lessons;
+	}
     public Set<Student> getStudents() {
 		return gradebook.keySet();
 	}
@@ -61,6 +67,17 @@ public class Course
 		return 0;
 	}
 	
+	public Lesson getLesson(Student student) {
+		
+        for (Lesson l: lessons.keySet()){
+			for (Student s: lessons.get(l)){
+				if (s==student){
+					return l;
+				}
+			}
+		}
+		return null;
+	}
 
 	public String displayReport() {
 		// TODO implement me

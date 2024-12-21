@@ -38,7 +38,7 @@ public class Mark
 	}
 
 	public int calculateAttestation(){
-		return Math.ceil(Math.min(this.firstAttestation + this.secondAttestation, 60)) + finalExam;
+		return (int)Math.ceil(Math.min(this.firstAttestation + this.secondAttestation, 60) + finalExam);
 	}
 
 	public float getFirstAttestation(){
