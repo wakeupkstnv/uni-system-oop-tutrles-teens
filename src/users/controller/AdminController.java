@@ -164,6 +164,10 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для просмотра логов
      */
     public void viewLogs() {
-    	 System.out.println(Database.getInstance().getLogs());
+    	((AdminView) this.currentView).showAllLogs();
+    }
+    
+    public void viewSpecificLogs(String uuid) {
+    	((AdminView) this.currentView).showUserLogs(uuid);
     }
 }

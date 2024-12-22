@@ -202,45 +202,10 @@ public class AdminView extends ManagerView
 	}
 
 
-	public void showLoginResult(boolean success) {
-		// TODO implement me
-	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
-	public void showLogoutMessage() {
-		// TODO implement me
-	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void showSubscriptionResult(boolean subscribed) {
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 
 	
@@ -251,19 +216,11 @@ public class AdminView extends ManagerView
 	 * @ordered
 	 */
 	
-	public void showError(String msg) {
-		// TODO implement me
-	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	public void showAllLogs() {
-		// TODO implement me
+		Vector<String> log = Database.getInstance().getLogs();
+		System.out.println(log);
 	}
 	
 	/**
@@ -274,8 +231,13 @@ public class AdminView extends ManagerView
 	 */
 	
 	public void showUserLogs(String id) {
-		// TODO implement me
-	}
+        Vector<String> log = Database.getInstance().getLogs();
+        for (String entry : log) {
+            if (entry.contains(id)) {
+                System.out.println(entry);
+            }
+        }
+    }
 	
 }
 
