@@ -30,10 +30,6 @@ public class Main {
         // Добавляем пароль для администратора в базу данных
         Database.getInstance().addUserPassword(admin, "123");
 
-        AdminController adminController = new AdminController<>(admin, new AdminView());
-        AdminView.showRegisterUser(adminController, reader);
-
-
         while (true){
             System.out.println("=== WSP System ===");
             System.out.println("1. Вход");
@@ -61,7 +57,6 @@ public class Main {
         System.out.print("Введите пароль: ");
         String password = reader.readLine();
 
-        // Получаем пароли из базы данных
 
         User u = Database.getInstance().getUsers()
                 .stream()
@@ -107,11 +102,13 @@ public class Main {
             System.out.println("\n=== Меню Администратора ===");
             System.out.println("1. Просмотреть профиль");
             System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Управление пользователями");
-            System.out.println("4. Выход");
+            System.out.println("3. Просмотреть статьи");
+            System.out.println("4. Управление пользователями");
+            System.out.println("5. Управление блокировками");
+            System.out.println("5. Выход");
             System.out.print("Выберите опцию: ");
             String choice = reader.readLine();
-
+            AdminView adminView = new AdminView();
             switch (choice){
                 case "1":
                     adminController.viewProfile();
@@ -120,10 +117,15 @@ public class Main {
                     adminController.viewNotifactions();
                     break;
                 case "3":
-                    // Реализуйте методы управления пользователями
-                    System.out.println("Функция управления пользователями пока не реализована.");
+                    adminController.viewPapers();
                     break;
                 case "4":
+                    AdminView.showRegisterUser(adminController, reader);
+                    break;
+                case "5":
+                    adminView.banMenu(adminController, reader);
+                    break;
+                case "6":
                     System.out.println("Выход из учетной записи администратора.");
                     return;
                 default:

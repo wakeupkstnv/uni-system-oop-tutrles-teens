@@ -82,7 +82,7 @@ public class AdminView extends ManagerView {
 						birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDateStr);
 					} catch (ParseException e) {
 						System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-						continue; // Повторный запрос ввода
+						continue;
 					}
 
 					adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
@@ -208,7 +208,7 @@ public class AdminView extends ManagerView {
 						birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDateStr);
 					} catch (ParseException e) {
 						System.out.println("Неверный формат даты. Пожалуйста, используйте формат yyyy-MM-dd.");
-						continue; // Повторный запрос ввода
+						continue;
 					}
 
 					adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
@@ -229,6 +229,50 @@ public class AdminView extends ManagerView {
 		System.out.println(userType + " successfully registered!");
 	}
 
+	public void banMenu(AdminController adminController, BufferedReader reader) throws IOException {
+		System.out.println("\nБан система\n1. Заблокировать\n2.Разблокировать");
+		String choice = reader.readLine();
+
+		switch (choice){
+			case "1":
+				banUser(adminController, reader);
+				break;
+			case "2":
+				unbanUser(adminController, reader);
+			default:
+				System.out.println("\nОшибка");
+		}
+	}
+
+	private void banUser(AdminController adminController, BufferedReader reader) throws IOException {
+		System.out.print("\nНапишите uuid юзера которого хотите заблокировать пользователя");
+		String uuid = reader.readLine();
+		User u = Database.getInstance()
+				.getUsers()
+				.stream()
+				.filter(n->n.getUuid().equals(uuid))
+				.findFirst()
+				.orElse(null);
+		if (u != null){
+			u.setBanned(true);
+			System.out.println(u.getFirstName() + "был забанен!");
+		}
+	}
+
+	private void unbanUser(AdminController adminController, BufferedReader reader) throws IOException {
+		System.out.print("\nНапишите uuid юзера которого хотите разблокировать пользователя");
+		String uuid = reader.readLine();
+		User u = Database.getInstance()
+				.getUsers()
+				.stream()
+				.filter(n->n.getUuid().equals(uuid))
+				.findFirst()
+				.orElse(null);
+		if (u != null){
+			u.setBanned(false);
+			System.out.println(u.getFirstName() + "был забанен!");
+		}
+	}
 	/**
 	 * Метод для отображения информации о типах пользователей
 	 */
