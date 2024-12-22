@@ -31,5 +31,6 @@ public class Main {
         managerController.viewNews();
 //        AdminController adminController = new AdminController<>(admin, new AdminView());
 
+
     }
 }

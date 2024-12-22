@@ -4,7 +4,7 @@ import java.util.Date;
 
 import java.io.BufferedReader;
 
-import database.Database;
+import Database.Database;
 import users.exceptions.UserNotFoundException;
 import users.models.User;
 import users.view.AdminView;

@@ -38,5 +38,8 @@ abstract public class Post
 		this.date = date;
 	}
 
+	public User getAuthor() {
+		return author;
+	}
 }
 

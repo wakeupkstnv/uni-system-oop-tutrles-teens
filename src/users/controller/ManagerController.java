@@ -2,7 +2,10 @@ package users.controller;
 
 import database.Database;
 import post.News;
+import post.Request;
+import post.Urgency;
 import study.utils.Course;
+import users.models.Employee;
 import users.models.Manager;
 import users.models.Teacher;
 import users.models.User;
@@ -13,7 +16,7 @@ import java.util.Objects;
 
 public class ManagerController<Model extends Manager, View extends ManagerView> extends EmployeeController<Manager, ManagerView> {
 
-    public ManagerController(){
+    public ManagerController() {
         super();
     }
 
@@ -22,11 +25,64 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         this.currentView = mv;
     }
 
-    public void addNews(News news){
-        Database.getInstance().getNews().add(news);
+
+    public void rejectRequest(Request request) {
+        if(request.getUrgency() != Urgency.HIGH){
+            request.setSigned(false);
+            redirectRequest(request, request.getAuthor());
+            // TODO добавление в лог бд
+        }
     }
 
-    public void editNews(String topic, String newTopic){
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+
+    public void signRequest(Request request) {
+        if (request.getUrgency() != Urgency.HIGH){
+            request.setSign(true);
+            redirectRequest(request, request.getAuthor());
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+
+    public void redirectRequest(Request request, User user) {
+
+    }
+
+    public void addNews(News news) {
+        Database.getInstance().getNews().add(news);
+
+        switch (language) {
+            case ENG:
+                getCurrentView().showSomeText("News added successfully.", getCurrentModel());
+                break;
+            case RUS:
+                getCurrentView().showSomeText("Новость успешно добавлена.", getCurrentModel());
+                break;
+            case KZ:
+                getCurrentView().showSomeText("Жаңалық сәтті қосылды.", getCurrentModel());
+                break;
+            }
+    }
+
+    public void editNews(String topic, String newTopic) {
 
         News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
@@ -36,21 +92,64 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         if (newsToEdit != null) {
             if (newTopic != null && !newTopic.trim().isEmpty()) {
                 newsToEdit.setTopic(newTopic);
-                getCurrentView().showSomeText("News updated successfully.", getCurrentModel());
+
+                switch (language) {
+                    case ENG:
+                        getCurrentView().showSomeText("News updated successfully.", getCurrentModel());
+                        break;
+                    case RUS:
+                        getCurrentView().showSomeText("Новость обновлена.", getCurrentModel());
+                        break;
+                    case KZ:
+                        getCurrentView().showSomeText("Жаңалық сәтті жаңартылды.", getCurrentModel());
+                        break;
+                }
             } else {
-                getCurrentView().showError("Validation failed");
+                switch (language) {
+                    case ENG:
+                        getCurrentView().showError("Validation failed.");
+                        break;
+                    case RUS:
+                        getCurrentView().showError("Проверка не пройдена.");
+                        break;
+                    case KZ:
+                        getCurrentView().showError("Тексеру сәтсіз аяқталды.");
+                        break;
+                    }
             }
 
         } else {
-            getCurrentView().showError("News with the topic '" + topic + "' not found.");
+            switch (language) {
+                case ENG:
+                    getCurrentView().showError("News with the topic '" + topic + "' not found.");
+                    break;
+                case RUS:
+                    getCurrentView().showError("Новость с темой '" + topic + "' не найдена.");
+                    break;
+                case KZ:
+                    getCurrentView().showError("Тақырыбы '" + topic + "' бар жаңалық табылмады.");
+                    break;
+                }
         }
     }
 
-    void deleteNews(News news){
+    void deleteNews(News news) {
         Database.getInstance().getNews().remove(news);
+
+        switch (language) {
+            case ENG:
+                getCurrentView().showSomeText("News deleted successfully.", getCurrentModel());
+                break;
+            case RUS:
+                getCurrentView().showSomeText("Новость успешно удалена.", getCurrentModel());
+                break;
+            case KZ:
+                getCurrentView().showSomeText("Жаңалық сәтті өшірілді.", getCurrentModel());
+                break;
+            }
     }
 
-    public void deleteNews(String topic){
+    public void deleteNews(String topic) {
 
         News newsToEdit = Database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
@@ -59,31 +158,85 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
         if (newsToEdit != null) {
             Database.getInstance().getNews().remove(newsToEdit);
-            getCurrentView().showSomeText("News updated successfully.", getCurrentModel());
+
+            switch (language) {
+                case ENG:
+                    getCurrentView().showSomeText("News deleted successfully.", getCurrentModel());
+                    break;
+                case RUS:
+                    getCurrentView().showSomeText("Новость удалена.", getCurrentModel());
+                    break;
+                case KZ:
+                    getCurrentView().showSomeText("Жаңалық сәтті өшірілді.", getCurrentModel());
+                    break;
+                }
         } else {
-            getCurrentView().showError("News with the topic '" + topic + "' not found.");
+            switch (language) {
+                case ENG:
+                    getCurrentView().showError("News with the topic '" + topic + "' not found.");
+                    break;
+                case RUS:
+                    getCurrentView().showError("Новость с темой '" + topic + "' не найдена.");
+                    break;
+                case KZ:
+                    getCurrentView().showError("Тақырыбы '" + topic + "' бар жаңалық табылмады.");
+                    break;
+                }
         }
     }
 
-    public void openRegistation(){
-        if (Database.getInstance().getRegistationState()){
-            getCurrentView().showSomeText("Registation is already open", getCurrentModel());
+    public void openRegistation() {
+        if (Database.getInstance().getRegistationState()) {
+
+            switch (language) {
+                case ENG:
+                    getCurrentView().showSomeText("Registration is already open.", getCurrentModel());
+                    break;
+                case RUS:
+                    getCurrentView().showSomeText("Регистрация уже открыта.", getCurrentModel());
+                    break;
+                case KZ:
+                    getCurrentView().showSomeText("Тіркеу already ашық.", getCurrentModel());
+                    break;
+                }
         } else {
             Database.getInstance().setRegistationState(true);
-            getCurrentView().showSomeText("Registation is open!", getCurrentModel());
+
+            switch (language) {
+                case ENG:
+                    getCurrentView().showSomeText("Registration is open!", getCurrentModel());
+                    break;
+                case RUS:
+                    getCurrentView().showSomeText("Регистрация открыта!", getCurrentModel());
+                    break;
+                case KZ:
+                    getCurrentView().showSomeText("Тіркеу ашылды!", getCurrentModel());
+                    break;
+                }
         }
     }
 
-    void closeRegistation(){
-        if (!Database.getInstance().getRegistationState()){
-            getCurrentView().showSomeText("Registation is already close", getCurrentModel());
+    void closeRegistation() {
+        if (!Database.getInstance().getRegistationState()) {
+            getCurrentView().showSomeText("Registration is already closed.", getCurrentModel());
         } else {
-            Database.getInstance().setRegistationState(true);
-            getCurrentView().showSomeText("Registation is close!", getCurrentModel());
+            Database.getInstance().setRegistationState(false);
+
+            switch (language) {
+                case ENG:
+                    getCurrentView().showSomeText("Registration is closed.", getCurrentModel());
+                    break;
+                case RUS:
+                    getCurrentView().showSomeText("Регистрация закрыта.", getCurrentModel());
+                    break;
+                case KZ:
+                    getCurrentView().showSomeText("Тіркеу жабылды.", getCurrentModel());
+                    break;
+                }
         }
     }
 
-    void addTeacherToCourse(String uuidOfTeacher, String uuidOfCourse){
+    void addTeacherToCourse(String uuidOfTeacher, String uuidOfCourse) {
         Teacher teacher = Database.getInstance().getTeachers()
                 .stream()
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfTeacher))
@@ -94,9 +247,8 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfCourse))
                 .findFirst().orElse(null);
 
-        if (teacher == null || course == null){
-
+        if (teacher == null || course == null) {
+            // Handle error for teacher or course not found
         }
     }
-
 }
