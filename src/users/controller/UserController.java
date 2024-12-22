@@ -56,7 +56,17 @@ public class UserController<Model extends User, View extends UserView> {
                 .filter(user -> user.getLogin().equals(email))
                 .findFirst()
                 .orElse(null);
-        return false;
+        if (u == null){
+            System.out.println("Exception: user not found"); // TODO: make the exceptions
+            return false;
+        }
+
+        String psw = Database.getInstance().getUserPasswords().get(u);
+        if (psw == null || psw != password){
+            System.out.println("Exception: password is not correct");
+            return false;
+        }
+        return true;
     }
 
     public boolean logout(){

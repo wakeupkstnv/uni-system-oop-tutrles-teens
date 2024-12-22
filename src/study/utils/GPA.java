@@ -1,5 +1,7 @@
 package study.utils;
 
+import users.models.Student;
+
 import java.util.HashMap;
 
 public class GPA {
@@ -16,7 +18,7 @@ public class GPA {
 	}
 
 	public double getNumGrade() {
-		HashMap<Student, Mark> gradebook = course.getGradebook();
+		HashMap<Student, Mark> gradebook = (HashMap<Student, Mark>) course.getGradebook();
 		Mark mark = gradebook.get(student);
 
 		if (mark != null) {
@@ -76,4 +78,5 @@ public class GPA {
 
 		return letterGrade;
 	}
+
 }
