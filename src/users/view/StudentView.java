@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import Core.CoreSystem;
-import Database.Database;
+import core.CoreSystem;
+import database.Database;
 import study.utils.Course;
 import study.utils.Lesson;
 import study.utils.Mark;
@@ -30,9 +30,9 @@ public class StudentView extends UserView
 };
 	public void showListOfCourse(Student student) {
 		Vector<Course> c=Database.getInstance().getCourses();
-		if (CoreSystem.getLanguageMode() == Core.Language.ENG) {
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("List of courses: ");
-		} else if (CoreSystem.getLanguageMode() == Core.Language.RUS) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Список курсов: ");
 		} else {
 			System.out.println("Курстар тізімі: ");
@@ -52,10 +52,10 @@ public class StudentView extends UserView
 	
 	public void showMarks(Student student) {
 		Vector<Course> c=Database.getInstance().getCourses();
-		if (CoreSystem.getLanguageMode() == Core.Language.ENG) {
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("Student journal");
 		    System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
-		} else if (CoreSystem.getLanguageMode() == Core.Language.RUS) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Журнал обучающегося");
 			System.out.println("Название курса:             Первая аттестация:             Вторая аттестация:             Файнал: ");
 		} else {
@@ -85,10 +85,10 @@ public class StudentView extends UserView
 		Vector<Vector<String>> schedule = new Vector<Vector<String>>();
 		Vector<Course> c=Database.getInstance().getCourses();
 		int v=0;
-		if(CoreSystem.getLanguageMode()==Core.Language.ENG){
+		if(CoreSystem.getLanguageMode()==core.Language.ENG){
 			v=0;
 			System.out.println("Schedule:");
-		}else if(CoreSystem.getLanguageMode()==Core.Language.RUS){
+		}else if(CoreSystem.getLanguageMode()==core.Language.RUS){
 			v=1;
 			System.out.println("Расписание:");
 
@@ -98,10 +98,10 @@ public class StudentView extends UserView
 		}
 		String s="";
 		System.out.println(s);
-		for(Course course:c){
-				Lesson l=findKeyByElement(course.getLessons(), student);
-				schedule.get(l.getdayIndex()).add(l.getLesson());
-		}
+//		for(Course course:c){
+//				Lesson l=findKeyByElement(course.getLessons(), student);
+//				schedule.get(l.getdayIndex()).add(l.getLesson());
+//		}
 		for (Vector<String> day : schedule) {
             Collections.sort(day); 
         }

@@ -1,11 +1,10 @@
 package users.view;
 
 
-import Core.Language;
 import post.News;
 import users.controller.AdminController;
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class AdminView extends ManagerView
 
 	public static void showRegisterUser(AdminController adminController, BufferedReader reader) throws IOException {
 
-		if(language == Language.ENG) {
+		if(CoreSystem.getLanguageMode() == Language.ENG) {
 			System.out.println(
 					"Please choose a type of User!\n"
 							+ "1: Employee \n"
@@ -97,7 +96,7 @@ public class AdminView extends ManagerView
 				System.out.println("An error occurred while reading input. Please try again.");
 			}
 		}
-		else if (language == Language.KZ) {
+		else if (CoreSystem.getLanguageMode() == Language.KZ) {
 			System.out.println(
 					"Пайдаланушы түрін таңдаңыз!\n"
 							+ "1: Қызметкер \n"

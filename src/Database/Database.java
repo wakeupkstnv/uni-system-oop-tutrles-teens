@@ -7,6 +7,7 @@ import post.News;
 import post.Post;
 import study.Period;
 import study.utils.Course;
+import users.Faculty;
 import users.exceptions.UserNotFoundException;
 import users.models.*;
 import post.Request;
@@ -34,6 +35,8 @@ public class Database implements Serializable{
     private HashMap<User, String> userPasswords;
 
     private HashMap<Student, Vector<Course>> studentCourses;
+
+    private HashMap<Faculty, Dean> facultyDean;
 
     private Vector<String> logs;
 
@@ -84,8 +87,19 @@ public class Database implements Serializable{
         this.requests = loadVector(PATH + "requests.txt");
         this.employees = loadVector(PATH + "employees.txt");
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");
+        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
     }
 
+    public HashMap<Faculty, Dean> getFacultyDean() {
+        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        return facultyDean;
+    }
+
+    public void addDeanToFaculty(Dean dean, Faculty faculty){
+        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        facultyDean.put(faculty, dean);
+        saveHashMap(facultyDean, PATH + "facultyDean .txt");
+    }
 
     public HashMap<User, String> getUserPasswords() {
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");

@@ -48,7 +48,7 @@ public class UserController<Model extends User, View extends UserView> {
         this.currentView = currentView;
     }
 
-    public boolean login(String email, String password){
+    public static boolean login(String email, String password){
         //TODO: DODELAT
         User u =  Database.getInstance()
                 .getUsers()

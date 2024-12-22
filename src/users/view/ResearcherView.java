@@ -1,8 +1,8 @@
 package users.view;
 
 
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
 import papers.Format;
 import papers.ResearchPaper;
 import users.models.Researcher;

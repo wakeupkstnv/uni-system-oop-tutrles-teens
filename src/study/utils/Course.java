@@ -22,6 +22,9 @@ public class Course {
 	private Map<Student, Mark> gradebook;
 	private int capacity;
 
+	private int credits;
+
+
 	/**
 	 * Constructs a new Course.
 	 *
@@ -45,6 +48,15 @@ public class Course {
 			Lesson lesson = new Lesson(this.title + " - Lesson " + (i + 1));
 			this.lessons.put(lesson, new ArrayList<>());
 		}
+	}
+
+
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
 	}
 
 	/**

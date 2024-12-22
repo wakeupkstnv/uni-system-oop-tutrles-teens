@@ -1,4 +1,4 @@
-package Core;
+package core;
 
 /**
  * <!-- begin-user-doc -->

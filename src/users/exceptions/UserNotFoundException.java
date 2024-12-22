@@ -1,7 +1,7 @@
 package users.exceptions;
 
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
 
 public class UserNotFoundException extends Exception {
 	  public UserNotFoundException(String username) {

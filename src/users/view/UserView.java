@@ -1,14 +1,30 @@
 package users.view;
 
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Vector;
 import papers.ResearchPaper;
 import post.Message;
 import post.News;
+import users.controller.UserController;
 import users.models.User;
 
 public class UserView<Model extends User> {
+
+
+    public boolean authMenu(UserController userController, BufferedReader reader) throws IOException {
+        UserView uv = new UserView();
+        System.out.println("Введите email:");
+        String email = reader.readLine();
+        System.out.println("Введите пароль:");
+        String password = reader.readLine();
+
+        Boolean result = userController.login(email, password);
+        return result;
+    }
 
     public void showLoginResult(boolean success) {
         if (CoreSystem.getLanguageMode() == Language.RUS) {
