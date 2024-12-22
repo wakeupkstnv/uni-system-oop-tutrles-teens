@@ -54,17 +54,10 @@ public class StudentView extends UserView
 	
 	public void showMarks(Student student) {
 		Vector<Course> c=Database.getInstance().getCourses();
-<<<<<<< HEAD
-		if (l==0) {
-			System.out.println("Student journal");
-		    System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
-		} else if (l == 1) {
-=======
 		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("Student journal");
 		    System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
 		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
->>>>>>> 951ad854b65aad0c505790551ec7e434cdfcbfb5
 			System.out.println("Журнал обучающегося");
 			System.out.println("Название курса:             Первая аттестация:             Вторая аттестация:             Файнал: ");
 		} else {
@@ -82,37 +75,7 @@ public class StudentView extends UserView
 			}
 		}
 	}
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-//
-//	public void showSchedule(Student student) {
-//		Vector<Vector<String>> schedule = new Vector<Vector<String>>();
-//		Vector<Course> c=Database.getInstance().getCourses();
-//		int v=0;
-//		if(CoreSystem.getLanguageMode()==core.Language.ENG){
-//			v=0;
-//			System.out.println("Schedule:");
-//		}else if(CoreSystem.getLanguageMode()==core.Language.RUS){
-//			v=1;
-//			System.out.println("Расписание:");
-//
-//		}else{
-//			System.out.println("Сабақ кестесі:");
-//			v=2;
-//		}
-//		String s="";
-//		System.out.println(s);
-////		for(Course course:c){
-////				Lesson l=findKeyByElement(course.getLessons(), student);
-////				schedule.get(l.getdayIndex()).add(l.getLesson());
-////		}
-//		for (Vector<String> day : schedule) {
-//            Collections.sort(day);
-//        }
+}
 	 public void showSchedule(Student student) {
 		Vector<Vector<String>> schedule = new Vector<>(5);
 		for (int i = 0; i < 5; i++) {
