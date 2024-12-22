@@ -4,8 +4,8 @@ import users.models.Student;
 import users.models.Teacher;
 import java.util.List;
 
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
 
 /**
  * Представление учителя (TeacherView).

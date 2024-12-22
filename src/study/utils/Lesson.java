@@ -30,7 +30,7 @@ public class Lesson {
 
     public String getLesson() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return startTime.format(formatter) + " - " + endTime.format(formatter)+ "->" +courseName ;
+        return courseName+"\n"+startTime.format(formatter) + " - " + endTime.format(formatter);
     }
     
     public boolean addStudent() {

@@ -1,4 +1,4 @@
-package Core;
+package core;
 
 
 /**
@@ -61,7 +61,7 @@ public class CoreSystem
 
 
 	@SuppressWarnings("static-access")
-	public void setLanguageMode(Core.Language languageMode) {
+	public void setLanguageMode(core.Language languageMode) {
 		this.languageMode = languageMode;
 	}
 	

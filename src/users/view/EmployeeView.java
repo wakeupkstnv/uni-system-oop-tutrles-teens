@@ -14,7 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Vector;
 
-import Core.*;
+import core.*;
 
 /**
  * Класс представления для Employee, наследующийся от UserView.
