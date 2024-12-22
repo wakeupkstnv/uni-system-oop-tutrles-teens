@@ -16,9 +16,7 @@ import java.util.Vector;
 
 import core.*;
 
-/**
- * Класс представления для Employee, наследующийся от UserView.
- */
+
 public class EmployeeView<Model extends Employee> extends UserView<Employee> {
 
     public EmployeeView() {
