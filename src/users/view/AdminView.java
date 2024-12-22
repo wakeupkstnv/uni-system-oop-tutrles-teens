@@ -3,10 +3,10 @@ package users.view;
 import database.Database;
 import users.UserType;
 import users.controller.AdminController;
-import core.CoreSystem;
-import core.Language;
 import users.controller.UserFactory;
 import users.models.User;
+import core.CoreSystem;
+import core.Language;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,17 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * View class for Admin-related interactions.
  */
 public class AdminView extends ManagerView {
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public AdminView() {
 		super();
 	}
@@ -233,7 +226,6 @@ public class AdminView extends ManagerView {
 	private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
 		Database.getInstance().addLog("" + userType);
 		Database.getInstance().addUser(UserFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
-
 		System.out.println(userType + " successfully registered!");
 	}
 
@@ -247,10 +239,10 @@ public class AdminView extends ManagerView {
 		System.out.println("3: Teacher - An academic staff member.");
 		System.out.println("4: Admin - Manages the platform or system.");
 		System.out.println("5: Dean - Head of the department or faculty.");
-		System.out.println("6: Researcher - Conducts scientific research.");
-		System.out.println("7: Graduated Student - A student who has completed their degree.");
-		System.out.println("8: PhD Student - A student pursuing a Doctor of Philosophy degree.");
-		System.out.println("9: Master Student - A student pursuing a Master's degree.");
+		System.out.println("6: Graduated Student - A student who has completed their degree.");
+		System.out.println("7: PhD Student - A student pursuing a Doctor of Philosophy degree.");
+		System.out.println("8: Master Student - A student pursuing a Master's degree.");
+		System.out.println("9: Manager - Oversees projects and teams.");
 		System.out.println("10: View info about user types - Displays user types.");
 	}
 

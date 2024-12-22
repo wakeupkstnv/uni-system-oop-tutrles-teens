@@ -1,27 +1,22 @@
 package users.controller;
 
-import java.util.Date;
-
 import java.io.BufferedReader;
+import java.util.Date;
 
 import database.Database;
 import users.exceptions.UserNotFoundException;
 import users.models.User;
+import users.models.Admin;
+import users.UserType;
 import users.view.AdminView;
 
-import users.UserType;
+public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
 
-import users.models.Admin;
-
-
-
-public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView>{
-
-    public AdminController(Model currentModel, AdminView currentView) {
+    public AdminController(Model currentModel, View currentView) {
         super(currentModel, currentView);
     }
 
-    public void banUser(User user)  throws UserNotFoundException {
+    public void banUser(User user) throws UserNotFoundException {
         User u = Database.getInstance().getUsers()
                 .stream()
                 .filter(n -> n.equals(user))
@@ -34,7 +29,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         u.setBanned(true);
     }
 
-    public void unBanUser(User user)  throws UserNotFoundException {
+    public void unBanUser(User user) throws UserNotFoundException {
         User u = Database.getInstance().getUsers()
                 .stream()
                 .filter(n -> n.equals(user))
@@ -66,60 +61,58 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      */
     public void registerUser(int choice, String uuid, String firstName, String lastName, String email, String login, Date birthDate, BufferedReader reader) {
 
-        while (choice != 0) {
-            try {
+        try {
 
-                switch (choice) {
-                    case 1:
-                        registerSpecificUser(UserType.EMPLOYEE, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+            switch (choice) {
+                case 1:
+                    registerSpecificUser(UserType.EMPLOYEE, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 2:
-                        registerSpecificUser(UserType.STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 2:
+                    registerSpecificUser(UserType.STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 3:
-                        registerSpecificUser(UserType.TEACHER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 3:
+                    registerSpecificUser(UserType.TEACHER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 4:
-                        registerSpecificUser(UserType.ADMIN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 4:
+                    registerSpecificUser(UserType.ADMIN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 5:
-                        registerSpecificUser(UserType.DEAN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 5:
+                    registerSpecificUser(UserType.DEAN, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 6:
-                        registerSpecificUser(UserType.GRADUATED_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 6:
+                    registerSpecificUser(UserType.GRADUATED_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 7:
-                        registerSpecificUser(UserType.PHD_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 7:
+                    registerSpecificUser(UserType.PHD_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 8:
-                        registerSpecificUser(UserType.MASTER_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 8:
+                    registerSpecificUser(UserType.MASTER_STUDENT, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 9:
-                        registerSpecificUser(UserType.MANAGER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
-                        break;
+                case 9:
+                    registerSpecificUser(UserType.MANAGER, uuid, firstName, lastName, email, login, birthDate, new UserFactory(), reader);
+                    break;
 
-                    case 10:
-                        displayUserTypes();
-                        break;
+                case 10:
+                    displayUserTypes();
+                    break;
 
-                    case 0:
-                        System.out.println("Exiting...");
-                        break;
+                case 0:
+                    System.out.println("Exiting...");
+                    break;
 
-                    default:
-                        System.out.println("Invalid choice! Please try again.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number format. Please enter a valid integer.");
+                default:
+                    System.out.println("Invalid choice! Please try again.");
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format. Please enter a valid integer.");
         }
     }
 
@@ -127,9 +120,8 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для регистрации конкретного типа пользователя
      */
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
-        Database.getInstance().addLog(""+userType);
+        Database.getInstance().addLog("" + userType);
         Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
-
         System.out.println(userType + " successfully registered!");
     }
 
@@ -143,10 +135,10 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         System.out.println("3: Teacher - An academic staff member.");
         System.out.println("4: Admin - Manages the platform or system.");
         System.out.println("5: Dean - Head of the department or faculty.");
-        System.out.println("6: Researcher - Conducts scientific research.");
-        System.out.println("7: Graduated Student - A student who has completed their degree.");
-        System.out.println("8: PhD Student - A student pursuing a Doctor of Philosophy degree.");
-        System.out.println("9: Master Student - A student pursuing a Master's degree.");
+        System.out.println("6: Graduated Student - A student who has completed their degree.");
+        System.out.println("7: PhD Student - A student pursuing a Doctor of Philosophy degree.");
+        System.out.println("8: Master Student - A student pursuing a Master's degree.");
+        System.out.println("9: Manager - Oversees projects and teams.");
         System.out.println("10: View info about user types - Displays user types.");
     }
 
@@ -154,6 +146,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для просмотра логов
      */
     public void viewLogs() {
-    	 System.out.println(Database.getInstance().getLogs());
+        System.out.println(Database.getInstance().getLogs());
     }
 }

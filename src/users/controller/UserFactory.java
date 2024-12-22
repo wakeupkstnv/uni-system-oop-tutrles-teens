@@ -13,8 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Date;
-import java.util.Vector;
-
 
 /**
  * Factory class for creating different types of users.
@@ -60,18 +58,22 @@ public class UserFactory {
 
             case STUDENT:
                 Student student = createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(student, hashedPassword);
+                if (student != null) {
+                    Database.getInstance().addUserPassword(student, hashedPassword);
+                }
                 return student;
 
             case DEAN:
                 Dean dean = createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(dean, hashedPassword);
+                if (dean != null) {
+                    Database.getInstance().addUserPassword(dean, hashedPassword);
+                }
                 return dean;
 
             case TEACHER:
                 Teacher teacher = createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(teacher, hashedPassword);
                 if (teacher != null) {
+                    Database.getInstance().addUserPassword(teacher, hashedPassword);
                     Database.getInstance().addTeacher(teacher);
                 }
                 return teacher;
@@ -84,24 +86,24 @@ public class UserFactory {
 
             case GRADUATED_STUDENT:
                 GraduateStudent graduateStudent = createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(graduateStudent, hashedPassword);
                 if (graduateStudent != null) {
+                    Database.getInstance().addUserPassword(graduateStudent, hashedPassword);
                     Database.getInstance().addStudent(graduateStudent);
                 }
                 return graduateStudent;
 
             case PHD_STUDENT:
                 PhdStudent phdStudent = createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(phdStudent, hashedPassword);
                 if (phdStudent != null) {
+                    Database.getInstance().addUserPassword(phdStudent, hashedPassword);
                     Database.getInstance().addStudent(phdStudent);
                 }
                 return phdStudent;
 
             case MASTER_STUDENT:
                 MasterStudent masterStudent = createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addUserPassword(masterStudent, hashedPassword);
                 if (masterStudent != null) {
+                    Database.getInstance().addUserPassword(masterStudent, hashedPassword);
                     Database.getInstance().addStudent(masterStudent);
                 }
                 return masterStudent;

@@ -33,6 +33,7 @@ public class Main {
         AdminController adminController = new AdminController<>(admin, new AdminView());
         AdminView.showRegisterUser(adminController, reader);
 
+
         while (true){
             System.out.println("=== WSP System ===");
             System.out.println("1. Вход");
@@ -68,8 +69,9 @@ public class Main {
                 .findFirst()
                 .orElse(null);
 
+        System.out.println(Database.getInstance().getUserPasswords());
         // Проверяем, существует ли пользователь с данным логином
-        if (u != null && Database.getInstance().getUserPasswords().containsKey(u)) {
+        if (u == null || !Database.getInstance().getUserPasswords().containsKey(u.getLogin())) {
             System.out.println("Неверный логин или пароль. Пожалуйста, попробуйте снова.");
             return;
         }
