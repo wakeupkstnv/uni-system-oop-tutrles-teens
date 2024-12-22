@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-// TODO: Add constructors for all classes
+
 
 public class UserFactory {
 

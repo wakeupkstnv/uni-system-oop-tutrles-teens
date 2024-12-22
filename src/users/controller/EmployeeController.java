@@ -70,5 +70,10 @@ public class EmployeeController<Model extends Employee, View extends EmployeeVie
         	this.currentModel.addMyRequest(request);
         	// TODO добавление к бд
         }
+        
+        
+        public void redirectRequest(Request request, Employee achiever) {
+        	sendRequest(request, achiever);
+        }
 
 }

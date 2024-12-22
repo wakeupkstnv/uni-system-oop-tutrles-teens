@@ -18,6 +18,8 @@ import java.util.HashMap;
 
 import java.util.Vector;
 
+import сore.CoreSystem;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -147,7 +149,20 @@ public class Database implements Serializable{
                 .findFirst()
                 .orElse(null);
 
-        if (student == null) return; //TODO: add exceptions!!!
+        if (student == null) {
+            String message = "";
+            switch (CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Студент с UUID " + studentUuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Student with UUID " + studentUuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Студент UUID-мен " + studentUuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+        }
 
         if (studentCourses.get(student) == null){
             Vector<Course> c = new Vector<Course>();
@@ -175,8 +190,35 @@ public class Database implements Serializable{
                 .findFirst()
                 .orElse(null);
 
-        if (student == null) return; //TODO: add exceptions!!!
-        if (course == null) return; //TODO: add excrption!!!!
+        if (student == null) {
+            String message = "";
+            switch (CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Студент с UUID " + studentUuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Student with UUID " + studentUuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Студент UUID-мен " + studentUuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+        }
+
+        if (course == null) {
+            String message = "";
+            switch (CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Курс с UUID " + uuidCourse + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Course with UUID " + uuidCourse + " does not exist\n";
+                    break;
+                default:
+                    message = "Курс UUID-мен " + uuidCourse + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+        }
 
         if (studentCourses.get(student) == null){
             Vector<Course> c = new Vector<Course>();

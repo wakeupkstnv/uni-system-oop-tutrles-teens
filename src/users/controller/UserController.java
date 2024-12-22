@@ -91,7 +91,20 @@ public class UserController<Model extends User, View extends UserView> {
                 .findFirst()
                 .orElse(null);
 
-        if (j == null) return false; //TODO: EXCEPTION!!
+        if (j == null) {
+            String message = "";
+            switch (CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Журнал с UUID " + uuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Journal with UUID " + uuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Журнал UUID-мен " + uuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+        }
 
         j.getSubscribers().add(currentModel);
         return true;
@@ -104,7 +117,20 @@ public class UserController<Model extends User, View extends UserView> {
 
     public boolean giveLike(String uuid){
         News ns = Database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
-        if (ns == null) return false; //TODO: EXCETION!!
+        if (ns == null) {
+            String message = "";
+            switch (CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Новость с UUID " + uuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "News with UUID " + uuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Новость UUID-мен " + uuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+        }
         ns.setLikeCount(ns.getLikeCount() + 1);
         return true;
     }

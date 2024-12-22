@@ -1,6 +1,7 @@
 package post;
 
 
+import users.models.Employee;
 import users.models.User;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
 abstract public class Post
 {
 	private String uuid;
-	private User author;
+	private Employee author;
 	private String text;
 	private Date date;
 
@@ -32,13 +33,13 @@ abstract public class Post
 	 * @generated
 	 */
 
-	public Post(User author, String text, Date date){
+	public Post(Employee author, String text, Date date){
 		this.author = author;
 		this.text = text;
 		this.date = date;
 	}
 
-	public User getAuthor() {
+	public Employee getAuthor() {
 		return author;
 	}
 }
