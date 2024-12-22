@@ -12,7 +12,14 @@ import users.view.EmployeeView;
 import users.view.UserView;
 
 public class EmployeeController<Model extends Employee, View extends EmployeeView> extends UserController<Employee, EmployeeView>  {
-        public void sendMessage(Employee employee, String message){
+        
+		public EmployeeController(Model currentModel, View currentView) {
+			super(currentModel, currentView);
+		}
+	
+	
+	
+	public void sendMessage(Employee employee, String message){
             this.currentModel.sendMessage(employee, message);
         }
 

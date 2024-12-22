@@ -1,6 +1,7 @@
 package post;
 
 
+import users.models.Employee;
 import users.models.User;
 
 import java.util.Date;
@@ -15,7 +16,7 @@ public class Request extends Post
 
 	private String description;
 
-	public Request(User author, String text, Date date, Urgency urgency, String description) {
+	public Request(Employee author, String text, Date date, Urgency urgency, String description) {
 		super(author, text, date);
 		this.urgency = urgency;
 		this.description = description;

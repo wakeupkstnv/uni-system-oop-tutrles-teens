@@ -39,6 +39,8 @@ public class Database implements Serializable{
     private HashMap<Student, Vector<Course>> studentCourses;
 
     private HashMap<Faculty, Dean> facultyDean;
+    
+    private HashMap<Teacher, Vector<Student>> teacherStudents;
 
     private Vector<String> logs;
 
@@ -89,13 +91,38 @@ public class Database implements Serializable{
         this.requests = loadVector(PATH + "requests.txt");
         this.employees = loadVector(PATH + "employees.txt");
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");
-        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        this.facultyDean = loadHashMap(PATH + "facultyDean.txt");
+        this.teacherStudents = loadHashMap(PATH + "teacherStudents.txt");
     }
 
     public HashMap<Faculty, Dean> getFacultyDean() {
         this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
         return facultyDean;
     }
+    
+    public HashMap<Teacher, Vector<Student>> addStudentsToTeacher(Vector<Student> students, Teacher teacher) {
+       
+        this.teacherStudents = loadHashMap(PATH + "teacherStudents.txt");
+
+        Vector<Student> currentStudents = this.teacherStudents.getOrDefault(teacher, new Vector<>());
+
+        currentStudents.addAll(students);
+
+        this.teacherStudents.put(teacher, currentStudents);
+
+        saveHashMap(this.teacherStudents, PATH + "teacherStudents.txt");
+        
+        return this.teacherStudents;
+    }
+    
+    public Vector<Student> getStudentsForTeacher(Teacher teacher) {
+      
+        this.teacherStudents = loadHashMap(PATH + "teacherStudents.txt");
+
+        return this.teacherStudents.getOrDefault(teacher, new Vector<>());
+    }
+
+
 
     public void addDeanToFaculty(Dean dean, Faculty faculty){
         this.facultyDean = loadHashMap(PATH + "facultyDean .txt");

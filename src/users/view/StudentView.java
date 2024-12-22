@@ -44,7 +44,7 @@ public class StudentView extends UserView
 		for(Course course:c){
 			for(Student s1:course.getStudents()){
 				if(s1.equals(student)){
-					System.out.println(course.getTitle());
+					System.out.println(course.getTitle() + " - " + course.getCredits() + " credits");
 					break;
 				}
 			}
