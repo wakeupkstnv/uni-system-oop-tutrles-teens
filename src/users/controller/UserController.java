@@ -4,12 +4,9 @@ import core.CoreSystem;
 import database.Database;
 import papers.Journal;
 import papers.ResearchPaper;
-import papers.ResearchProject;
 import papers.comparators.ResearchPapersCitationComparator;
 import post.News;
 import users.models.User;
-import users.view.AdminView;
-import users.view.ManagerView;
 import users.view.UserView;
 
 import java.util.Vector;
@@ -17,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class UserController<Model extends User, View extends UserView> {
     protected Model currentModel;
-    private final Database database = Database.getInstance();
+    protected final static Database database = Database.getInstance();
     protected View currentView;
 
     public UserController(){
@@ -50,7 +47,7 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public static boolean login(String email, String password){
-        User u = Database.getInstance()
+        User u = database.getInstance()
                 .getUsers()
                 .stream()
                 .filter(user -> user.getLogin().equals(email))
@@ -61,7 +58,7 @@ public class UserController<Model extends User, View extends UserView> {
             return false;
         }
 
-        String psw = Database.getInstance().getUserPasswords().get(u);
+        String psw = database.getInstance().getUserPasswords().get(u);
         if (psw == null || !psw.equals(password)){
             System.out.println("Ошибка: неверный пароль.");
             return false;
@@ -84,7 +81,7 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public Boolean subscribeToJournal(String uuid){
-        Journal j = Database.getInstance().getJournals()
+        Journal j = database.getInstance().getJournals()
                 .stream()
                 .filter(n->n.getUuid().equals(uuid))
                 .findFirst()
@@ -115,7 +112,7 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public boolean giveLike(String uuid){
-        News ns = Database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
+        News ns = database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
         if (ns == null) {
             String message = "";
             switch (CoreSystem.getLanguageMode()) {
@@ -135,11 +132,11 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public void viewPapers(){
-        currentView.showPapers(Database.getInstance().getResearchPapers());
+        currentView.showPapers(database.getInstance().getResearchPapers());
     }
 
     public void viewTopPapers(){
-        Vector<ResearchPaper> topPapers = Database.getInstance()
+        Vector<ResearchPaper> topPapers = database.getInstance()
                 .getResearchPapers()
                 .stream()
                 .sorted(new ResearchPapersCitationComparator())
@@ -149,7 +146,7 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public void viewNews(){
-        System.out.println(Database.getInstance().getNews());
+        System.out.println(database.getInstance().getNews());
     }
 
     public boolean resetPassword(){

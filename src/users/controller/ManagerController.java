@@ -1,7 +1,6 @@
 package users.controller;
 
 import core.CoreSystem;
-import database.Database;
 import post.News;
 import post.Request;
 import post.Urgency;
@@ -11,9 +10,7 @@ import users.models.Dean;
 import users.models.Employee;
 import users.models.Manager;
 import users.models.Teacher;
-import users.models.User;
 import users.view.ManagerView;
-import users.view.UserView;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -53,7 +50,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
             redirectRequest(request, (Employee) request.getAuthor());
         }
         else {
-        	HashMap<Faculty, Dean> dean = Database.getInstance().getFacultyDean();
+        	HashMap<Faculty, Dean> dean = database.getInstance().getFacultyDean();
             Dean deanFromHashMap = dean.get(faculty);
         	redirectRequest(request, deanFromHashMap);
         }
@@ -69,7 +66,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
  
 
     public void addNews(News news) {
-        Database.getInstance().getNews().add(news);
+        database.getInstance().getNews().add(news);
 
         switch (CoreSystem.getLanguageMode()) {
             case ENG:
@@ -86,7 +83,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
     public void editNews(String topic, String newTopic) {
 
-        News newsToEdit = Database.getInstance().getNews().stream()
+        News newsToEdit = database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
                 .findFirst()
                 .orElse(null);
@@ -136,7 +133,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     void deleteNews(News news) {
-        Database.getInstance().getNews().remove(news);
+        database.getInstance().getNews().remove(news);
 
         switch (CoreSystem.getLanguageMode()) {
             case ENG:
@@ -153,13 +150,13 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
     public void deleteNews(String topic) {
 
-        News newsToEdit = Database.getInstance().getNews().stream()
+        News newsToEdit = database.getInstance().getNews().stream()
                 .filter(n -> Objects.equals(n.getTopic(), topic))
                 .findFirst()
                 .orElse(null);
 
         if (newsToEdit != null) {
-            Database.getInstance().getNews().remove(newsToEdit);
+            database.getInstance().getNews().remove(newsToEdit);
 
             switch (CoreSystem.getLanguageMode()) {
                 case ENG:
@@ -188,7 +185,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     public void openRegistation() {
-        if (Database.getInstance().getRegistationState()) {
+        if (database.getInstance().getRegistationState()) {
 
             switch (CoreSystem.getLanguageMode()) {
                 case ENG:
@@ -202,7 +199,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
                     break;
                 }
         } else {
-            Database.getInstance().setRegistationState(true);
+            database.getInstance().setRegistationState(true);
 
             switch (CoreSystem.getLanguageMode()) {
                 case ENG:
@@ -219,10 +216,10 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     void closeRegistation() {
-        if (!Database.getInstance().getRegistationState()) {
+        if (!database.getInstance().getRegistationState()) {
             getCurrentView().showSomeText("Registration is already closed.", getCurrentModel());
         } else {
-            Database.getInstance().setRegistationState(false);
+            database.getInstance().setRegistationState(false);
 
             switch (CoreSystem.getLanguageMode()) {
                 case ENG:
@@ -239,12 +236,12 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     }
 
     void addTeacherToCourse(String uuidOfTeacher, String uuidOfCourse) {
-        Teacher teacher = Database.getInstance().getTeachers()
+        Teacher teacher = database.getInstance().getTeachers()
                 .stream()
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfTeacher))
                 .findFirst().orElse(null);
 
-        Course course = Database.getInstance().getCourses()
+        Course course = database.getInstance().getCourses()
                 .stream()
                 .filter(n -> Objects.equals(n.getUuid(), uuidOfCourse))
                 .findFirst().orElse(null);

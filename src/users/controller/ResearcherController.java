@@ -1,8 +1,5 @@
 package users.controller;
 
-import java.util.Vector;
-import java.util.stream.Collectors;
-
 import core.CoreSystem;
 import core.Language;
 import database.Database;
@@ -14,9 +11,12 @@ import users.models.Researcher;
 import users.models.User;
 import users.view.ResearcherView;
 
+import java.util.Vector;
+import java.util.stream.Collectors;
+
 public class ResearcherController<Model extends Researcher, View extends ResearcherView>{
 	protected Model currentModel;
-    private final Database database = Database.getInstance();
+    private final static Database database = Database.getInstance();
     protected View currentView;
     protected Language language = CoreSystem.getLanguageMode();
 
@@ -51,7 +51,7 @@ public class ResearcherController<Model extends Researcher, View extends Researc
 
     public static boolean login(String email, String password){
         //TODO: DODELAT
-        User u =  Database.getInstance()
+        User u =  database.getInstance()
                 .getUsers()
                 .stream()
                 .filter(user -> user.getLogin().equals(email))
@@ -62,7 +62,7 @@ public class ResearcherController<Model extends Researcher, View extends Researc
             return false;
         }
 
-        String psw = Database.getInstance().getUserPasswords().get(u);
+        String psw = database.getInstance().getUserPasswords().get(u);
         if (psw == null || psw != password){
             System.out.println("Exception: password is not correct");
             return false;
@@ -86,7 +86,7 @@ public class ResearcherController<Model extends Researcher, View extends Researc
     }
 
     public Boolean subscribeToJournal(String uuid){
-        Journal j = Database.getInstance().getJournals()
+        Journal j = database.getInstance().getJournals()
                 .stream()
                 .filter(n->n.getUuid().equals(uuid))
                 .findFirst()
@@ -117,7 +117,7 @@ public class ResearcherController<Model extends Researcher, View extends Researc
     }
 
     public boolean giveLike(String uuid){
-        News ns = Database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
+        News ns = database.getInstance().getNews().stream().filter(n->n.getUuid().equals(uuid)).findFirst().orElse(null);
         if (ns == null) {
             String message = "";
             switch (CoreSystem.getLanguageMode()) {
@@ -137,11 +137,11 @@ public class ResearcherController<Model extends Researcher, View extends Researc
     }
 
     public void viewPapers(){
-        currentView.showPapers(Database.getInstance().getResearchPapers());
+        currentView.showPapers(database.getInstance().getResearchPapers());
     }
 
     public void viewTopPapers(){
-        Vector<ResearchPaper> topPapers = Database.getInstance()
+        Vector<ResearchPaper> topPapers = database.getInstance()
                 .getResearchPapers()
                 .stream()
                 .sorted(new ResearchPapersCitationComparator())
@@ -151,7 +151,7 @@ public class ResearcherController<Model extends Researcher, View extends Researc
     }
 
     public void viewNews(){
-        System.out.println(Database.getInstance().getNews());
+        System.out.println(database.getInstance().getNews());
     }
 
     public boolean resetPassword(){

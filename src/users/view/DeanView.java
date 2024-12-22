@@ -1,15 +1,10 @@
 package users.view;
 
+import core.CoreSystem;
 import core.Language;
 import post.Request;
-import core.CoreSystem;
-
-
 
 import java.util.List;
-
-import core.CoreSystem;
-import core.Language;
 
 public class DeanView extends ManagerView {
     public DeanView() {

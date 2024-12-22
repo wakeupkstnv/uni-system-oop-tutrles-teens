@@ -4,12 +4,7 @@ import study.Period;
 import users.models.Student;
 import users.models.Teacher;
 
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a course with lessons, students, and a gradebook.

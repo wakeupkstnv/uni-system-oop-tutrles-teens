@@ -1,5 +1,4 @@
 package users.controller;
-
 import database.Database;
 import post.Request;
 import post.Urgency;
@@ -7,34 +6,37 @@ import study.utils.Course;
 import study.utils.Mark;
 import users.exceptions.UserNotFoundException;
 import users.models.Dean;
-import users.models.Researcher;
 import users.models.Student;
 import users.models.Teacher;
 import users.view.TeacherView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Vector;
 
-public class TeacherController<Model extends Teacher, View extends TeacherView> extends UserController<Model, View> {
+public class TeacherController<Model extends Teacher, View extends TeacherView> extends EmployeeController<Teacher, TeacherView> {
 
     public TeacherController(Model currentModel, View currentView) {
         super(currentModel, currentView);
     }
+    TeacherView currentView = (TeacherView) getCurrentView();
+
 
     /**
      * Просмотр списка студентов, которых преподает преподаватель.
      */
     public void viewStudents() {
         Vector<Student> students = new Vector<>();
-        for (Course course : Database.getInstance().getCourses()) {
+        for (Course course : Database.getInstance().getCourses()) {  // Изменили на Database.getInstance()
             if (course.getTeacher() == this.getCurrentModel()) {
                 students.addAll(course.getStudents());
             }
         }
-        currentView.showListOfStudents(students);
+        // for example;
+        students.add(new Student("12", "tamir", "kustanayev", "t_kustanayev@kbtu.kz", "t_kustanayev", new Date(), "123"));
+        currentView.showStudents(students);
     }
 
     /**
@@ -55,12 +57,12 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
 
         try {
             int grade = Integer.parseInt(gradeStr);
-            Student student = Database.getInstance().getStudents().stream()
+            Student student = database.getInstance().getStudents().stream()
                     .filter(s -> s.getUuid().equals(studentUuid))
                     .findFirst()
                     .orElseThrow(() -> new UserNotFoundException("Студент не найден."));
 
-            Optional<Course> courseOpt = Database.getInstance().getCourses().stream()
+            Optional<Course> courseOpt = database.getInstance().getCourses().stream()
                     .filter(c -> c.getTitle().equalsIgnoreCase(courseName))
                     .findFirst();
 
@@ -84,7 +86,7 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
                 mark.putPointToFinal((float) Double.parseDouble(gradeStr));
             }
 
-            Database.getInstance().addLog("Преподаватель " + currentModel.getFirstName() + " назначил оценку " + grade + " студенту " + student.getFirstName() + " по курсу " + course.getTitle());
+            database.getInstance().addLog("Преподаватель " + currentModel.getFirstName() + " назначил оценку " + grade + " студенту " + student.getFirstName() + " по курсу " + course.getTitle());
 
             System.out.println("Оценка успешно назначена.");
         } catch (NumberFormatException e) {
@@ -124,7 +126,7 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
                 return;
         }
 
-        Student student = Database.getInstance().getStudents().stream()
+        Student student = database.getInstance().getStudents().stream()
                 .filter(s -> s.getUuid().equals(studentUuid))
                 .findFirst()
                 .orElse(null);
@@ -135,7 +137,7 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
         }
 
         // Найти декана факультета студента
-        Dean dean = Database.getInstance().getFacultyDean().get(student.getFaculty());
+        Dean dean = database.getInstance().getFacultyDean().get(student.getFaculty());
         if (dean == null) {
             System.out.println("Декан факультета не назначен.");
             return;
@@ -146,9 +148,9 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
 
         // Отправить жалобу декану
         dean.addRequest(complaint);
-        Database.getInstance().addRequest(complaint);
+        database.getInstance().addRequest(complaint);
 
-        Database.getInstance().addLog("Преподаватель " + currentModel.getFirstName() + " отправил жалобу декану по студенту " + student.getFirstName());
+        database.getInstance().addLog("Преподаватель " + currentModel.getFirstName() + " отправил жалобу декану по студенту " + student.getFirstName());
 
         System.out.println("Жалоба успешно отправлена декану.");
     }

@@ -1,14 +1,13 @@
 package users.controller;
 
+import users.UserType;
+import users.exceptions.UserNotFoundException;
+import users.models.Admin;
+import users.models.User;
+import users.view.AdminView;
+import database.Database;
 import java.io.BufferedReader;
 import java.util.Date;
-
-import database.Database;
-import users.exceptions.UserNotFoundException;
-import users.models.User;
-import users.models.Admin;
-import users.UserType;
-import users.view.AdminView;
 
 public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
 
@@ -17,7 +16,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     }
 
     public void banUser(User user) throws UserNotFoundException {
-        User u = Database.getInstance().getUsers()
+        User u = database.getInstance().getUsers()
                 .stream()
                 .filter(n -> n.equals(user))
                 .findFirst()
@@ -30,7 +29,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     }
 
     public void unBanUser(User user) throws UserNotFoundException {
-        User u = Database.getInstance().getUsers()
+        User u = database.getInstance().getUsers()
                 .stream()
                 .filter(n -> n.equals(user))
                 .findFirst()
@@ -44,7 +43,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     }
 
     public void deleteUser(User user) throws UserNotFoundException {
-        User u = Database.getInstance().getUsers()
+        User u = database.getInstance().getUsers()
                 .stream()
                 .filter(n -> n.equals(user))
                 .findFirst()
@@ -53,7 +52,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         if (u == null) {
             throw new UserNotFoundException(user.getFirstName());
         }
-        Database.getInstance().removeUser(u);
+        database.getInstance().removeUser(u);
     }
 
     /**
@@ -120,8 +119,8 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для регистрации конкретного типа пользователя
      */
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
-        Database.getInstance().addLog("" + userType);
-        Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+        database.getInstance().addLog("" + userType);
+        database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
         System.out.println(userType + " successfully registered!");
     }
 
@@ -146,6 +145,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
      * Метод для просмотра логов
      */
     public void viewLogs() {
-        System.out.println(Database.getInstance().getLogs());
+        System.out.println(database.getInstance().getLogs());
     }
 }

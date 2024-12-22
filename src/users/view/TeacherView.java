@@ -1,11 +1,13 @@
 package users.view;
 
-import users.models.Student;
-import users.models.Teacher;
-import java.util.List;
-
 import core.CoreSystem;
 import core.Language;
+import users.models.Student;
+import users.models.Teacher;
+import users.view.EmployeeView;
+
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Представление учителя (TeacherView).
@@ -13,8 +15,11 @@ import core.Language;
 public class TeacherView extends EmployeeView {
 
     
-    public void showListOfStudents(List<Student> students) {
-        
+    public void showStudents(Vector<Student> students) {
+        for (Student student : students) {
+            System.out.println("Студент: " + student.getFirstName() + " " + student.getLastName());
+        }
+
     }
 
    

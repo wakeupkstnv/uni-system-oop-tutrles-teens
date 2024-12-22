@@ -1,18 +1,15 @@
 package users.view;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import core.CoreSystem;
-import database.Database;
 import study.utils.Course;
 import study.utils.Lesson;
 import study.utils.Mark;
 import users.models.Student;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +28,7 @@ public class StudentView extends UserView
 			{"Friday", "Пятница", "Жұма"}
 	};
 	public void showListOfCourse(Student student) {
-		Vector<Course> c=Database.getInstance().getCourses();
+		Vector<Course> c= database.getInstance().getCourses();
 		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("List of courses: ");
 		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
@@ -53,7 +50,7 @@ public class StudentView extends UserView
 
 
 	public void showMarks(Student student) {
-		Vector<Course> c=Database.getInstance().getCourses();
+		Vector<Course> c= database.getInstance().getCourses();
 		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("Student journal");
 			System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
@@ -82,7 +79,7 @@ public class StudentView extends UserView
 			schedule.add(new Vector<>());
 		}
 		int v=0;
-		Vector<Course> courses = Database.getInstance().getCourses();
+		Vector<Course> courses = database.getInstance().getCourses();
 		if(CoreSystem.getLanguageMode()==core.Language.ENG){
 			v=0;
 			System.out.println("Schedule:");

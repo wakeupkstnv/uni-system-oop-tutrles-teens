@@ -1,20 +1,15 @@
 package users.view;
 
+import core.*;
 import post.Message;
 import post.News;
 import post.Urgency;
-import users.Faculty;
-import users.TeacherType;
-import users.controller.AdminController;
 import users.controller.EmployeeController;
 import users.models.Employee;
-import users.models.Teacher;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Vector;
-
-import core.*;
 
 /**
  * Класс представления для Employee, наследующийся от UserView.

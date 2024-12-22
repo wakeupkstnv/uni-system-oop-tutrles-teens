@@ -1,9 +1,8 @@
 package users.models;
 
-import users.Faculty;
-
 import core.CoreSystem;
 import core.Language;
+import users.Faculty;
 
 import java.util.Date;
 

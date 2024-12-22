@@ -2,22 +2,19 @@ package users.view;
 
 import core.CoreSystem;
 import core.Language;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-
-import java.util.Vector;
-
-import core.CoreSystem;
-import core.Language;
+import database.Database;
 import papers.ResearchPaper;
 import post.Message;
 import post.News;
 import users.controller.UserController;
-import users.controller.UserFactory;
 import users.models.User;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Vector;
+
 public class UserView<Model extends User> {
+    protected final static Database database = Database.getInstance();
 
 
     public boolean authMenu(UserController userController, BufferedReader reader) throws IOException {

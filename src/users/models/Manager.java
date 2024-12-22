@@ -1,9 +1,9 @@
 package users.models;
 
+import post.Request;
+
 import java.util.Date;
 import java.util.Vector;
-
-import post.Request;
 
 /**
  * Класс для менеджера, наследующий от Employee

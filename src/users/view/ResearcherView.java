@@ -1,21 +1,18 @@
 package users.view;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.Vector;
-
 import core.CoreSystem;
 import core.Language;
-
 import papers.Format;
 import papers.ResearchPaper;
 import post.Message;
 import post.News;
 import users.controller.ResearcherController;
-import users.controller.UserController;
 import users.models.Researcher;
-import users.models.User;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Vector;
 
 
 @SuppressWarnings("rawtypes")

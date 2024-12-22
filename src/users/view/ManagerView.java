@@ -1,19 +1,15 @@
 package users.view;
 
 
-import post.News;
+import core.CoreSystem;
 import post.Request;
 import post.Urgency;
 import study.utils.Course;
-import users.controller.ManagerController;
 import users.models.Employee;
 import users.models.Student;
 import users.models.Teacher;
 
 import java.util.Vector;
-
-import core.CoreSystem;
-import database.Database;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +33,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 			
 		}
 		System.out.printf("-".repeat(50)+"\n");
-		for(Teacher r:Database.getInstance().getTeachers()){
+		for(Teacher r : database.getInstance().getTeachers()){
 			System.out.printf("%-15s",r.getUuid());
 			System.out.printf("%-15s","|  "+r.getLastName()+" "+r.getFirstName()+" "+r.getTeacherType().name()+"\n");
 		    }
@@ -46,7 +42,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	
 	
 	public void showTeacherDetails(String teachedId) {
-		Teacher teacher = Database.getInstance().getTeachers().stream().filter(t->t.getUuid().equals(teachedId)).findFirst().orElse(null);
+		Teacher teacher = database.getInstance().getTeachers().stream().filter(t->t.getUuid().equals(teachedId)).findFirst().orElse(null);
 		if(teacher==null){
 			if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 				System.out.println("Teacher not found.");
@@ -104,7 +100,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 			
 		}
 		System.out.printf("-".repeat(50)+"\n");
-		for(Course c: Database.getInstance().getCourses()){
+		for(Course c: database.getInstance().getCourses()){
 			System.out.printf("%-15s",c.getUuid());
 			System.out.printf("%-15s","|  "+c.getTitle());
 			System.out.printf("%-15s","|  "+c.getCredits()+"\n");
@@ -121,7 +117,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	 */
 	
 	public void showCourseDetails(String courseId) {
-		Course course = Database.getInstance().getCourses().stream().filter(t->t.getUuid().equals(courseId)).findFirst().orElse(null);
+		Course course = database.getInstance().getCourses().stream().filter(t->t.getUuid().equals(courseId)).findFirst().orElse(null);
 		if(course==null){
 			if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 				System.out.println("Course not found.");
@@ -239,7 +235,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 			
 		}
 		System.out.printf("-".repeat(50)+"\n");
-		for(Student s:Database.getInstance().getStudents()){
+		for(Student s: database.getInstance().getStudents()){
 			System.out.printf("%-15s",s.getUuid());
 			System.out.printf("%-15s","|  "+s.getLastName()+" "+s.getFirstName()+"| Faculty: " + s.getFaculty().name()+"\n");
 		    }
@@ -258,7 +254,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 			
 		}
 		System.out.printf("-".repeat(50)+"\n");
-		if (Database.getInstance().getRequests().isEmpty()) {
+		if (database.getInstance().getRequests().isEmpty()) {
 			if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 				System.out.printf("22s-%","Нет запросов.\n");
 			} else if (CoreSystem.getLanguageMode() == core.Language.ENG) {
@@ -268,7 +264,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 			}
 		} else {
 			
-			for(Request r:Database.getInstance().getRequests()){
+			for(Request r: database.getInstance().getRequests()){
 				if(r.getUrgency()!=null&&r.getUrgency()!=Urgency.HIGH){
 				if(CoreSystem.getLanguageMode() == core.Language.ENG){
 					System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Request{"+"State="+( r.getSigned()?"Completed":"Rejected")+", urgency="+r.getUrgency().name()+", description='" + r.getDescription()+'}');
@@ -282,9 +278,9 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	}
 	private Vector<Request> getRequestsOfEmployees(){
 		Vector<Request> requests = new Vector<>();
-		for(Request r:Database.getInstance().getRequests()){
+		for(Request r: database.getInstance().getRequests()){
 			if(r.getUrgency()!=null&&r.getUrgency()!=Urgency.HIGH){
-				for(Employee e: Database.getInstance().getEmployees()){
+				for(Employee e: database.getInstance().getEmployees()){
 					if(r.getAuthor().getUuid().equals(e.getUuid())){
 				       requests.add(r);
 					}

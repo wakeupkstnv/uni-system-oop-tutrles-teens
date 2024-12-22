@@ -1,9 +1,10 @@
 package users.models;
 
-import java.util.Date;
-import java.util.Vector;
 import post.Message;
 import post.Request;
+
+import java.util.Date;
+import java.util.Vector;
 
 public class Employee extends User implements CanBecomeResearcher {
 	protected Vector<Request> allRequests;

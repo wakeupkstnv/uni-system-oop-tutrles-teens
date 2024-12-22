@@ -1,12 +1,11 @@
 package users.view;
 
-import database.Database;
+import core.CoreSystem;
+import core.Language;
 import users.UserType;
 import users.controller.AdminController;
 import users.controller.UserFactory;
 import users.models.User;
-import core.CoreSystem;
-import core.Language;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -224,8 +223,8 @@ public class AdminView extends ManagerView {
 	 * Метод для регистрации конкретного типа пользователя
 	 */
 	private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
-		Database.getInstance().addLog("" + userType);
-		Database.getInstance().addUser(UserFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
+		database.getInstance().addLog("" + userType);
+		database.getInstance().addUser(UserFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
 		System.out.println(userType + " successfully registered!");
 	}
 
@@ -247,7 +246,7 @@ public class AdminView extends ManagerView {
 	private void banUser(AdminController adminController, BufferedReader reader) throws IOException {
 		System.out.print("\nНапишите uuid юзера которого хотите заблокировать пользователя");
 		String uuid = reader.readLine();
-		User u = Database.getInstance()
+		User u = database.getInstance()
 				.getUsers()
 				.stream()
 				.filter(n->n.getUuid().equals(uuid))
@@ -262,7 +261,7 @@ public class AdminView extends ManagerView {
 	private void unbanUser(AdminController adminController, BufferedReader reader) throws IOException {
 		System.out.print("\nНапишите uuid юзера которого хотите разблокировать пользователя");
 		String uuid = reader.readLine();
-		User u = Database.getInstance()
+		User u = database.getInstance()
 				.getUsers()
 				.stream()
 				.filter(n->n.getUuid().equals(uuid))

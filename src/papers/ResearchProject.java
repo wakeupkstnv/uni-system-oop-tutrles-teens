@@ -1,8 +1,8 @@
 package papers;
 
-import users.models.Researcher;
 import core.CoreSystem;
 import core.Language;
+import users.models.Researcher;
 
 import java.util.Vector;
 
