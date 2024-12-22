@@ -4,7 +4,6 @@ package users.view;
 import post.News;
 import users.UserType;
 import users.controller.AdminController;
-
 import core.CoreSystem;
 import core.Language;
 
