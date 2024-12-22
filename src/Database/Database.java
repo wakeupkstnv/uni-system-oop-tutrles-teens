@@ -147,7 +147,7 @@ public class Database implements Serializable{
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
+            studentCourses.get(student).add(course); 
         }
         saveHashMap(studentCourses, PATH + "studentCourses.txt");
     }
@@ -162,7 +162,7 @@ public class Database implements Serializable{
                 .orElse(null);
 
         if (student == null) {
-            // TODO: add exceptions!!!
+           
         }
 
         if (studentCourses.get(student) == null){
@@ -170,7 +170,7 @@ public class Database implements Serializable{
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
+            studentCourses.get(student).add(course); 
         }
 
         saveHashMap(studentCourses,PATH + "studentCourses.txt");
