@@ -22,20 +22,12 @@ import java.util.Vector;
  */
 public class AdminView extends ManagerView {
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public AdminView() {
 		super();
 	}
-
-	/**
-	 * Метод для отображения меню регистрации пользователей и обработки ввода пользователя.
-	 */
+	
 	public static void showRegisterUser(AdminController adminController, BufferedReader reader) throws IOException {
-		while (true) { // Цикл для многократной регистрации пользователей
+		while (true) { 
 			if (CoreSystem.getLanguageMode() == Language.ENG) {
 				System.out.println(
 						"Please choose a type of User!\n"
