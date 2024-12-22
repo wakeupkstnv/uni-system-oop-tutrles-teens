@@ -25,6 +25,8 @@ public class GraduateStudent extends Student
 	public GraduateStudent(){
 		super();
 	}
+	
+	
 	public GraduateStudent(String id, String firstName, String lastName, String email, String login,
             Date birthDate, String hashedPassword,
             int	graduationYear){
@@ -45,6 +47,10 @@ public class GraduateStudent extends Student
                 0.0
             );
 
+	}
+	
+	public void setGraduationYear(int year) {
+		this.graduationYear = year;
 	}
 		
 
