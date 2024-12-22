@@ -2,8 +2,16 @@ package users.view;
 
 import post.Message;
 import post.News;
+import post.Urgency;
+import users.Faculty;
+import users.TeacherType;
+import users.controller.AdminController;
+import users.controller.EmployeeController;
 import users.models.Employee;
+import users.models.Teacher;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Vector;
 
 import Core.*;
@@ -128,5 +136,24 @@ public class EmployeeView<Model extends Employee> extends UserView<Employee> {
     @Override
     public void showRequest() {
  
+    }
+    
+    public static void showCreateRequest(EmployeeController employeeController, BufferedReader reader) {
+    	if(language == Language.ENG) {
+    		System.out.print("Enter title: ");
+			String text = reader.readLine();
+			
+			System.out.print("Enter description: ");
+			String desc = reader.readLine();
+			
+			System.out.print("Select urgency: ");
+			Urgency urg = readUrgency(reader);
+			
+			
+			
+			employeeController.createRequest(text, desc, urg);
+			
+			
+    	}
     }
 }
