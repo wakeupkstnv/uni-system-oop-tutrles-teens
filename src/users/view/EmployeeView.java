@@ -14,7 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Vector;
 
-import Core.*;
+import core.*;
 
 /**
  * Класс представления для Employee, наследующийся от UserView.
@@ -47,7 +47,7 @@ public class EmployeeView<Model extends Employee> extends UserView<Employee> {
         }
     }
 
-    @Override
+
     public void showChat(Vector<Message> messages) {
         if (messages.isEmpty()) {
             if (CoreSystem.getLanguageMode() == Language.RUS) {
@@ -133,7 +133,7 @@ public class EmployeeView<Model extends Employee> extends UserView<Employee> {
         }
     }
 
-    @Override
+
     public void showRequest() {
  
     }

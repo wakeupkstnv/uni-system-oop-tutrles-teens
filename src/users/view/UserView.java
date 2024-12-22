@@ -1,27 +1,52 @@
 package users.view;
 
-import Core.CoreSystem;
-import Core.Language;
+<<<<<<< HEAD
+import core.CoreSystem;
+import core.Language;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+=======
+>>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 import java.util.Vector;
+
+import core.CoreSystem;
+import core.Language;
 import papers.ResearchPaper;
 import post.Message;
 import post.News;
+import users.controller.UserController;
 import users.models.User;
 
 public class UserView<Model extends User> {
+	protected int l=0;
+
+
+    public boolean authMenu(UserController userController, BufferedReader reader) throws IOException {
+        UserView uv = new UserView();
+        System.out.println("Введите email:");
+        String email = reader.readLine();
+        System.out.println("Введите пароль:");
+        String password = reader.readLine();
+
+        Boolean result = userController.login(email, password);
+        return result;
+    }
 
     public void showLoginResult(boolean success) {
-        if (CoreSystem.getLanguageMode() == Language.RUS) {
+		languageMode();
+        if (l == 1) {
             System.out.println(success ? "Вход успешен!" : "Не удалось войти. Проверьте ваши данные.");
-        } else if (CoreSystem.getLanguageMode() == Language.ENG) {
+        } else if (l == 0) {
             System.out.println(success ? "Login successful!" : "Login failed. Please check your credentials.");
-        } else if (CoreSystem.getLanguageMode() == Language.KZ) {
+        } else {
             System.out.println(success ? "Кіру сәтті!" : "Кіру сәтсіз. Деректеріңізді тексеріңіз.");
         }
     }
 
     public void showProfile(Model user) {
-        if (CoreSystem.getLanguageMode() == Language.RUS) {
+		languageMode();
+        if (l == 1) {
             System.out.println("Профиль пользователя:");
             System.out.println("Имя: " + user.getFirstName() + " " + user.getLastName());
             System.out.println("Электронная почта: " + user.getEmail());
@@ -29,7 +54,7 @@ public class UserView<Model extends User> {
             System.out.println("Дата рождения: " + user.getBirthDate());
             System.out.println("Уведомлений: " + user.getAllNotifications().size());
             System.out.println("Заблокирован: " + (user.isBanned() ? "Да" : "Нет"));
-        } else if (CoreSystem.getLanguageMode() == Language.ENG) {
+        } else if (l == 0) {
             System.out.println("User Profile:");
             System.out.println("Name: " + user.getFirstName() + " " + user.getLastName());
             System.out.println("Email: " + user.getEmail());
@@ -37,7 +62,7 @@ public class UserView<Model extends User> {
             System.out.println("Date of Birth: " + user.getBirthDate());
             System.out.println("Notifications: " + user.getAllNotifications().size());
             System.out.println("Banned: " + (user.isBanned() ? "Yes" : "No"));
-        } else if (CoreSystem.getLanguageMode() == Language.KZ) {
+        } else {
             System.out.println("Пайдаланушының профилі:");
             System.out.println("Аты: " + user.getFirstName() + " " + user.getLastName());
             System.out.println("Электрондық пошта: " + user.getEmail());
@@ -49,30 +74,32 @@ public class UserView<Model extends User> {
     }
 
     public void showLogoutMessage() {
-        if (CoreSystem.getLanguageMode() == Language.RUS) {
+		languageMode();
+        if (l == 1) {
             System.out.println("Вы успешно вышли.");
-        } else if (CoreSystem.getLanguageMode() == Language.ENG) {
+        } else if (l == 0) {
             System.out.println("You have successfully logged out.");
-        } else if (CoreSystem.getLanguageMode() == Language.KZ) {
+        } else {
             System.out.println("Сіз сәтті шықтыңыз.");
         }
     }
 
 	public void showMessage(Vector<Message> messages) {
+		languageMode();
 		if (messages.isEmpty()) {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l == 1) {
 				System.out.println("Нет сообщений.");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l == 0) {
 				System.out.println("No messages.");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else if (l == 2) {
 				System.out.println("Хабарламалар жоқ.");
 			}
 		} else {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l == 1) {
 				System.out.println("Сообщения:");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l == 0) {
 				System.out.println("Messages:");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else  {
 				System.out.println("Хабарламалар:");
 			}
 	
@@ -88,30 +115,32 @@ public class UserView<Model extends User> {
     }
 
     public void showSubscriptionResult(boolean subscribed) {
-        if (CoreSystem.getLanguageMode() == Language.RUS) {
+		languageMode();
+        if (l == 1) {
             System.out.println(subscribed ? "Вы успешно подписались!" : "Не удалось подписаться.");
-        } else if (CoreSystem.getLanguageMode() == Language.ENG) {
+        } else if (l == 0) {
             System.out.println(subscribed ? "You have successfully subscribed!" : "Subscription failed.");
-        } else if (CoreSystem.getLanguageMode() == Language.KZ) {
+        } else {
             System.out.println(subscribed ? "Сіз сәтті жазылдыңыз!" : "Жазылу сәтсіз аяқталды.");
         }
     }
 
     public void showNotifications(Vector<News> notifications) {
+		languageMode();
 		if (notifications.isEmpty()) {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l==1) {
 				System.out.println("Нет новых уведомлений.");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l==0) {
 				System.out.println("No new notifications.");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else {
 				System.out.println("Жаңа хабарламалар жоқ.");
 			}
 		} else {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l==1) {
 				System.out.println("Уведомления:");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l==0) {
 				System.out.println("Notifications:");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else  {
 				System.out.println("Хабарламалар:");
 			}
 	
@@ -123,20 +152,21 @@ public class UserView<Model extends User> {
 	
 
     public void showPapers(Vector<ResearchPaper> rp) {
+		languageMode();
 		if (rp.isEmpty()) {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l == 1) {
 				System.out.println("Нет научных статей.");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l == 0) {
 				System.out.println("No research papers available.");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else if (l == 2) {
 				System.out.println("Ғылыми мақалалар жоқ.");
 			}
 		} else {
-			if (CoreSystem.getLanguageMode() == Language.RUS) {
+			if (l == 1) {
 				System.out.println("Научные статьи:");
-			} else if (CoreSystem.getLanguageMode() == Language.ENG) {
+			} else if (l == 0) {
 				System.out.println("Research Papers:");
-			} else if (CoreSystem.getLanguageMode() == Language.KZ) {
+			} else if (l==2) {
 				System.out.println("Ғылыми мақалалар:");
 			}
 			for (ResearchPaper paper : rp) {
@@ -148,12 +178,17 @@ public class UserView<Model extends User> {
 	
 
     public void showError(String msg) {
-        if (CoreSystem.getLanguageMode() == Language.RUS) {
+		languageMode();
+        if (l == 1) {
             System.out.println("ОШИБКА: " + msg);
-        } else if (CoreSystem.getLanguageMode() == Language.ENG) {
+        } else if (l==0) {
             System.out.println("ERROR MESSAGE: " + msg);
         } else if (CoreSystem.getLanguageMode() == Language.KZ) {
             System.out.println("ҚАТЕ МӘЛІМДЕМЕ: " + msg);
         }
     }
+	public void languageMode() {
+		this.l= CoreSystem.getLanguageMode() == core.Language.ENG ? 0 :
+		CoreSystem.getLanguageMode() == core.Language.RUS ? 1 : 2;
+	}
 }

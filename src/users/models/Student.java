@@ -3,8 +3,8 @@ import users.Faculty;
 
 import java.util.Date;
 
-import Core.CoreSystem;
-import Core.Language;
+import core.CoreSystem;
+import core.Language;
 
 /**
  * Класс Student
@@ -14,6 +14,8 @@ public class Student extends User implements CanBecomeResearcher {
     private Major major; // Специальность
     private int yearOfStudy; // Год обучения
     private Researcher reseacherProfile;
+
+    private int credits;
 
     /**
      * Конструктор для создания объекта Student
@@ -51,9 +53,20 @@ public class Student extends User implements CanBecomeResearcher {
     		super(id, firstName, lastName, email, login, birthDate, hashedPassword);
  
     }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
     /**
      * Геттер для факультета
      */
+
+
     public Faculty getFaculty() {
         return faculty;
     }
@@ -103,7 +116,10 @@ public class Student extends User implements CanBecomeResearcher {
     public void setYearOfStudy(int yearOfStudy) {
         this.yearOfStudy = yearOfStudy;
     }
-
+     public Researcher getResearcherProfile() {
+        return reseacherProfile;
+     }
+     
     @Override
     public void becomeResearcher() {
         this.reseacherProfile = new Researcher(
