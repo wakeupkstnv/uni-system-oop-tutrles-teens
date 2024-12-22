@@ -21,7 +21,7 @@ import database.Database;
  * @generated
  */
 
-public class ManagerView extends EmployeeView implements CanViewRequest
+public class ManagerView extends EmployeeView 
 {
 	public ManagerView(){
 		super();
@@ -247,7 +247,6 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	
 	
 
-	@Override
 	public void viewAllRequest() {
 		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("List of requests: ");
