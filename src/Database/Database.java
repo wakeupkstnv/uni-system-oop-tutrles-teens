@@ -8,7 +8,6 @@ import post.Post;
 import study.Period;
 import study.utils.Course;
 import users.Faculty;
-import users.exceptions.UserNotFoundException;
 import users.models.*;
 import post.Request;
 
@@ -19,7 +18,6 @@ import java.util.HashMap;
 
 import java.util.Vector;
 
-import сore.CoreSystem;
 
 /**
  * <!-- begin-user-doc -->
@@ -197,7 +195,7 @@ public class Database implements Serializable{
 
         if (student == null) {
             String message = "";
-            switch (CoreSystem.getLanguageMode()) {
+            switch (core.CoreSystem.getLanguageMode()) {
                 case RUS:
                     message = "Студент с UUID " + studentUuid + " не существует\n";
                     break;
@@ -238,7 +236,7 @@ public class Database implements Serializable{
 
         if (student == null) {
             String message = "";
-            switch (CoreSystem.getLanguageMode()) {
+            switch (core.CoreSystem.getLanguageMode()) {
                 case RUS:
                     message = "Студент с UUID " + studentUuid + " не существует\n";
                     break;
@@ -253,7 +251,7 @@ public class Database implements Serializable{
 
         if (course == null) {
             String message = "";
-            switch (CoreSystem.getLanguageMode()) {
+            switch (core.CoreSystem.getLanguageMode()) {
                 case RUS:
                     message = "Курс с UUID " + uuidCourse + " не существует\n";
                     break;

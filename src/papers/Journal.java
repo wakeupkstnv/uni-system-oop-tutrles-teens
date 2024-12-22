@@ -6,50 +6,15 @@ import users.models.User;
 import java.util.Objects;
 import java.util.Vector;
 
-/**
- * Класс, представляющий научный журнал.
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
- * @generated
- */
+import core.CoreSystem;
 public class Journal implements Comparable<Journal>{
-	/**
-	 * Название журнала.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	public String uuid;
 	public String title;
-
-	/**
-	 * Список статей, опубликованных в журнале.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	private Vector<ResearchPaper> articles;
-
-	/**
-	 * Список подписчиков журнала.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	private Vector<User> subscribers;
-
 	private Vector<Researcher> subscribersR;
 
-	/**
-	 * Конструктор класса Journal.
-	 * Инициализирует название журнала и создаёт пустые списки статей и подписчиков.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Journal(String uuid, String title){
 		this.uuid = uuid;
 		if (title == null || title.trim().isEmpty()) {
