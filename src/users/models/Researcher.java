@@ -2,7 +2,7 @@ package users.models;
 
 import java.util.Objects;
 import java.util.Vector;
-
+import core.*;
 import papers.ResearchPaper;
 
 /**

@@ -52,7 +52,9 @@ public class GraduateStudent extends Student
 	public void setGraduationYear(int year) {
 		this.graduationYear = year;
 	}
-		
-
+	 	
+	public int getGraduationYear() {
+		return this.graduationYear;
+	}
 }
 
