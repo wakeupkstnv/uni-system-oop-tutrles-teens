@@ -1,56 +1,44 @@
 package users.models;
 
-
 import post.Request;
 import users.Faculty;
-import users.TeacherType;
-
 import java.util.Date;
 import java.util.Vector;
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
-
-public class Dean extends Manager
-{
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	
+public class Dean extends Manager {
 	private Faculty faculty;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Dean(String id, String firstName, String lastName, String email, String login, Date birthDate, 
-			String hashedPassword, Faculty faculty) {
+
+	private Vector<Request> allRequests;
+
+	public Dean() {
+		super();
+		this.allRequests = new Vector<>();
+	}
+
+	public Dean(String id, String firstName, String lastName, String email, String login, Date birthDate,
+				String hashedPassword, Faculty faculty) {
 		super(id, firstName, lastName, email, login, birthDate, hashedPassword);
 		this.faculty = faculty;
 		this.allRequests = new Vector<>();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
+	public Faculty getFaculty() {
+		return faculty;
 	}
 
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
+	}
+
+	public Vector<Request> getAllRequests() {
+		return allRequests;
+	}
+
+	public void setAllRequests(Vector<Request> allRequests) {
+		this.allRequests = allRequests;
+	}
+
+	public void addRequest(Request request) {
+		allRequests.add(request);
+	}
+}

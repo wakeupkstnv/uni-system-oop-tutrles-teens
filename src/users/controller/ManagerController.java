@@ -1,5 +1,6 @@
 package users.controller;
 
+import core.CoreSystem;
 import database.Database;
 import post.News;
 import post.Request;
@@ -50,7 +51,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
     public void signRequest(Request request) {
         if (request.getUrgency() != Urgency.HIGH){
-            request.setSign(true);
+            request.setSigned(true);
             redirectRequest(request, request.getAuthor());
         }
     }
@@ -69,7 +70,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     public void addNews(News news) {
         Database.getInstance().getNews().add(news);
 
-        switch (language) {
+        switch (CoreSystem.getLanguageMode()) {
             case ENG:
                 getCurrentView().showSomeText("News added successfully.", getCurrentModel());
                 break;
@@ -93,7 +94,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
             if (newTopic != null && !newTopic.trim().isEmpty()) {
                 newsToEdit.setTopic(newTopic);
 
-                switch (language) {
+                switch (CoreSystem.getLanguageMode()) {
                     case ENG:
                         getCurrentView().showSomeText("News updated successfully.", getCurrentModel());
                         break;
@@ -105,7 +106,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
                         break;
                 }
             } else {
-                switch (language) {
+                switch (CoreSystem.getLanguageMode()) {
                     case ENG:
                         getCurrentView().showError("Validation failed.");
                         break;
@@ -119,7 +120,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
             }
 
         } else {
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showError("News with the topic '" + topic + "' not found.");
                     break;
@@ -136,7 +137,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     void deleteNews(News news) {
         Database.getInstance().getNews().remove(news);
 
-        switch (language) {
+        switch (CoreSystem.getLanguageMode()) {
             case ENG:
                 getCurrentView().showSomeText("News deleted successfully.", getCurrentModel());
                 break;
@@ -159,7 +160,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         if (newsToEdit != null) {
             Database.getInstance().getNews().remove(newsToEdit);
 
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showSomeText("News deleted successfully.", getCurrentModel());
                     break;
@@ -171,7 +172,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
                     break;
                 }
         } else {
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showError("News with the topic '" + topic + "' not found.");
                     break;
@@ -188,7 +189,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
     public void openRegistation() {
         if (Database.getInstance().getRegistationState()) {
 
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showSomeText("Registration is already open.", getCurrentModel());
                     break;
@@ -202,7 +203,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         } else {
             Database.getInstance().setRegistationState(true);
 
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showSomeText("Registration is open!", getCurrentModel());
                     break;
@@ -222,7 +223,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         } else {
             Database.getInstance().setRegistationState(false);
 
-            switch (language) {
+            switch (CoreSystem.getLanguageMode()) {
                 case ENG:
                     getCurrentView().showSomeText("Registration is closed.", getCurrentModel());
                     break;

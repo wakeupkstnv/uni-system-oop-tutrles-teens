@@ -1,30 +1,26 @@
 package users.models;
 
-import java.util.Vector;
-
 import users.Faculty;
 import users.TeacherType;
 
 import java.util.Date;
 
-/**
- * Класс для представления преподавателя, наследует от Employee
- */
 public class Teacher extends Employee {
-    private Faculty faculty;       // Факультет 
-    private TeacherType teacherType; // Тип преподавателя (TUTOR, SENIOR_LECTURE, LECTURE, ASSISTENT)
+    private Faculty faculty;
+    private TeacherType teacherType;
 
-    /**
-     * Конструктор для инициализации Teacher
-     */
-    public Teacher(String id, String firstName, String lastName, String email, String login, Date birthDate, 
+    public Teacher() {
+        super();
+    }
+
+    public Teacher(String id, String firstName, String lastName, String email, String login, Date birthDate,
                    String hashedPassword, Faculty faculty, TeacherType teacherType) {
         super(id, firstName, lastName, email, login, birthDate, hashedPassword);
         this.faculty = faculty;
         this.teacherType = teacherType;
     }
 
-    // Геттеры и сеттеры
+    // Getters and Setters
 
     public Faculty getFaculty() {
         return faculty;
@@ -42,12 +38,6 @@ public class Teacher extends Employee {
         this.teacherType = teacherType;
     }
 
-	public String getUuid(){
-		return this.uuid;
-	}
-    /**
-     * Переопределение метода toString() для вывода информации о преподавателе
-     */
     @Override
     public String toString() {
         return "Teacher {" +

@@ -2,12 +2,9 @@ package users.view;
 
 import core.Language;
 import post.Request;
-<<<<<<< HEAD
+
 import core.CoreSystem;
 
-
-=======
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 
 import java.util.List;
 

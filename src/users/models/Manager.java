@@ -14,6 +14,9 @@ public class Manager extends Employee {
 
     protected Vector<Request> allRequests;
 
+    public Manager(){
+        super();
+    }
     /**
      * Конструктор для создания объекта Manager
      */

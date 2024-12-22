@@ -23,31 +23,25 @@ import users.models.Student;
 @SuppressWarnings("rawtypes")
 public class StudentView extends UserView
 {
-    private static final String[][] DAYS_OF_WEEK = {
-		{"Monday", "Понедельник", "Дүйсенбі"},
-		{"Tuesday", "Вторник", "Сейсенбі"},
-		{"Wednesday", "Среда", "Сәрсенбі"},
-		{"Thursday", "Четверг", "Бейсенбі"},
-		{"Friday", "Пятница", "Жұма"}
-};
+	private static final String[][] DAYS_OF_WEEK = {
+			{"Monday", "Понедельник", "Дүйсенбі"},
+			{"Tuesday", "Вторник", "Сейсенбі"},
+			{"Wednesday", "Среда", "Сәрсенбі"},
+			{"Thursday", "Четверг", "Бейсенбі"},
+			{"Friday", "Пятница", "Жұма"}
+	};
 	public void showListOfCourse(Student student) {
 		languageMode();
 		Vector<Course> c=Database.getInstance().getCourses();
-<<<<<<< HEAD
-		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
-			System.out.println("List of courses: ");
-		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
-=======
 		if (l == 0) {
 			System.out.println("List of courses: ");
 		} else if (l == 1) {
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 			System.out.println("Список курсов: ");
 		} else {
 			System.out.println("Курстар тізімі: ");
-			
+
 		}
-		
+
 		for(Course course:c){
 			for(Student s1:course.getStudents()){
 				if(s1.equals(student)){
@@ -57,80 +51,39 @@ public class StudentView extends UserView
 			}
 		}
 	}
-	
-	
+
+
 	public void showMarks(Student student) {
 		languageMode();
 		Vector<Course> c=Database.getInstance().getCourses();
-<<<<<<< HEAD
-		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
-			System.out.println("Student journal");
-		    System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
-		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
-=======
 		if (l==0) {
 			System.out.println("Student journal");
-		    System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
+			System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
 		} else if (l == 1) {
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 			System.out.println("Журнал обучающегося");
 			System.out.println("Название курса:             Первая аттестация:             Вторая аттестация:             Файнал: ");
 		} else {
 			System.out.println("Студент журналы");
 			System.out.println("Курстың атауы:             Бірінші аттестация:             Екінші аттестация:             Қорытынды бағалау: ");
-							
+
 		}
-		
+
 		for(Course course:c){
 			for(Student s:course.getStudents()){
 				if(s.equals(student)){
-				Mark m=course.getMark(student);
-				System.out.print(course.getTitle()+"             "+m.getFirstAttestation()+"             "+m.getSecondAttestation()+"             "+m.getFinal());
+					Mark m=course.getMark(student);
+					System.out.print(course.getTitle()+"             "+m.getFirstAttestation()+"             "+m.getSecondAttestation()+"             "+m.getFinal());
 				}
 			}
 		}
 	}
-	
-<<<<<<< HEAD
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void showSchedule(Student student) {
-		Vector<Vector<String>> schedule = new Vector<Vector<String>>();
-		Vector<Course> c=Database.getInstance().getCourses();
-		int v=0;
-		if(CoreSystem.getLanguageMode()==core.Language.ENG){
-			v=0;
-			System.out.println("Schedule:");
-		}else if(CoreSystem.getLanguageMode()==core.Language.RUS){
-			v=1;
-			System.out.println("Расписание:");
 
-		}else{
-			System.out.println("Сабақ кестесі:");
-			v=2;
-		}
-		String s="";
-		System.out.println(s);
-//		for(Course course:c){
-//				Lesson l=findKeyByElement(course.getLessons(), student);
-//				schedule.get(l.getdayIndex()).add(l.getLesson());
-//		}
-		for (Vector<String> day : schedule) {
-            Collections.sort(day); 
-        }
-=======
-	 public void showSchedule(Student student) {
+	public void showSchedule(Student student) {
 		Vector<Vector<String>> schedule = new Vector<>(5);
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 		for (int i = 0; i < 5; i++) {
 			schedule.add(new Vector<>());
 		}
-	
+
 		Vector<Course> courses = Database.getInstance().getCourses();
 		languageMode();
 		if(l==0) {
@@ -142,26 +95,26 @@ public class StudentView extends UserView
 		}
 
 		System.out.println("-".repeat(125));
-	
+
 		for (int i = 0; i < 5; i++) {
 			System.out.printf("%-25s", DAYS_OF_WEEK[i][l]);
 		}
 		System.out.println();
 		System.out.println("-".repeat(125));
-	
+
 		for (Course course : courses) {
 			Lesson lesson = findKeyByElement(course.getLessons(), student);
 			if (lesson != null) {
 				schedule.get(lesson.getdayIndex()).add(lesson.getLesson());
 			}
 		}
-	
+
 		for (Vector<String> day : schedule) {
 			day.sort(Comparator.comparing(StudentView::extractTime));
 		}
-	
+
 		int maxSlots = schedule.stream().mapToInt(Vector::size).max().orElse(0);
-	
+
 		for (int timeSlot = 0; timeSlot < maxSlots; timeSlot++) {
 			for (int day = 0; day < 5; day++) {
 				if (timeSlot < schedule.get(day).size()) {
@@ -172,7 +125,7 @@ public class StudentView extends UserView
 				}
 			}
 			System.out.println();
-	
+
 			for (int day = 0; day < 5; day++) {
 				if (timeSlot < schedule.get(day).size()) {
 					String[] parts = splitLesson(schedule.get(day).get(timeSlot));
@@ -183,11 +136,11 @@ public class StudentView extends UserView
 			}
 			System.out.println();
 		}
-	
+
 		System.out.println("-".repeat(125));
 	}
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	public void showProfile(Student student) {
 		super.showProfile(student);
@@ -205,7 +158,7 @@ public class StudentView extends UserView
 			System.out.println("Мамандық: " + student.getMajor().name());
 			System.out.println("Оқу жылы: " + student.getYearOfStudy());
 		}
-        if(student.getResearcherProfile()==null||student.getResearcherProfile().getArticles().isEmpty()){
+		if(student.getResearcherProfile()==null||student.getResearcherProfile().getArticles().isEmpty()){
 			if(l==0){
 				System.out.println(student.getResearcherProfile()==null?"You don't have researcher profile.":"Researcher profile: No articles available.");
 			}else if(l==1){
@@ -219,18 +172,17 @@ public class StudentView extends UserView
 	private static String extractTime(String lesson) {
 		return lesson.split("\n")[1].split("-")[0];
 	}
-	
+
 	private static String[] splitLesson(String lesson) {
-		return lesson.split("\n"); 
+		return lesson.split("\n");
 	}
 
 	private Lesson findKeyByElement(Map<Lesson, List<Student>> map, Student element) {
-        for (Map.Entry<Lesson, List<Student>> entry : map.entrySet()) {
-            if (entry.getValue().contains(element)) {
-                return entry.getKey();
-            }
-        }
-        return null; 
-    }
+		for (Map.Entry<Lesson, List<Student>> entry : map.entrySet()) {
+			if (entry.getValue().contains(element)) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
 }
-

@@ -18,7 +18,6 @@ public class UserController<Model extends User, View extends UserView> {
     protected Model currentModel;
     private final Database database = Database.getInstance();
     protected View currentView;
-    protected Languageg language = CoreSystem.getLanguageMode();
 
     public UserController(){
 
@@ -50,21 +49,20 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public static boolean login(String email, String password){
-        //TODO: DODELAT
-        User u =  Database.getInstance()
+        User u = Database.getInstance()
                 .getUsers()
                 .stream()
                 .filter(user -> user.getLogin().equals(email))
                 .findFirst()
                 .orElse(null);
         if (u == null){
-            System.out.println("Exception: user not found"); // TODO: make the exceptions
+            System.out.println("Ошибка: пользователь не найден.");
             return false;
         }
 
         String psw = Database.getInstance().getUserPasswords().get(u);
-        if (psw == null || psw != password){
-            System.out.println("Exception: password is not correct");
+        if (psw == null || !psw.equals(password)){
+            System.out.println("Ошибка: неверный пароль.");
             return false;
         }
         return true;

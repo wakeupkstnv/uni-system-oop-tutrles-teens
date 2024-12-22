@@ -23,5 +23,4 @@ public class StudentController <Model extends Student, View extends StudentView>
         }
         return false;
     }
-
 }

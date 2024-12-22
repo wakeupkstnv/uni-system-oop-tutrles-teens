@@ -2,6 +2,7 @@ package study.utils;
 
 import study.Period;
 import users.models.Student;
+import users.models.Teacher;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -19,6 +20,8 @@ public class Course {
 	private String title;
 	private int year;
 	private Period period;
+
+	private Teacher teacher;
 	private Map<Student, Mark> gradebook;
 	private int capacity;
 
@@ -34,10 +37,11 @@ public class Course {
 	 * @param period   Period during which the course is held.
 	 * @param capacity Maximum number of students allowed.
 	 */
-	public Course(String uuid, String title, int year, Period period, int capacity) {
+	public Course(String uuid, String title, Teacher teacher, int year, Period period, int capacity) {
 		this.uuid = uuid;
 		this.title = title;
 		this.year = year;
+		this.teacher = teacher;
 		this.period = period;
 		this.capacity = capacity;
 		this.gradebook = new HashMap<>();
@@ -172,6 +176,14 @@ public class Course {
 			}
 		}
 		return null;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 
 	/**

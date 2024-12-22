@@ -1,18 +1,11 @@
 package users.models;
 
+import papers.ResearchPaper;
+
 import java.util.Objects;
 import java.util.Vector;
 
-import papers.ResearchPaper;
-
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
-
-public class Researcher implements Comparable<Researcher>
-{
+public class Researcher implements Comparable<Researcher> {
 	private String uuid;
 	private double hindex;
 	private Vector<ResearchPaper> articles;
@@ -21,12 +14,12 @@ public class Researcher implements Comparable<Researcher>
 	public Researcher() {
 
 	}
-	
+
 	public Researcher(String uuid, User user){
 		this.uuid = uuid;
 		this.userInstance = user;
 		this.hindex = 0;
-		this.articles = new Vector<ResearchPaper>();
+		this.articles = new Vector<>();
 	}
 
 	public Researcher(String uuid, User user, double hindex){
@@ -39,14 +32,15 @@ public class Researcher implements Comparable<Researcher>
 		this.articles = articles;
 	}
 
+	// Getters and Setters
+
 	public double getHindex() {
-	    return hindex;
+		return hindex;
 	}
 
 	public void setHindex(double hindex) {
-	    this.hindex = hindex;
+		this.hindex = hindex;
 	}
-
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
@@ -57,11 +51,11 @@ public class Researcher implements Comparable<Researcher>
 	}
 
 	public Vector<ResearchPaper> getArticles() {
-	    return articles;
+		return articles;
 	}
 
 	public void setArticles(Vector<ResearchPaper> articles) {
-	    this.articles = articles;
+		this.articles = articles;
 	}
 
 	public User getUserInstance() {
@@ -81,8 +75,12 @@ public class Researcher implements Comparable<Researcher>
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Researcher that = (Researcher) o;
-		return Double.compare(that.hindex, hindex) == 0 && Objects.equals(uuid, that.uuid) && Objects.equals(articles, that.articles) && Objects.equals(userInstance, that.userInstance);
+		return Double.compare(that.hindex, hindex) == 0 &&
+				Objects.equals(uuid, that.uuid) &&
+				Objects.equals(articles, that.articles) &&
+				Objects.equals(userInstance, that.userInstance);
 	}
 
 	@Override
@@ -100,4 +98,3 @@ public class Researcher implements Comparable<Researcher>
 				'}';
 	}
 }
-

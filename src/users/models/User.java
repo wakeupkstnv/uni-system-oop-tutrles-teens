@@ -1,20 +1,11 @@
 package users.models;
 
-import papers.ResearchPaper;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Vector;
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
-
-public abstract class User implements Serializable
-{
+public abstract class User implements Serializable {
     protected String uuid;
     protected String firstName;
     protected String lastName;
@@ -25,15 +16,10 @@ public abstract class User implements Serializable
     protected Vector<String> allNotifications;
     protected boolean isBanned;
 
-   
-
-
-    /**
-     * Конструктор с параметрами для инициализации всех полей
-     */
-    public User(){
-        
+    public User() {
+        // Default constructor
     }
+
     public User(String uuid, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
         this.uuid = uuid;
         this.firstName = firstName;
@@ -46,9 +32,7 @@ public abstract class User implements Serializable
         this.isBanned = false;
     }
 
-
-    // Геттеры и сеттеры для всех полей
-
+    // Getters and Setters
 
     public String getUuid() {
         return uuid;
@@ -115,46 +99,37 @@ public abstract class User implements Serializable
     }
 
     public boolean isBanned() {
-        return this.isBanned;
+        return isBanned;
     }
 
     public void setBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
         return Objects.equals(uuid, user.uuid) &&
-               Objects.equals(firstName, user.firstName) &&
-               Objects.equals(lastName, user.lastName) &&
-               Objects.equals(email, user.email) &&
-               Objects.equals(login, user.login) &&
-               Objects.equals(birthDate, user.birthDate) &&
-               Objects.equals(hashedPassword, user.hashedPassword) &&
-               Objects.equals(allNotifications, user.allNotifications);
+                Objects.equals(login, user.login);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, firstName, lastName, email, login, birthDate, hashedPassword, allNotifications);
+        return Objects.hash(uuid, login);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + uuid + '\'' +
+                "uuid='" + uuid + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", birthDate=" + birthDate +
-                ", hashedPassword='" + hashedPassword + '\'' +
-                ", allNotifications=" + allNotifications.size() +
                 ", isBanned=" + isBanned +
                 '}';
     }

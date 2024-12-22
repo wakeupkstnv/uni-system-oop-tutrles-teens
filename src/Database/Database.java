@@ -14,16 +14,12 @@ import post.Request;
 
 import java.io.Serializable;
 import java.util.HashMap;
-
-
-
 import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
  */
-
 public class Database implements Serializable{
     /**
      * <!-- begin-user-doc -->
@@ -32,7 +28,8 @@ public class Database implements Serializable{
     static final String PATH = "./project-x/src/database/data/";
     private Vector<Course> courses;
 
-    private HashMap<User, String> userPasswords;
+    // Изменено: Хранение паролей по логину пользователя
+    private HashMap<String, String> userPasswords;
 
     private HashMap<Student, Vector<Course>> studentCourses;
 
@@ -87,28 +84,30 @@ public class Database implements Serializable{
         this.requests = loadVector(PATH + "requests.txt");
         this.employees = loadVector(PATH + "employees.txt");
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");
-        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        this.facultyDean = loadHashMap(PATH + "facultyDean.txt");
     }
 
     public HashMap<Faculty, Dean> getFacultyDean() {
-        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        this.facultyDean = loadHashMap(PATH + "facultyDean.txt");
         return facultyDean;
     }
 
     public void addDeanToFaculty(Dean dean, Faculty faculty){
-        this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+        this.facultyDean = loadHashMap(PATH + "facultyDean.txt");
         facultyDean.put(faculty, dean);
-        saveHashMap(facultyDean, PATH + "facultyDean .txt");
+        saveHashMap(facultyDean, PATH + "facultyDean.txt");
     }
 
-    public HashMap<User, String> getUserPasswords() {
+    // Изменено: Метод теперь возвращает HashMap<String, String>
+    public HashMap<String, String> getUserPasswords() {
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");
         return userPasswords;
     }
 
+    // Изменено: Использование логина вместо объекта User
     public void addUserPassword(User user, String password){
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");
-        this.userPasswords.put(user, password);
+        this.userPasswords.put(user.getLogin(), password);
         saveHashMap(this.userPasswords, PATH + "userPasswords.txt");
     }
 
@@ -148,8 +147,9 @@ public class Database implements Serializable{
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.put(student, courses);
+            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
         }
+        saveHashMap(studentCourses, PATH + "studentCourses.txt");
     }
 
     public void addCourseToStudent(String studentUuid, Course course){
@@ -161,14 +161,16 @@ public class Database implements Serializable{
                 .findFirst()
                 .orElse(null);
 
-        if (student == null) return; //TODO: add exceptions!!!
+        if (student == null) {
+            // TODO: add exceptions!!!
+        }
 
         if (studentCourses.get(student) == null){
             Vector<Course> c = new Vector<Course>();
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.put(student, courses);
+            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
         }
 
         saveHashMap(studentCourses,PATH + "studentCourses.txt");
@@ -189,19 +191,23 @@ public class Database implements Serializable{
                 .findFirst()
                 .orElse(null);
 
-        if (student == null) return; //TODO: add exceptions!!!
-        if (course == null) return; //TODO: add excrption!!!!
+        if (student == null) {
+            // TODO: add exceptions!!!
+            System.out.println("!!!");
+        }
+        if (course == null) {
+            System.out.println("!!!");
+        }
 
         if (studentCourses.get(student) == null){
             Vector<Course> c = new Vector<Course>();
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.put(student, courses);
+            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
         }
 
         saveHashMap(this.studentCourses, PATH + "studentCourses.txt");
-
     }
 
     public Researcher getTopCitedResearcher() {
@@ -440,6 +446,7 @@ public class Database implements Serializable{
         }
     }
 
+    @SuppressWarnings("unchecked")
     private <F, S> HashMap<F, S> loadHashMap(String filePath) {
         Object deserializedObject = ReaderWriter.deserialize(filePath);
         if (deserializedObject instanceof HashMap) {
@@ -448,7 +455,6 @@ public class Database implements Serializable{
         return new HashMap<>();
     }
 
-
     private <F, S> void saveHashMap(HashMap<F, S> hashMap, String filePath) {
         if (ReaderWriter.serialize(hashMap, filePath)) {
             System.out.println("Данные успешно сохранены в " + filePath);
@@ -456,6 +462,7 @@ public class Database implements Serializable{
             System.out.println("Ошибка при сохранении данных в " + filePath);
         }
     }
+
     public void setRegistationState(boolean registationState) {
         this.registationState = registationState;
     }

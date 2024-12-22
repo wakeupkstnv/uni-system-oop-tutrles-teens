@@ -1,21 +1,10 @@
 package users.controller;
 
 import database.Database;
-import users.models.User;
+import users.models.*;
 import users.UserType;
 import users.Faculty;
 import users.TeacherType;
-import users.models.Employee;
-import users.models.GraduateStudent;
-import users.models.Student;
-import users.models.Dean;
-import users.models.Teacher;
-import users.models.Researcher;
-import users.models.Major;
-import users.models.Manager;
-import users.models.PhdStudent;
-import users.models.MasterStudent;
-import users.models.Admin;
 import papers.ResearchPaper;
 
 import java.io.BufferedReader;
@@ -23,13 +12,11 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
-// TODO: Add constructors for all classes
-
+/**
+ * Factory class for creating different types of users.
+ */
 public class UserFactory {
 
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
@@ -50,54 +37,71 @@ public class UserFactory {
      * @param birthDate   Date of birth
      * @param userType    Type of user
      * @param reader      BufferedReader for input
-     * @return Created User object
+     * @return Created User object or null if creation fails
      */
-    public User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
+    public static User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
         String generatedPassword = generatePassword();
         String hashedPassword = hashPassword(generatedPassword);
-        // TODO our hash function!
+        // TODO: Implement your own hash function if needed
 
         System.out.println("Generated password for user " + login + ": " + generatedPassword);
         switch (userType) {
             case EMPLOYEE:
                 Employee employee = new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                Database.getInstance().addUser(employee);
-                //TODO if you want you can save emplaoyee in databse
+                Database.getInstance().addUserPassword(employee, hashedPassword);
+                return employee;
+
             case MANAGER:
                 Manager manager = createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                Database.getInstance().addUser(manager);
-                //TODO if you want you can save manager in databse
+                Database.getInstance().addUserPassword(manager, hashedPassword);
                 return manager;
+
             case STUDENT:
                 Student student = createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addStudent(student);
+                Database.getInstance().addUserPassword(student, hashedPassword);
                 return student;
+
             case DEAN:
                 Dean dean = createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                //TODO if you want you can save Deam in database
+                Database.getInstance().addUserPassword(dean, hashedPassword);
                 return dean;
+
             case TEACHER:
                 Teacher teacher = createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addTeacher(teacher);
+                Database.getInstance().addUserPassword(teacher, hashedPassword);
+                if (teacher != null) {
+                    Database.getInstance().addTeacher(teacher);
+                }
                 return teacher;
+
             case ADMIN:
                 Admin admin = new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                //todo: you can save admin in db
+                // TODO: Save admin in DB if required
+                Database.getInstance().addUserPassword(admin, hashedPassword);
                 return admin;
+
             case GRADUATED_STUDENT:
                 GraduateStudent graduateStudent = createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addStudent(graduateStudent);
-                //todo: if you want you can save graduateStudent in db
+                Database.getInstance().addUserPassword(graduateStudent, hashedPassword);
+                if (graduateStudent != null) {
+                    Database.getInstance().addStudent(graduateStudent);
+                }
                 return graduateStudent;
 
             case PHD_STUDENT:
-                PhdStudent phdStudent =  createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                // todo: if you want you can save in db
-                Database.getInstance().addStudent(phdStudent);
+                PhdStudent phdStudent = createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                Database.getInstance().addUserPassword(phdStudent, hashedPassword);
+                if (phdStudent != null) {
+                    Database.getInstance().addStudent(phdStudent);
+                }
                 return phdStudent;
+
             case MASTER_STUDENT:
                 MasterStudent masterStudent = createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                Database.getInstance().addStudent(masterStudent);
+                Database.getInstance().addUserPassword(masterStudent, hashedPassword);
+                if (masterStudent != null) {
+                    Database.getInstance().addStudent(masterStudent);
+                }
                 return masterStudent;
 
             default:
@@ -110,7 +114,7 @@ public class UserFactory {
      *
      * @return Generated password
      */
-    private String generatePassword() {
+    private static String generatePassword() {
         SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
 
@@ -128,7 +132,7 @@ public class UserFactory {
      * @param password Password to hash
      * @return Hashed password in hexadecimal format
      */
-    private String hashPassword(String password) {
+    private static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(password.getBytes());
@@ -145,7 +149,7 @@ public class UserFactory {
     /**
      * Creates a Student object.
      */
-    private Student createStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
+    private static Student createStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int year = readInt(reader, "Enter year of study: ");
             Faculty faculty = readFaculty(reader);
@@ -160,7 +164,7 @@ public class UserFactory {
     /**
      * Creates a Dean object.
      */
-    private Dean createDean(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
+    private static Dean createDean(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             Faculty deanFaculty = readFaculty(reader);
             return new Dean(id, firstName, lastName, email, login, birthDate, hashedPassword, deanFaculty);
@@ -171,11 +175,9 @@ public class UserFactory {
     }
 
     /**
-     * 
-     * 
      * Creates a Teacher object.
      */
-    private Teacher createTeacher(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
+    private static Teacher createTeacher(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             Faculty teacherFaculty = readFaculty(reader);
             TeacherType teacherType = readTeacherType(reader);
@@ -189,7 +191,7 @@ public class UserFactory {
     /**
      * Creates a GraduateStudent object.
      */
-    private GraduateStudent createGraduatedStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
+    private static GraduateStudent createGraduatedStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int graduationYear = readInt(reader, "Enter graduation year: ");
             return new GraduateStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, graduationYear);
@@ -202,8 +204,8 @@ public class UserFactory {
     /**
      * Creates a PhdStudent object.
      */
-    private PhdStudent createPhDStudent(String id, String firstName, String lastName, String email, String login,
-                                        Date birthDate, String hashedPassword, BufferedReader reader) {
+    private static PhdStudent createPhDStudent(String id, String firstName, String lastName, String email, String login,
+                                               Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int masterCourse = readInt(reader, "Enter master course: ");
             int masterEnrollmentYear = readInt(reader, "Enter master enrollment year: ");
@@ -229,9 +231,9 @@ public class UserFactory {
     /**
      * Creates a MasterStudent object.
      */
-    private MasterStudent createMasterStudent(String id, String firstName, String lastName, String email, String login,
-                                              Date birthDate, String hashedPassword,
-                                              BufferedReader reader) {
+    private static MasterStudent createMasterStudent(String id, String firstName, String lastName, String email, String login,
+                                                     Date birthDate, String hashedPassword,
+                                                     BufferedReader reader) {
         try {
             int masterCourse = readInt(reader, "Enter master course: ");
             int masterEnrollmentYear = readInt(reader, "Enter master enrollment year: ");
@@ -246,18 +248,9 @@ public class UserFactory {
     /**
      * Creates a Manager object.
      */
-    private Manager createManager(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
+    private static Manager createManager(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
         return new Manager(id, firstName, lastName, email, login, birthDate, hashedPassword);
     }
-
-    /**
-     * Creates an Admin object.
-     */
-    private Admin createAdmin(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
-        return new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
-    }
-
-
 
     /**
      * Reads an integer from BufferedReader with a prompt and error handling.
@@ -267,7 +260,7 @@ public class UserFactory {
      * @return Entered integer
      * @throws IOException If an input error occurs
      */
-    private int readInt(BufferedReader reader, String prompt) throws IOException {
+    private static int readInt(BufferedReader reader, String prompt) throws IOException {
         int result = -1;
         while (true) {
             System.out.print(prompt);
@@ -281,7 +274,6 @@ public class UserFactory {
         }
         return result;
     }
-
 
     /**
      * Reads a double from BufferedReader with a prompt and error handling.
@@ -313,7 +305,7 @@ public class UserFactory {
      * @return Selected Faculty
      * @throws IOException If an input error occurs
      */
-    private Faculty readFaculty(BufferedReader reader) throws IOException {
+    private static Faculty readFaculty(BufferedReader reader) throws IOException {
         Faculty faculty = null;
         boolean valid = false;
         while (!valid) {
@@ -336,11 +328,11 @@ public class UserFactory {
      * @return Selected TeacherType
      * @throws IOException If an input error occurs
      */
-    private TeacherType readTeacherType(BufferedReader reader) throws IOException {
+    private static TeacherType readTeacherType(BufferedReader reader) throws IOException {
         TeacherType teacherType = null;
         boolean valid = false;
         while (!valid) {
-            System.out.print("Enter teacher type (TUTOR, SENIOR_LECTURE, LECTURE, ASSISTANT): ");
+            System.out.print("Enter teacher type (TUTOR, SENIOR_LECTURER, LECTURER, ASSISTANT): ");
             String typeStr = reader.readLine().trim().toUpperCase();
             try {
                 teacherType = TeacherType.valueOf(typeStr);
@@ -360,7 +352,7 @@ public class UserFactory {
      * @return Selected Major
      * @throws IOException If an input error occurs
      */
-    private Major selectMajorForFaculty(Faculty faculty, BufferedReader reader) throws IOException {
+    private static Major selectMajorForFaculty(Faculty faculty, BufferedReader reader) throws IOException {
         System.out.println("Select major:");
         switch (faculty) {
             case SITE:

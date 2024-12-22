@@ -1,6 +1,8 @@
 package study.utils;
 
 
+import users.models.Student;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -23,8 +25,8 @@ public class Transcript extends GradeReport
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Transcript(){
-		super();
+	public Transcript(Student student){
+		super(student);
 	}
 
 	/**

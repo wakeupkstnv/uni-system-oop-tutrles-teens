@@ -36,7 +36,7 @@ public class GradeReport
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public GradeReport(student){
+	public GradeReport(Student student){
 		this.student = student;
 	}
 

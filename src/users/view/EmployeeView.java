@@ -138,8 +138,8 @@ public class EmployeeView<Model extends Employee> extends UserView<Employee> {
  
     }
     
-    public static void showCreateRequest(EmployeeController employeeController, BufferedReader reader) {
-    	if(language == Language.ENG) {
+    public static void showCreateRequest(EmployeeController employeeController, BufferedReader reader) throws IOException {
+    	if(CoreSystem.getLanguageMode() == Language.ENG) {
     		System.out.print("Enter title: ");
 			String text = reader.readLine();
 			
@@ -147,13 +147,21 @@ public class EmployeeView<Model extends Employee> extends UserView<Employee> {
 			String desc = reader.readLine();
 			
 			System.out.print("Select urgency: ");
-			Urgency urg = readUrgency(reader);
-			
-			
-			
-			employeeController.createRequest(text, desc, urg);
+            System.out.println("1: Low\n2: Medium\n3:High");
+			String choice = reader.readLine();
+			Urgency u = Urgency.LOW;
+			if (choice == "1"){
+                u = Urgency.LOW;
+            } else if (choice == "2") {
+                u = Urgency.MEDIUM;
+            } else if(choice == "3"){
+                u = Urgency.HIGH;
+            }
+
+            employeeController.createRequest(text, desc, u);
 			
 			
     	}
     }
+
 }

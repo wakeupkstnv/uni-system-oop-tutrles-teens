@@ -1,11 +1,6 @@
 package users.view;
 
 
-<<<<<<< HEAD
-import core.CoreSystem;
-import core.Language;
-=======
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 import papers.Format;
 import papers.ResearchPaper;
 import users.models.Researcher;
