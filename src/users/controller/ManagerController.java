@@ -5,6 +5,7 @@ import post.News;
 import post.Request;
 import post.Urgency;
 import study.utils.Course;
+import users.models.Dean;
 import users.models.Employee;
 import users.models.Manager;
 import users.models.Teacher;
@@ -30,7 +31,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         if(request.getUrgency() != Urgency.HIGH){
             request.setSigned(false);
             redirectRequest(request, request.getAuthor());
-            // TODO добавление в лог бд
+
         }
     }
 
@@ -50,8 +51,12 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
 
     public void signRequest(Request request) {
         if (request.getUrgency() != Urgency.HIGH){
-            request.setSign(true);
+            request.setSigned(true);
             redirectRequest(request, request.getAuthor());
+        }
+        else {
+        	Dean dean = Database.getInstance().getDean();
+        	redirectRequest(request, dean);
         }
     }
 
@@ -62,9 +67,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
      * @ordered
      */
 
-    public void redirectRequest(Request request, User user) {
-
-    }
+ 
 
     public void addNews(News news) {
         Database.getInstance().getNews().add(news);

@@ -102,6 +102,11 @@ public class Database implements Serializable{
         facultyDean.put(faculty, dean);
         saveHashMap(facultyDean, PATH + "facultyDean .txt");
     }
+    
+    public HashMap<Faculty, Dean> getDean(){
+    	 this.facultyDean = loadHashMap(PATH + "facultyDean .txt");
+    	 return facultyDean;
+    }
 
     public HashMap<User, String> getUserPasswords() {
         this.userPasswords = loadHashMap(PATH + "userPasswords.txt");

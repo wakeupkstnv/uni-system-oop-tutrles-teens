@@ -1,13 +1,10 @@
 package users.view;
 
-<<<<<<< HEAD
 import core.CoreSystem;
 import core.Language;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-=======
->>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 import java.util.Vector;
 
 import core.CoreSystem;

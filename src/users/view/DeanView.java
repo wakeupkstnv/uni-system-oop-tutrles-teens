@@ -10,7 +10,7 @@ import java.util.List;
 import core.CoreSystem;
 import core.Language;
 
-public class DeanView extends EmployeeView {
+public class DeanView extends ManagerView {
     public DeanView() {
         super();
     }
