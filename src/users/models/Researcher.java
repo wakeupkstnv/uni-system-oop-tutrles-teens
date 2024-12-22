@@ -6,7 +6,9 @@ import papers.ResearchPaper;
 import java.util.Objects;
 import java.util.Vector;
 
-public class Researcher implements Comparable<Researcher> {
+public class Researcher implements Comparable<Researcher>
+{
+
 	private String uuid;
 	private double hindex;
 	private Vector<ResearchPaper> articles;

@@ -24,6 +24,7 @@ public class GraduateStudent extends Student {
 		this.researcherProfile = new Researcher(this.uuid, this, 0.0);
 	}
 
+
 	// Getters and Setters
 
 	public int getGraduationYear() {

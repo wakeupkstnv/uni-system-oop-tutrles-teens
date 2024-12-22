@@ -8,7 +8,6 @@ import post.Post;
 import study.Period;
 import study.utils.Course;
 import users.Faculty;
-import users.exceptions.UserNotFoundException;
 import users.models.*;
 import post.Request;
 
@@ -162,7 +161,19 @@ public class Database implements Serializable{
                 .orElse(null);
 
         if (student == null) {
-            // TODO: add exceptions!!!
+
+            String message = "";
+            switch (core.CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Студент с UUID " + studentUuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Student with UUID " + studentUuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Студент UUID-мен " + studentUuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
         }
 
         if (studentCourses.get(student) == null){
@@ -192,11 +203,36 @@ public class Database implements Serializable{
                 .orElse(null);
 
         if (student == null) {
-            // TODO: add exceptions!!!
-            System.out.println("!!!");
+
+            String message = "";
+            switch (core.CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Студент с UUID " + studentUuid + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Student with UUID " + studentUuid + " does not exist\n";
+                    break;
+                default:
+                    message = "Студент UUID-мен " + studentUuid + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
+
         }
         if (course == null) {
+
             System.out.println("!!!");
+            String message = "";
+            switch (core.CoreSystem.getLanguageMode()) {
+                case RUS:
+                    message = "Курс с UUID " + uuidCourse + " не существует\n";
+                    break;
+                case ENG:
+                    message = "Course with UUID " + uuidCourse + " does not exist\n";
+                    break;
+                default:
+                    message = "Курс UUID-мен " + uuidCourse + " жоқ";
+            }
+            throw new IllegalArgumentException(message);
         }
 
         if (studentCourses.get(student) == null){

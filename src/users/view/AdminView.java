@@ -252,14 +252,51 @@ public class AdminView extends ManagerView {
 		System.out.println("8: PhD Student - A student pursuing a Doctor of Philosophy degree.");
 		System.out.println("9: Master Student - A student pursuing a Master's degree.");
 		System.out.println("10: View info about user types - Displays user types.");
+
+	}
+
+
+
+
+
+
+
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+
+
+
+	public void showAllLogs() {
+		Vector<String> log = Database.getInstance().getLogs();
+		System.out.println(log);
+>>>>>>> 4de3ab10af756df789c2874bca497d927c817587
 	}
 
 	/**
 	 * Метод для отображения успешной регистрации пользователя
 	 */
+<<<<<<< HEAD
 	public void registerSpecificUserSuccess(UserType userType) {
 		System.out.println(userType + " successfully registered!");
 	}
 
 	// Остальные методы (showLoginResult, showLogoutMessage, showSubscriptionResult, showError, showAllLogs, showUserLogs) остаются без изменений
+=======
+
+	public void showUserLogs(String id) {
+        Vector<String> log = Database.getInstance().getLogs();
+        for (String entry : log) {
+            if (entry.contains(id)) {
+                System.out.println(entry);
+            }
+        }
+    }
+
+>>>>>>> 4de3ab10af756df789c2874bca497d927c817587
 }
