@@ -2,9 +2,13 @@ package users.view;
 
 
 import post.News;
+import users.UserType;
 import users.controller.AdminController;
+<<<<<<< HEAD
 import core.CoreSystem;
 import core.Language;
+=======
+>>>>>>> 95fbc31b11f295a6a844abb908b8036b6c77aec5
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+
+import core.CoreSystem;
+import core.Language;
 
 
 /**
@@ -184,7 +191,25 @@ public class AdminView extends ManagerView
 		}
 		
 	}
+	
+	private void displayUserTypes() {
+        System.out.println("Displaying information about user types...");
+        System.out.println("1: Employee - Works in the company or organization.");
+        System.out.println("2: Student - A student enrolled in the university.");
+        System.out.println("3: Teacher - An academic staff member.");
+        System.out.println("4: Admin - Manages the platform or system.");
+        System.out.println("5: Dean - Head of the department or faculty.");
+        System.out.println("6: Researcher - Conducts scientific research.");
+        System.out.println("7: Graduated Student - A student who has completed their degree.");
+        System.out.println("8: PhD Student - A student pursuing a Doctor of Philosophy degree.");
+        System.out.println("9: Master Student - A student pursuing a Master's degree.");
+        System.out.println("10: View info about user types - Displays user types.");
+    }
 
+	
+	public void registerSpecificUserSucces(UserType userType) {
+		System.out.println(userType + " successfully registered!");
+	}
 
 	public void showLoginResult(boolean success) {
 		// TODO implement me

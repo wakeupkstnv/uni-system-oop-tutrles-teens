@@ -45,38 +45,7 @@ public class Dean extends Manager
 	 * @ordered
 	 */
 	
-	public void rejectRequest(Request request) {
-		// TODO implement me
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void signRequest(Request request) {
-		// TODO implement me
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void redirectRequest(Request request, Manager manager) {
-		// TODO implement me
-	}
 	
 	/**
 	 * <!-- begin-user-doc -->

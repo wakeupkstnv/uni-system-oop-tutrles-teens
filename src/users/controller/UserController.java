@@ -18,6 +18,7 @@ public class UserController<Model extends User, View extends UserView> {
     protected Model currentModel;
     private final Database database = Database.getInstance();
     protected View currentView;
+    protected Languageg language = CoreSystem.getLanguageMode();
 
     public UserController(){
 

@@ -116,7 +116,10 @@ public class Student extends User implements CanBecomeResearcher {
     public void setYearOfStudy(int yearOfStudy) {
         this.yearOfStudy = yearOfStudy;
     }
-
+     public Researcher getResearcherProfile() {
+        return reseacherProfile;
+     }
+     
     @Override
     public void becomeResearcher() {
         this.reseacherProfile = new Researcher(

@@ -28,5 +28,6 @@ public class Main {
         }
 //        AdminController adminController = new AdminController<>(admin, new AdminView());
 
+
     }
 }

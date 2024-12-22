@@ -2,6 +2,7 @@ package study.utils;
 
 
 import java.util.Vector;
+import users.models.Student;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,6 +12,7 @@ import java.util.Vector;
 
 public class GradeReport
 {
+	private Student student;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -34,8 +36,8 @@ public class GradeReport
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public GradeReport(){
-		super();
+	public GradeReport(student){
+		this.student = student;
 	}
 
 	/**

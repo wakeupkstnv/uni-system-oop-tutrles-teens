@@ -1,6 +1,8 @@
 package papers;
 
 import users.models.Researcher;
+import Core.CoreSystem;
+import Core.Language;
 
 import java.util.Vector;
 
@@ -65,9 +67,69 @@ public class ResearchProject {
 	 * @return Строка с информацией о статьях.
 	 */
 	public String printPapers() {
-		 //TODO: доделать это!!
-		return "";
+		Language language = CoreSystem.getLanguageMode();
+
+		StringBuilder papersInfo = new StringBuilder();
+
+		if (language == Language.ENG) {
+			papersInfo.append("Published Papers: \n");
+			for (ResearchPaper paper : publishedPapers) {
+				papersInfo.append(paper.getTitle()).append("\n");
+			}
+
+			if (researchSupervisor != null) {
+				papersInfo.append("\nResearch Supervisor: ").append(researchSupervisor.getUserInstance().getFirstName()).append("\n");
+			}
+
+			if (participants.size() > 0) {
+				papersInfo.append("\nParticipants: \n");
+				for (Researcher participant : participants) {
+					papersInfo.append(participant.getUserInstance().getFirstName()).append("\n");
+				}
+			} else {
+				papersInfo.append("\nNo participants yet.\n");
+			}
+		} else if (language == Language.RUS) {
+			papersInfo.append("Опубликованные статьи: \n");
+			for (ResearchPaper paper : publishedPapers) {
+				papersInfo.append(paper.getTitle()).append("\n");
+			}
+
+			if (researchSupervisor != null) {
+				papersInfo.append("\nРуководитель исследования: ").append(researchSupervisor.getUserInstance().getFirstName()).append("\n");
+			}
+
+			if (participants.size() > 0) {
+				papersInfo.append("\nУчастники: \n");
+				for (Researcher participant : participants) {
+					papersInfo.append(participant.getUserInstance().getFirstName()).append("\n");
+				}
+			} else {
+				papersInfo.append("\nНет участников.\n");
+			}
+		} else if (language == Language.KZ) {
+			papersInfo.append("Жарияланған мақалалар: \n");
+			for (ResearchPaper paper : publishedPapers) {
+				papersInfo.append(paper.getTitle()).append("\n");
+			}
+
+			if (researchSupervisor != null) {
+				papersInfo.append("\nЗерттеу жетекшісі: ").append(researchSupervisor.getUserInstance().getFirstName()).append("\n");
+			}
+
+			if (participants.size() > 0) {
+				papersInfo.append("\nҚатысушылар: \n");
+				for (Researcher participant : participants) {
+					papersInfo.append(participant.getUserInstance().getFirstName()).append("\n");
+				}
+			} else {
+				papersInfo.append("\nҚатысушылар жоқ.\n");
+			}
+		}
+
+		return papersInfo.toString();
 	}
+
 
 	// Геттеры и сеттеры
 

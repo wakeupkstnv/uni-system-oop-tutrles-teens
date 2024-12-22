@@ -3,6 +3,8 @@ package users.models;
 
 import papers.ResearchPaper;
 import post.Message;
+import post.Request;
+
 import java.util.*;
 
 /**
@@ -13,16 +15,17 @@ import java.util.*;
 
 public class Employee extends User implements CanBecomeResearcher
 {
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-	public Employee(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
-	    super(id, firstName, lastName, email, login, birthDate, hashedPassword);
-	    this.allMessages = new Vector<>();
-	}
+	protected Vector<Request> allRequests;
+	
+	protected  Vector<Request> myRequests;
+
 
 	
 	/**
@@ -50,6 +53,13 @@ public class Employee extends User implements CanBecomeResearcher
 	 */
 	
 	private Researcher reseacherProfile;
+	
+	
+	public Employee(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword) {
+	    super(id, firstName, lastName, email, login, birthDate, hashedPassword);
+	    this.allMessages = new Vector<>();
+	    this.allRequests = new Vector<>();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,7 +77,12 @@ public class Employee extends User implements CanBecomeResearcher
 	            System.out.println("Error: Message cannot be empty.");
 	            return;
 	        }
+	        if (employee.getUuid().equals(this.getUuid())) {
+                throw new IllegalArgumentException("Cannot send a message to yourself");
+            }
+	        
 	        Message message = new Message(this, text, new Date());
+	        
 	        employee.allMessages.add(message);
 	        System.out.println("Message sent successfully to " + employee.getFirstName() + " " + employee.getLastName());
 	    }
@@ -82,6 +97,19 @@ public class Employee extends User implements CanBecomeResearcher
 	public Vector<Message> viewAllMessages() {
 	    return allMessages;
 	}
+	
+	public Vector<Request> getAllRequests() {
+        return allRequests;
+    }
+	public Vector<Request> getMyRequests() {
+        return myRequests;
+    }
+	
+    public void setAllRequests(Vector<Request> allRequests) {
+        this.allRequests = allRequests;
+    }
+    
+
 
 	@Override
     public void becomeResearcher() {
@@ -90,6 +118,16 @@ public class Employee extends User implements CanBecomeResearcher
 				this
 		);
     }
+
+	public void addRequest(Request request) {
+		allRequests.add(request);
+		
+	}
+	
+	public void addMyRequest(Request request) {
+		myRequests.add(request);
+		allRequests.add(request);
+	}
 
 	
 }
