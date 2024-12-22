@@ -4,7 +4,7 @@ import java.util.Date;
 
 import java.io.BufferedReader;
 
-import Database.Database;
+import database.Database;
 import users.exceptions.UserNotFoundException;
 import users.models.User;
 import users.view.AdminView;
@@ -111,7 +111,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
                         break;
 
                     case 10:
-                        displayUserTypes();
+                    	displayUserTypes();
                         break;
 
                     case 0:
@@ -133,14 +133,20 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
         Database.getInstance().addLog(""+userType);
         Database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
-
-        System.out.println(userType + " successfully registered!");
+        
+        registerSpecificUserSucces(userType);
+    
     }
+    
+	public void registerSpecificUserSucces(UserType userType) {
+		System.out.println(userType + " successfully registered!");
+	}
 
+    
     /**
      * Метод для отображения информации о типах пользователей
      */
-    private void displayUserTypes() {
+	private void displayUserTypes() {
         System.out.println("Displaying information about user types...");
         System.out.println("1: Employee - Works in the company or organization.");
         System.out.println("2: Student - A student enrolled in the university.");
@@ -153,7 +159,7 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         System.out.println("9: Master Student - A student pursuing a Master's degree.");
         System.out.println("10: View info about user types - Displays user types.");
     }
-
+    
     /**
      * Метод для просмотра логов
      */

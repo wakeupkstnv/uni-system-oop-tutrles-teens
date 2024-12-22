@@ -79,11 +79,13 @@ public class AdminView extends ManagerView
 				System.out.print("Enter Last Name: ");
 				String lastName = reader.readLine();
 
-				System.out.print("Enter Email: ");
-				String email = reader.readLine();
+				// Generate email
+				String email = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase() + "@kuas.jp";
+				System.out.println("Generated Email: " + email);
 
-				System.out.print("Enter Login: ");
-				String login = reader.readLine();
+				// Generate login (without @kuas.jp)
+				String login = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase();
+				System.out.println("Generated Login: " + login);
 
 				System.out.print("Enter Birth Date (yyyy-MM-dd): ");
 				String birthDateStr = reader.readLine();
@@ -125,10 +127,15 @@ public class AdminView extends ManagerView
 				String firstName = reader.readLine();
 				System.out.print("Тегі енгізіңіз: ");
 				String lastName = reader.readLine();
-				System.out.print("Электрондық пошта енгізіңіз: ");
-				String email = reader.readLine();
-				System.out.print("Логин енгізіңіз: ");
-				String login = reader.readLine();
+
+				// Генерация email
+				String email = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase() + "@kuas.jp";
+				System.out.println("Теңшелген Email: " + email);
+
+				// Генерация логина (без @kuas.jp)
+				String login = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase();
+				System.out.println("Теңшелген Логин: " + login);
+
 				System.out.print("Туған күн (yyyy-MM-dd) енгізіңіз: ");
 				String birthDateStr = reader.readLine();
 				Date birthDate = null;
@@ -168,10 +175,15 @@ public class AdminView extends ManagerView
 				String firstName = reader.readLine();
 				System.out.print("Введите фамилию: ");
 				String lastName = reader.readLine();
-				System.out.print("Введите Email: ");
-				String email = reader.readLine();
-				System.out.print("Введите логин: ");
-				String login = reader.readLine();
+
+				// Генерация email
+				String email = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase() + "@kuas.jp";
+				System.out.println("Сгенерированный Email: " + email);
+
+				// Генерация логина (без @kuas.jp)
+				String login = firstName.toLowerCase().charAt(0) + "_" + lastName.toLowerCase();
+				System.out.println("Сгенерированный Логин: " + login);
+
 				System.out.print("Введите дату рождения (yyyy-MM-dd): ");
 				String birthDateStr = reader.readLine();
 				Date birthDate = null;
@@ -189,6 +201,7 @@ public class AdminView extends ManagerView
 		}
 		
 	}
+
 	
 	private void displayUserTypes() {
         System.out.println("Displaying information about user types...");
