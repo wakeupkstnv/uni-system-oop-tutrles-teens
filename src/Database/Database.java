@@ -28,7 +28,7 @@ public class Database implements Serializable{
     static final String PATH = "./project-x/src/database/data/";
     private Vector<Course> courses;
 
-    // Изменено: Хранение паролей по логину пользователя
+   
     private HashMap<String, String> userPasswords;
 
     private HashMap<Student, Vector<Course>> studentCourses;
@@ -204,7 +204,7 @@ public class Database implements Serializable{
             c.add(course);
             studentCourses.put(student, c);
         }  else{
-            studentCourses.get(student).add(course); // Исправлено: добавление курса к существующему списку
+            studentCourses.get(student).add(course); 
         }
 
         saveHashMap(this.studentCourses, PATH + "studentCourses.txt");
