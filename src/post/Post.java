@@ -15,7 +15,7 @@ import java.util.Date;
 abstract public class Post
 {
 	private String uuid;
-	private Employee author;
+	private User author;
 	private String text;
 	private Date date;
 
@@ -33,13 +33,13 @@ abstract public class Post
 	 * @generated
 	 */
 
-	public Post(Employee author, String text, Date date){
+	public Post(User author, String text, Date date){
 		this.author = author;
 		this.text = text;
 		this.date = date;
 	}
 
-	public Employee getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 }

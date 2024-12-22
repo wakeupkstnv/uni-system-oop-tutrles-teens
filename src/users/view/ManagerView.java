@@ -6,6 +6,8 @@ import post.Request;
 import post.Urgency;
 import study.utils.Course;
 import users.controller.ManagerController;
+import users.models.Employee;
+import users.models.Student;
 import users.models.Teacher;
 
 import java.util.Vector;
@@ -109,7 +111,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 		    }
 			System.out.printf("-".repeat(50)+"\n");
 		}
-	}
+	
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -161,29 +163,88 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 	}
 	
 	public void showEmployeeRequests() {
+		Vector<Request> requests = getRequestsOfEmployees();
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
+			System.out.println("List of employee requests: ");
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
+			System.out.println("Список запросов работников: ");
+		} else {
+			System.out.println("Қызметкерлердің сұраулар тізімі: ");
+			
+		}
+		System.out.printf("-".repeat(50)+"\n");
+		if (requests.isEmpty()) {
+			if (CoreSystem.getLanguageMode() == core.Language.RUS) {
+				System.out.printf("22s-%","Нет запросов.\n");
+			} else if (CoreSystem.getLanguageMode() == core.Language.ENG) {
+				System.out.printf("22s-%","No requests available.\n");
+			} else if (CoreSystem.getLanguageMode() == core.Language.KZ) {
+				System.out.printf("22s-%","Сұраулар жоқ.\n");
+			}
+		} else {
+			for(Request r:requests){
+				if(CoreSystem.getLanguageMode() == core.Language.ENG){
+					System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Request{"+"State="+( r.getSigned()?"Completed":"Rejected")+", urgency="+r.getUrgency().name()+", description='" + r.getDescription()+'}');
+				}else if(CoreSystem.getLanguageMode() == core.Language.RUS){
+				System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Запрос{"+"Состояние="+( r.getSigned()?"Выполнен":"Откланено")+", срочность="+r.getUrgency().name()+", описание='" + r.getDescription()+'}');
+			}else{	System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Сұрау{"+"Жағдайы="+( r.getSigned()?"Орындалды":"Бас тартылды")+", шұғылдық="+r.getUrgency().name()+", сиппатама='" + r.getDescription()+'}');
+		}
+		    }
+		    }
+		}
+
+	public void showEmployeeRequestsDetails(String id) {
+		Vector<Request> requests = getRequestsOfEmployees();
+		Request request = requests.stream().filter(r->r.getAuthor().getUuid().equals(id)).findFirst().orElse(null);
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
+			System.out.println("List of employee requests: ");
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
+			System.out.println("Список запросов работников: ");
+		} else {
+			System.out.println("Қызметкерлердің сұраулар тізімі: ");
+			
+		}
+		System.out.printf("-".repeat(50)+"\n");
+		if (request==null) {
+			if (CoreSystem.getLanguageMode() == core.Language.RUS) {
+				System.out.printf("22s-%","Запрос не найден.\n");
+			} else if (CoreSystem.getLanguageMode() == core.Language.ENG) {
+				System.out.printf("22s-%","Request not found.\n");
+			} else if (CoreSystem.getLanguageMode() == core.Language.KZ) {
+				System.out.printf("22s-%","Сұрау табылмады.\n");
+			}
+		} else {
+			for(Request r:requests){
+				if(r.getAuthor().getUuid().equals(id)){
+					if(CoreSystem.getLanguageMode() == core.Language.ENG){
+						System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Request{"+"State="+( r.getSigned()?"Completed":"Rejected")+", urgency="+r.getUrgency().name()+", description='" + r.getDescription()+'}');
+					}else if(CoreSystem.getLanguageMode() == core.Language.RUS){
+					System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Запрос{"+"Состояние="+( r.getSigned()?"Выполнен":"Откланено")+", срочность="+r.getUrgency().name()+", описание='" + r.getDescription()+'}');
+				}else{	System.out.println(r.getAuthor().getUuid()+"|"+r.getAuthor().getLastName()+" "+r.getAuthor().getFirstName()+"|"+"Сұрау{"+"Жағдайы="+( r.getSigned()?"Орындалды":"Бас тартылды")+", шұғылдық="+r.getUrgency().name()+", сиппатама='" + r.getDescription()+'}');
+			}
+				}
+			}
+			System.out.println();
+		}
 	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Request showEmployeeRequestsDetails(String id) {
-		// TODO implement me
-		return null;	
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	public void showStudentsList() {
-	}
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
+			System.out.println("List of students: ");
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
+			System.out.println("Список студентов: ");
+		} else {
+			System.out.println("Студенттер тізімі: ");
+			
+		}
+		System.out.printf("-".repeat(50)+"\n");
+		for(Student s:Database.getInstance().getStudents()){
+			System.out.printf("%-15s",s.getUuid());
+			System.out.printf("%-15s","|  "+s.getLastName()+" "+s.getFirstName()+"| Faculty: " + s.getFaculty().name()+"\n");
+		    }
+		}
+	
 	
 
 	@Override
@@ -218,6 +279,19 @@ public class ManagerView extends EmployeeView implements CanViewRequest
 		    }
 		    }
 		}
+	}
+	private Vector<Request> getRequestsOfEmployees(){
+		Vector<Request> requests = new Vector<>();
+		for(Request r:Database.getInstance().getRequests()){
+			if(r.getUrgency()!=null&&r.getUrgency()!=Urgency.HIGH){
+				for(Employee e: Database.getInstance().getEmployees()){
+					if(r.getAuthor().getUuid().equals(e.getUuid())){
+				       requests.add(r);
+					}
+				}
+			}
+		}
+		return requests;
 	}
 }
 

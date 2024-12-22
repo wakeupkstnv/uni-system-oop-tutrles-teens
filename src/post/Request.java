@@ -1,6 +1,7 @@
 package post;
 
 
+import users.models.Employee;
 import users.models.User;
 
 import java.util.Date;

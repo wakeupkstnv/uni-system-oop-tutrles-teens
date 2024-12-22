@@ -75,7 +75,7 @@ public class StudentView extends UserView
 			}
 		}
 	}
-}
+
 	 public void showSchedule(Student student) {
 		Vector<Vector<String>> schedule = new Vector<>(5);
 		for (int i = 0; i < 5; i++) {
