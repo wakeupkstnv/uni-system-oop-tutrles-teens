@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * <!-- begin-user-doc -->
@@ -275,28 +276,14 @@ public class AdminView extends ManagerView {
 	public void showAllLogs() {
 		Vector<String> log = Database.getInstance().getLogs();
 		System.out.println(log);
->>>>>>> 4de3ab10af756df789c2874bca497d927c817587
 	}
 
 	/**
 	 * Метод для отображения успешной регистрации пользователя
 	 */
-<<<<<<< HEAD
 	public void registerSpecificUserSuccess(UserType userType) {
 		System.out.println(userType + " successfully registered!");
 	}
 
 	// Остальные методы (showLoginResult, showLogoutMessage, showSubscriptionResult, showError, showAllLogs, showUserLogs) остаются без изменений
-=======
-
-	public void showUserLogs(String id) {
-        Vector<String> log = Database.getInstance().getLogs();
-        for (String entry : log) {
-            if (entry.contains(id)) {
-                System.out.println(entry);
-            }
-        }
-    }
-
->>>>>>> 4de3ab10af756df789c2874bca497d927c817587
 }
