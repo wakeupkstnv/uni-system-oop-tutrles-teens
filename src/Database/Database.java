@@ -21,10 +21,7 @@ import java.util.Vector;
  * <!--  end-user-doc  -->
  */
 public class Database implements Serializable{
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     */
+    
     static final String PATH = "./project-x/src/database/data/";
     private Vector<Course> courses;
 
