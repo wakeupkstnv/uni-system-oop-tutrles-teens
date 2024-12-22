@@ -74,11 +74,9 @@ public class Main {
             return;
         }
 
-        System.out.println(Database.getInstance().getUserPasswords());
         // Проверяем, совпадает ли пароль
         String storedPassword = Database.getInstance().getUserPasswords().get(u.getLogin());
         if (storedPassword.equals(password)) {
-
             System.out.println("Успешный вход! Добро пожаловать, " + u.getFirstName() + "!");
             navigateUserRole(u, reader);
         } else {

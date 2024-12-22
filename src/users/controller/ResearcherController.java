@@ -1,30 +1,30 @@
 package users.controller;
 
-import core.CoreSystem;
-import database.Database;
-import papers.Journal;
-import papers.ResearchPaper;
-import papers.ResearchProject;
-import papers.comparators.ResearchPapersCitationComparator;
-import post.News;
-import users.models.User;
-import users.view.AdminView;
-import users.view.ManagerView;
-import users.view.UserView;
-
 import java.util.Vector;
 import java.util.stream.Collectors;
 
-public class UserController<Model extends User, View extends UserView> {
-    protected Model currentModel;
+import core.CoreSystem;
+import core.Language;
+import database.Database;
+import papers.Journal;
+import papers.ResearchPaper;
+import papers.comparators.ResearchPapersCitationComparator;
+import post.News;
+import users.models.Researcher;
+import users.models.User;
+import users.view.ResearcherView;
+
+public class ResearcherController<Model extends Researcher, View extends ResearcherView>{
+	protected Model currentModel;
     private final Database database = Database.getInstance();
     protected View currentView;
+    protected Language language = CoreSystem.getLanguageMode();
 
-    public UserController(){
+    public ResearcherController(){
 
     }
 
-    public UserController(Model currentModel, View currentView){
+    public ResearcherController(Model currentModel, View currentView){
         this.currentModel = currentModel;
         this.currentView = currentView;
     }
@@ -50,20 +50,21 @@ public class UserController<Model extends User, View extends UserView> {
     }
 
     public static boolean login(String email, String password){
-        User u = Database.getInstance()
+        //TODO: DODELAT
+        User u =  Database.getInstance()
                 .getUsers()
                 .stream()
                 .filter(user -> user.getLogin().equals(email))
                 .findFirst()
                 .orElse(null);
         if (u == null){
-            System.out.println("Ошибка: пользователь не найден.");
+            System.out.println("Exception: user not found"); // TODO: make the exceptions
             return false;
         }
 
         String psw = Database.getInstance().getUserPasswords().get(u);
-        if (psw == null || !psw.equals(password)){
-            System.out.println("Ошибка: неверный пароль.");
+        if (psw == null || psw != password){
+            System.out.println("Exception: password is not correct");
             return false;
         }
         return true;
@@ -73,13 +74,14 @@ public class UserController<Model extends User, View extends UserView> {
         return false;
     }
 
-    public void viewProfile(){
+    @SuppressWarnings("unchecked")
+	public void viewProfile(){
         currentView.showProfile(currentModel);
     }
 
-    public void viewNotifactions() {currentView.showNotifications(currentModel.getAllNotifications());}
+    public void viewNotifactions() {currentView.showNotifications(currentModel.getUserInstance().getAllNotifications());}
     public Boolean subscribeToJournal(Journal journal){
-        journal.getSubscribers().add(currentModel);
+        journal.addSubscriber(currentModel);
         return true;
     }
 
@@ -105,7 +107,7 @@ public class UserController<Model extends User, View extends UserView> {
             throw new IllegalArgumentException(message);
         }
 
-        j.getSubscribers().add(currentModel);
+        j.addSubscriber(currentModel);
         return true;
     }
 

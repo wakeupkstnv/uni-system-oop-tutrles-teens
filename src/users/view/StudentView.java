@@ -31,11 +31,10 @@ public class StudentView extends UserView
 			{"Friday", "Пятница", "Жұма"}
 	};
 	public void showListOfCourse(Student student) {
-		languageMode();
 		Vector<Course> c=Database.getInstance().getCourses();
-		if (l == 0) {
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("List of courses: ");
-		} else if (l == 1) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Список курсов: ");
 		} else {
 			System.out.println("Курстар тізімі: ");
@@ -45,7 +44,7 @@ public class StudentView extends UserView
 		for(Course course:c){
 			for(Student s1:course.getStudents()){
 				if(s1.equals(student)){
-					System.out.println(course.getTitle());
+					System.out.println(course.getTitle() + " - " + course.getCredits() + " credits");
 					break;
 				}
 			}
@@ -54,12 +53,11 @@ public class StudentView extends UserView
 
 
 	public void showMarks(Student student) {
-		languageMode();
 		Vector<Course> c=Database.getInstance().getCourses();
-		if (l==0) {
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("Student journal");
 			System.out.println("Course name:             First attestation:             Second attestation:             Final exam: ");
-		} else if (l == 1) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Журнал обучающегося");
 			System.out.println("Название курса:             Первая аттестация:             Вторая аттестация:             Файнал: ");
 		} else {
@@ -83,21 +81,23 @@ public class StudentView extends UserView
 		for (int i = 0; i < 5; i++) {
 			schedule.add(new Vector<>());
 		}
-
+		int v=0;
 		Vector<Course> courses = Database.getInstance().getCourses();
-		languageMode();
-		if(l==0) {
+		if(CoreSystem.getLanguageMode()==core.Language.ENG){
+			v=0;
 			System.out.println("Schedule:");
-		} else if (l==1) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Расписание:");
+			v=1;
 		} else {
+			v=2;
 			System.out.println("Сабақ кестесі:");
 		}
 
 		System.out.println("-".repeat(125));
 
 		for (int i = 0; i < 5; i++) {
-			System.out.printf("%-25s", DAYS_OF_WEEK[i][l]);
+			System.out.printf("%-25s", DAYS_OF_WEEK[i][v]);
 		}
 		System.out.println();
 		System.out.println("-".repeat(125));
@@ -144,12 +144,11 @@ public class StudentView extends UserView
 	@SuppressWarnings("unchecked")
 	public void showProfile(Student student) {
 		super.showProfile(student);
-		languageMode();
-		if (l == 0) {
+		if (CoreSystem.getLanguageMode() == core.Language.ENG) {
 			System.out.println("Faculty: " + student.getFaculty().name());
 			System.out.println("Major: " + student.getMajor().name());
 			System.out.println("Year of study: " + student.getYearOfStudy());
-		} else if (l == 1) {
+		} else if (CoreSystem.getLanguageMode() == core.Language.RUS) {
 			System.out.println("Факультет: " + student.getFaculty().name());
 			System.out.println("Специальность: " + student.getMajor().name());
 			System.out.println("Год обучения: " + student.getYearOfStudy());
@@ -159,9 +158,9 @@ public class StudentView extends UserView
 			System.out.println("Оқу жылы: " + student.getYearOfStudy());
 		}
 		if(student.getResearcherProfile()==null||student.getResearcherProfile().getArticles().isEmpty()){
-			if(l==0){
+			if(CoreSystem.getLanguageMode()==core.Language.ENG){
 				System.out.println(student.getResearcherProfile()==null?"You don't have researcher profile.":"Researcher profile: No articles available.");
-			}else if(l==1){
+			}else if(CoreSystem.getLanguageMode()==core.Language.RUS){
 				System.out.println(student.getResearcherProfile()==null?"У вас отсутствует профиль исследователя.":"Профиль исследователя: Нет доступных статей.");
 			}else{
 				System.out.println(student.getResearcherProfile()==null?"Сізде зертеуші профилі жоқ.":"Зерттеуші профилі: Қол жетімді мақалалар жоқ.");

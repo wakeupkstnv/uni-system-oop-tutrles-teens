@@ -17,28 +17,24 @@ public class Manager extends Employee {
     public Manager(){
         super();
     }
+
     /**
      * Конструктор для создания объекта Manager
      */
     public Manager(String id, String firstName, String lastName, String email, String login, Date birthDate, 
                    String hashedPassword) {
         super(id, firstName, lastName, email, login, birthDate, hashedPassword);
-        this.allRequests = new Vector<>();
+        
     }
 
     /**
      * Геттер для всех заявок
      */
-    public Vector<Request> getAllRequests() {
-        return allRequests;
-    }
+    
 
     /**
      * Сеттер для всех заявок
      */
-    public void setAllRequests(Vector<Request> allRequests) {
-        this.allRequests = allRequests;
-    }
 
 
     

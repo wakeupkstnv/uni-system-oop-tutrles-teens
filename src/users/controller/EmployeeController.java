@@ -12,9 +12,15 @@ import users.view.EmployeeView;
 import users.view.UserView;
 
 public class EmployeeController<Model extends Employee, View extends EmployeeView> extends UserController<Employee, EmployeeView>  {
-        public void sendMessage(Employee employee, String message){
+        
+		public EmployeeController(Model currentModel, View currentView) {
+			super(currentModel, currentView);
+		}
+	
+	
+	
+	public void sendMessage(Employee employee, String message){
             this.currentModel.sendMessage(employee, message);
-         // TODO добавление к дб
         }
 
         public void sendMessage(String employeeUuid, String message){
@@ -34,11 +40,10 @@ public class EmployeeController<Model extends Employee, View extends EmployeeVie
             
             System.out.println("Sending message: \"" + message + "\" to employee: " + user.getFirstName());
             this.currentModel.sendMessage(user, message);
-         // TODO добавление к дб
         }
         public void viewMessages(){
             this.currentView.showMessage(this.currentModel.viewAllMessages());
-         // TODO добавление к дб
+
         }
 
         public void sendRequest(Request request, Employee receiver) {
@@ -62,13 +67,18 @@ public class EmployeeController<Model extends Employee, View extends EmployeeVie
 
             System.out.println("Sending request: " + request + " to employee: " + receiver.getFirstName());
             receiver.addRequest(request);
-            // TODO добавление к дб
         }
         
         public void createRequest(String text, String desc, Urgency urg) {
         	Request request = new Request(this.currentModel, text, new Date(), urg, desc);
         	this.currentModel.addMyRequest(request);
-        	// TODO добавление к бд
+            Database.getInstance().addRequest(request);
+
+        }
+        
+        
+        public void redirectRequest(Request request, Employee achiever) {
+        	sendRequest(request, achiever);
         }
 
 }

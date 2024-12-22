@@ -6,6 +6,8 @@ import post.News;
 import post.Request;
 import post.Urgency;
 import study.utils.Course;
+import users.Faculty;
+import users.models.Dean;
 import users.models.Employee;
 import users.models.Manager;
 import users.models.Teacher;
@@ -13,25 +15,21 @@ import users.models.User;
 import users.view.ManagerView;
 import users.view.UserView;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ManagerController<Model extends Manager, View extends ManagerView> extends EmployeeController<Manager, ManagerView> {
 
-    public ManagerController() {
-        super();
-    }
-
     public ManagerController(Model currentModel, ManagerView mv) {
-        this.currentModel = currentModel;
-        this.currentView = mv;
+        super(currentModel, mv);
     }
 
 
     public void rejectRequest(Request request) {
         if(request.getUrgency() != Urgency.HIGH){
             request.setSigned(false);
-            redirectRequest(request, request.getAuthor());
-            // TODO добавление в лог бд
+            redirectRequest(request, (Employee) request.getAuthor());
+
         }
     }
 
@@ -49,10 +47,15 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
      * @ordered
      */
 
-    public void signRequest(Request request) {
+    public void signRequest(Request request, Faculty faculty) {
         if (request.getUrgency() != Urgency.HIGH){
             request.setSigned(true);
-            redirectRequest(request, request.getAuthor());
+            redirectRequest(request, (Employee) request.getAuthor());
+        }
+        else {
+        	HashMap<Faculty, Dean> dean = Database.getInstance().getFacultyDean();
+            Dean deanFromHashMap = dean.get(faculty);
+        	redirectRequest(request, deanFromHashMap);
         }
     }
 
@@ -63,9 +66,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
      * @ordered
      */
 
-    public void redirectRequest(Request request, User user) {
-
-    }
+ 
 
     public void addNews(News news) {
         Database.getInstance().getNews().add(news);

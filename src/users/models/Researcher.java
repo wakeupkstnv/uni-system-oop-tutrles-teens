@@ -1,5 +1,6 @@
 package users.models;
 
+import core.CoreSystem;
 import papers.ResearchPaper;
 
 import java.util.Objects;
@@ -90,11 +91,36 @@ public class Researcher implements Comparable<Researcher> {
 
 	@Override
 	public String toString() {
-		return "Researcher{" +
-				"uuid='" + uuid + '\'' +
-				", hindex=" + hindex +
-				", articles=" + articles +
-				", userInstance=" + userInstance +
-				'}';
+	    String message = "";
+	    switch (CoreSystem.getLanguageMode()) {
+	        case ENG:
+	            message = "Researcher{" +
+	                    "uuid='" + uuid + '\'' +
+	                    ", h-index=" + hindex +
+	                    ", articles=" + articles +
+	                    ", userInstance=" + userInstance +
+	                    '}';
+	            break;
+	        case RUS:
+	            message = "Исследователь{" +
+	                    "uuid='" + uuid + '\'' +
+	                    ", h-индекс=" + hindex +
+	                    ", статьи=" + articles +
+	                    ", пользователь=" + userInstance +
+	                    '}';
+	            break;
+	        case KZ:
+	            message = "Зерттеуші{" +
+	                    "uuid='" + uuid + '\'' +
+	                    ", h-индекс=" + hindex +
+	                    ", мақалалар=" + articles +
+	                    ", пайдаланушы=" + userInstance +
+	                    '}';
+	            break;
+	         }
+	    return message;
 	}
+
+
+
 }

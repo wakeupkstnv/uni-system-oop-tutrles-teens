@@ -6,6 +6,7 @@ import users.controller.AdminController;
 import core.CoreSystem;
 import core.Language;
 import users.controller.UserFactory;
+import users.models.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -218,7 +219,7 @@ public class AdminView extends ManagerView {
 					}
 
 					adminController.registerUser(choice, uuid, firstName, lastName, email, login, birthDate, reader);
-					break;
+
 				} catch (IOException e) {
 					System.out.println("Произошла ошибка при чтении данных. Пожалуйста, попробуйте снова.");
 				}

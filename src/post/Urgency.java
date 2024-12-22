@@ -7,5 +7,5 @@ package post;
  */
 public enum Urgency
 {
-	U, LOW, MEDIUM, HIGH;
+	LOW, MEDIUM, HIGH;
 }
