@@ -28,6 +28,8 @@ public class UserView<Model extends User> {
         Boolean result = userController.login(email, password);
         return result;
     }
+    
+
 
     public void showLoginResult(boolean success) {
         if (CoreSystem.getLanguageMode() == Language.RUS) {
