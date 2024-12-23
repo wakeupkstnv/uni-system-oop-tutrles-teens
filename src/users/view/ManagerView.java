@@ -79,7 +79,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest {
                 managerController.addTeacherToCourse(reader);
                 break;
             case "2":
-                managerController.deleteTeacherFromCourse(reader); // Assuming this was intended instead of deleteNews
+                managerController.deleteTeacherFromCourse(reader);
                 break;
             case "3":
                 return;
@@ -392,7 +392,7 @@ public class ManagerView extends EmployeeView implements CanViewRequest {
                 for(Employee e : database.getInstance().getEmployees()){
                     if(r.getAuthor().getUuid().equals(e.getUuid())){
                         requests.add(r);
-                        break; // Assuming each request is linked to one employee
+                        break;
                     }
                 }
             }

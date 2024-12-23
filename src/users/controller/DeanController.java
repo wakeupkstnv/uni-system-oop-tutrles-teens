@@ -36,12 +36,4 @@ public class DeanController<Model extends Dean, View extends DeanView> extends M
             request.setSigned(true);
             redirectRequest(request, (Employee) request.getAuthor());
     }
-
-
-
-    
-    
-    
-	
-	
 }
