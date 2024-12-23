@@ -11,9 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Vector;
 
-/**
- * Класс представления для Employee, наследующийся от UserView.
- */
+
 public class EmployeeView<Model extends Employee> extends UserView<Employee> {
 
     public EmployeeView() {

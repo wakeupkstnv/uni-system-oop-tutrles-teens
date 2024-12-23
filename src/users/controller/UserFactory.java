@@ -13,9 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Date;
 
-/**
- * Factory class for creating different types of users.
- */
+
 public class UserFactory {
 
     protected final static Database database = Database.getInstance();
@@ -27,19 +25,6 @@ public class UserFactory {
         super();
     }
 
-    /**
-     * Creates a user based on the type.
-     *
-     * @param id          User identifier
-     * @param firstName   First name
-     * @param lastName    Last name
-     * @param email       Email address
-     * @param login       Login name
-     * @param birthDate   Date of birth
-     * @param userType    Type of user
-     * @param reader      BufferedReader for input
-     * @return Created User object or null if creation fails
-     */
     public static User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
         String passwordChoice = null;
         String generatedPassword = "";
@@ -137,11 +122,6 @@ public class UserFactory {
         }
     }
 
-    /**
-     * Generates a random password of specified length.
-     *
-     * @return Generated password
-     */
     private static String generatePassword() {
         SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
@@ -154,12 +134,7 @@ public class UserFactory {
         return password.toString();
     }
 
-    /**
-     * Hashes a password using the SHA-256 algorithm.
-     *
-     * @param password Password to hash
-     * @return Hashed password in hexadecimal format
-     */
+
     private static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -174,9 +149,6 @@ public class UserFactory {
         }
     }
 
-    /**
-     * Creates a Student object.
-     */
     private static Student createStudent(String id, String firstName, String lastName, String email, String login, Date birthDate, String hashedPassword, BufferedReader reader) {
         try {
             int year = readInt(reader, "Enter year of study: ");

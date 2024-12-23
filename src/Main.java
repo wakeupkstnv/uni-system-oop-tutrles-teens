@@ -5,6 +5,7 @@ import users.controller.*;
 import users.models.*;
 import users.view.*;
 
+import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,6 +28,7 @@ public class Main {
         Database database = Database.getInstance();
 
 
+        System.out.println(Database.getInstance().getLogs());
         System.out.println(database.getUserPasswords());
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -252,9 +254,12 @@ public class Main {
 
 
     private static void printAdminMenu() {
+
         Language lang = CoreSystem.getLanguageMode();
         String header = getColoredText("\n=== Administrator Menu ===", BLUE);
-        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        Language lag = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Администратора ===", BLUE);
+       String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
         String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
         String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
         String option4 = "4. " + getLocalizedString("Register Users", "Регистрация пользователей", "Пайдаланушыларды тіркеу");
@@ -284,7 +289,6 @@ public class Main {
         System.out.print(prompt);
     }
 
-    // Метод для печати сообщения о выходе из учетной записи администратора
     private static void printAdminLogoutMessage() {
         Language lang = CoreSystem.getLanguageMode();
         String message = "";
@@ -298,7 +302,6 @@ public class Main {
         System.out.println(getColoredText(message, PURPLE));
     }
 
-    // Метод для отображения меню менеджера
     private static void managerMenu(ManagerController<Manager, ManagerView> managerController, BufferedReader reader) throws IOException {
         while (true){
             printManagerMenu();
@@ -341,7 +344,6 @@ public class Main {
         }
     }
 
-    // Метод для печати меню менеджера
     private static void printManagerMenu() {
         Language lang = CoreSystem.getLanguageMode();
         String header = getColoredText("\n=== Меню Менеджера ===", BLUE);
@@ -371,7 +373,6 @@ public class Main {
         System.out.print(prompt);
     }
 
-    // Метод для печати сообщения о выходе из учетной записи менеджера
     private static void printManagerLogoutMessage() {
         Language lang = CoreSystem.getLanguageMode();
         String message = "";
@@ -385,7 +386,6 @@ public class Main {
         System.out.println(getColoredText(message, PURPLE));
     }
 
-    // Метод для отображения меню преподавателя
     private static void teacherMenu(TeacherController<Teacher, TeacherView> teacherController, BufferedReader reader) throws IOException {
         while (true) {
             printTeacherMenu();
@@ -434,7 +434,6 @@ public class Main {
         }
     }
 
-    // Метод для печати меню преподавателя
     private static void printTeacherMenu() {
         Language lang = CoreSystem.getLanguageMode();
         String header = getColoredText("\n=== Меню Преподавателя ===", BLUE);
@@ -468,7 +467,6 @@ public class Main {
         System.out.print(prompt);
     }
 
-    // Метод для печати сообщения о выходе из учетной записи преподавателя
     private static void printTeacherLogoutMessage() {
         Language lang = CoreSystem.getLanguageMode();
         String message = "";
@@ -482,7 +480,6 @@ public class Main {
         System.out.println(getColoredText(message, PURPLE));
     }
 
-    // Метод для отображения меню студента
     private static void studentMenu(StudentController<Student, StudentView> studentController, BufferedReader reader) throws IOException {
         while (true) {
             printStudentMenu();
@@ -525,7 +522,6 @@ public class Main {
         }
     }
 
-    // Метод для печати меню студента
     private static void printStudentMenu() {
         Language lang = CoreSystem.getLanguageMode();
         String header = getColoredText("\n=== Меню Студента ===", BLUE);
@@ -555,7 +551,6 @@ public class Main {
         System.out.print(prompt);
     }
 
-    // Метод для печати сообщения о выходе из учетной записи студента
     private static void printStudentLogoutMessage() {
         Language lang = CoreSystem.getLanguageMode();
         String message = "";
@@ -622,7 +617,6 @@ public class Main {
         System.out.print(prompt);
     }
 
-    // Метод для печати сообщения о выходе из учетной записи пользователя
     private static void printUserLogoutMessage() {
         Language lang = CoreSystem.getLanguageMode();
         String message = "";
@@ -636,7 +630,6 @@ public class Main {
         System.out.println(getColoredText(message, PURPLE));
     }
 
-    // Метод для изменения языка интерфейса
     private static void changeLanguage(BufferedReader reader) throws IOException {
         Language currentLang = CoreSystem.getLanguageMode();
         String header = getColoredText(getLocalizedString("=== Change Language ===", "=== Изменить язык ===", "=== Тілді өзгерту ==="), BLUE);
@@ -696,7 +689,6 @@ public class Main {
         }
     }
 
-    // Вспомогательный метод для получения локализованных строк
     private static String getLocalizedString(String eng, String rus, String kaz) {
         Language lang = CoreSystem.getLanguageMode();
         switch (lang) {
@@ -711,7 +703,6 @@ public class Main {
         }
     }
 
-    // Вспомогательный метод для получения цветного текста
     private static String getColoredText(String text, String color) {
         return color + text + RESET;
     }

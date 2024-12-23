@@ -18,8 +18,6 @@ public class PhdStudent extends MasterStudent {
 		this.supervisor = supervisor;
 	}
 
-	// Getters and Setters
-
 	public String getDissertationTitle() {
 		return dissertationTitle;
 	}

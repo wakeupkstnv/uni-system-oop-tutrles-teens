@@ -219,9 +219,7 @@ public class AdminView extends ManagerView {
 		}
 	}
 
-	/**
-	 * Метод для регистрации конкретного типа пользователя
-	 */
+
 	private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
 		database.getInstance().addLog("" + userType);
 		database.getInstance().addUser(UserFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));

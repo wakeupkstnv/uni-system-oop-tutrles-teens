@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.util.Date;
 
 public class AdminController<Model extends Admin, View extends AdminView> extends ManagerController<Admin, AdminView> {
-
     public AdminController(Model currentModel, View currentView) {
         super(currentModel, currentView);
     }
@@ -55,9 +54,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         database.getInstance().removeUser(u);
     }
 
-    /**
-     * Метод для регистрации пользователей через BufferedReader
-     */
     public void registerUser(int choice, String uuid, String firstName, String lastName, String email, String login, Date birthDate, BufferedReader reader) {
 
         try {
@@ -115,18 +111,14 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         }
     }
 
-    /**
-     * Метод для регистрации конкретного типа пользователя
-     */
+
     private void registerSpecificUser(UserType userType, String uuid, String firstName, String lastName, String email, String login, Date birthDate, UserFactory userFactory, BufferedReader reader) {
         database.getInstance().addLog("" + userType);
         database.getInstance().addUser(userFactory.createUser(uuid, firstName, lastName, email, login, birthDate, userType, reader));
         System.out.println(userType + " successfully registered!");
     }
 
-    /**
-     * Метод для отображения информации о типах пользователей
-     */
+
     private void displayUserTypes() {
         System.out.println("Displaying information about user types...");
         System.out.println("1: Employee - Works in the company or organization.");
@@ -141,9 +133,6 @@ public class AdminController<Model extends Admin, View extends AdminView> extend
         System.out.println("10: View info about user types - Displays user types.");
     }
 
-    /**
-     * Метод для просмотра логов
-     */
     public void viewLogs() {
         System.out.println(database.getInstance().getLogs());
     }

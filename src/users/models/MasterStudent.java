@@ -3,8 +3,8 @@ package users.models;
 import java.util.Date;
 
 public class MasterStudent extends GraduateStudent {
-    private int masterCourse;          // Курс магистратуры
-    private int masterEnrollmentYear;  // Год зачисления на магистратуру
+    private int masterCourse;
+    private int masterEnrollmentYear;
 
     public MasterStudent() {
         super();
@@ -18,8 +18,6 @@ public class MasterStudent extends GraduateStudent {
         this.masterEnrollmentYear = masterEnrollmentYear;
         this.researcherProfile = new Researcher(this.uuid, this, 0.0);
     }
-
-    // Getters and Setters
 
     public int getMasterCourse() {
         return masterCourse;

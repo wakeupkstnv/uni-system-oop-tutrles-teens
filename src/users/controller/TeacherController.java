@@ -24,27 +24,19 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
     TeacherView currentView = (TeacherView) getCurrentView();
 
 
-    /**
-     * Просмотр списка студентов, которых преподает преподаватель.
-     */
     public void viewStudents() {
         Vector<Student> students = new Vector<>();
-        for (Course course : Database.getInstance().getCourses()) {  // Изменили на Database.getInstance()
+        for (Course course : Database.getInstance().getCourses()) {
             if (course.getTeacher() == this.getCurrentModel()) {
                 students.addAll(course.getStudents());
             }
         }
-        // for example;
+
         students.add(new Student("12", "tamir", "kustanayev", "t_kustanayev@kbtu.kz", "t_kustanayev", new Date(), "123"));
         currentView.showStudents(students);
     }
 
-    /**
-     * Назначение оценки студенту.
-     *
-     * @param reader BufferedReader для чтения ввода пользователя.
-     * @throws IOException
-     */
+
     public void assignGrades(BufferedReader reader) throws IOException {
         System.out.print("Введите UUID студента: ");
         String studentUuid = reader.readLine();
@@ -96,12 +88,7 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
         }
     }
 
-    /**
-     * Отправка жалобы декану.
-     *
-     * @param reader BufferedReader для чтения ввода пользователя.
-     * @throws IOException
-     */
+
     public void sendComplaint(BufferedReader reader) throws IOException {
         System.out.print("Введите UUID студента для жалобы: ");
         String studentUuid = reader.readLine();
@@ -136,17 +123,14 @@ public class TeacherController<Model extends Teacher, View extends TeacherView> 
             return;
         }
 
-        // Найти декана факультета студента
         Dean dean = database.getInstance().getFacultyDean().get(student.getFaculty());
         if (dean == null) {
             System.out.println("Декан факультета не назначен.");
             return;
         }
 
-        // Создать запрос (жалобу)
         Request complaint = new Request(currentModel, complaintText, new java.util.Date(), urgency, "Complaint about student: " + student.getFirstName());
 
-        // Отправить жалобу декану
         dean.addRequest(complaint);
         database.getInstance().addRequest(complaint);
 
