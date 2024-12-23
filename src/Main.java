@@ -9,65 +9,152 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
+
+    public static final String RESET = "\u001B[0m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String RED = "\u001B[31m";
+    public static final String PURPLE = "\u001B[35m";
 
     public static void main(String[] args) throws IOException {
         Database database = Database.getInstance();
 
+
+        System.out.println(database.getUserPasswords());
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            Admin admin = new Admin("12", "tamir", "kustanayev", "t_kustanayev@kbtu.kz", "t_kustanayev", new Date(), "123");
+            Admin admin = new Admin("12", "Tamir", "Kustanayev", "t_kustanayev@kbtu.kz",
+                    "t_kustanayev", new Date(), "123");
             database.addUserPassword(admin, "123");
 
             while (true) {
-                System.out.println("=== WSP System ===");
-                System.out.println("1. Вход");
-                System.out.println("2. Выход");
-                System.out.print("Выберите опцию: ");
+                printMainMenu();
                 String choice = reader.readLine();
 
                 switch (choice) {
                     case "1":
-                        handleLogin(reader, database);  // Pass the database instead of userController
+                        handleLogin(reader, database);
                         break;
                     case "2":
-                        System.out.println("Выход из системы. До свидания!");
+                        printExitMessage();
                         System.exit(0);
                         break;
+                    case "3":
+                        changeLanguage(reader);
+                        break;
                     default:
-                        System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                        printInvalidChoiceMessage();
                 }
             }
         }
     }
 
+    private static void printMainMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("=== WSP Система ===", BLUE);
+        String option1 = "1. " + getLocalizedString("Login", "Вход", "Кіру");
+        String option2 = "2. " + getLocalizedString("Exit", "Выход", "Шығу");
+        String option3 = "3. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
+
+        System.out.println("\n" + header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.print(prompt);
+    }
+
     private static void handleLogin(BufferedReader reader, Database database) throws IOException {
-        System.out.print("Введите логин: ");
+        Language lang = CoreSystem.getLanguageMode();
+        String promptLogin = "";
+        String promptPassword = "";
+
+        if (lang == Language.RUS) {
+            promptLogin = "Введите логин: ";
+            promptPassword = "Введите пароль: ";
+        } else if (lang == Language.ENG) {
+            promptLogin = "Enter login: ";
+            promptPassword = "Enter password: ";
+        } else if (lang == Language.KZ) {
+            promptLogin = "Логин енгізіңіз: ";
+            promptPassword = "Құпия сөз енгізіңіз: ";
+        }
+
+        System.out.print(getColoredText(promptLogin, YELLOW));
         String login = reader.readLine();
-        System.out.print("Введите пароль: ");
+        System.out.print(getColoredText(promptPassword, YELLOW));
         String password = reader.readLine();
 
-        User u = database.getInstance().getUsers()
+        User u = database.getUsers()
                 .stream()
                 .filter(n -> n.getLogin().equals(login))
                 .findFirst()
                 .orElse(null);
 
-        System.out.println(database.getInstance().getUserPasswords());
-        // Проверяем, существует ли пользователь с данным логином
-        if (u == null || !database.getInstance().getUserPasswords().containsKey(u.getLogin())) {
-            System.out.println("Неверный логин или пароль. Пожалуйста, попробуйте снова.");
+        if (u == null || !database.getUserPasswords().containsKey(u.getLogin())) {
+            printLoginFailureMessage();
             return;
         }
 
-        // Проверяем, совпадает ли пароль
-        String storedPassword = database.getInstance().getUserPasswords().get(u.getLogin());
+        String storedPassword = database.getUserPasswords().get(u.getLogin());
         if (storedPassword.equals(password)) {
-            System.out.println("Успешный вход! Добро пожаловать, " + u.getFirstName() + "!");
-            navigateUserRole(u, reader, database);  // Pass database to the navigateUserRole method
+            String welcomeMessage = "";
+            if (lang == Language.RUS) {
+                welcomeMessage = "Успешный вход! Добро пожаловать, " + u.getFirstName() + "!";
+            } else if (lang == Language.ENG) {
+                welcomeMessage = "Login successful! Welcome, " + u.getFirstName() + "!";
+            } else if (lang == Language.KZ) {
+                welcomeMessage = "Сәтті кіру! Қош келдіңіз, " + u.getFirstName() + "!";
+            }
+            System.out.println(getColoredText(welcomeMessage, GREEN));
+            navigateUserRole(u, reader, database);
         } else {
-            System.out.println("Неверный логин или пароль. Пожалуйста, попробуйте снова.");
+            printLoginFailureMessage();
         }
+    }
+
+    private static void printLoginFailureMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Неверный логин или пароль. Пожалуйста, попробуйте снова.";
+        } else if (lang == Language.ENG) {
+            message = "Invalid login or password. Please try again.";
+        } else if (lang == Language.KZ) {
+            message = "Қате логин немесе пароль. Қайтадан көріңіз.";
+        }
+        System.out.println(getColoredText(message, RED));
+    }
+
+    private static void printExitMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из системы. До свидания!";
+        } else if (lang == Language.ENG) {
+            message = "Exiting the system. Goodbye!";
+        } else if (lang == Language.KZ) {
+            message = "Жүйеден шығу. Сау болыңыз!";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    private static void printInvalidChoiceMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Неверный выбор. Пожалуйста, попробуйте снова.";
+        } else if (lang == Language.ENG) {
+            message = "Invalid choice. Please try again.";
+        } else if (lang == Language.KZ) {
+            message = "Қате таңдау. Қайтадан көріңіз.";
+        }
+        System.out.println(getColoredText(message, RED));
     }
 
     private static void navigateUserRole(User user, BufferedReader reader, Database database) throws IOException {
@@ -79,38 +166,27 @@ public class Main {
             ManagerView managerView = new ManagerView();
             ManagerController<Manager, ManagerView> managerController = new ManagerController<>((Manager) user, managerView);
             managerMenu(managerController, reader);
-        }
-        else if(user instanceof Teacher) {
+        } else if (user instanceof Teacher) {
             TeacherView teacherView = new TeacherView();
-            TeacherController teacherController = new TeacherController<>((Teacher) user, teacherView);
-            TeacherMenu(teacherController, reader);
-        }
-        else if (user instanceof Student) {
+            TeacherController<Teacher, TeacherView> teacherController = new TeacherController<>((Teacher) user, teacherView);
+            teacherMenu(teacherController, reader);
+        } else if (user instanceof Student) {
             StudentView studentView = new StudentView();
-            StudentController studentController = new StudentController<>((Student) user, studentView);
-            StudentMenu(studentController, reader);
-        }
-        else {
+            StudentController<Student, StudentView> studentController = new StudentController<>((Student) user, studentView);
+            studentMenu(studentController, reader);
+        } else {
             UserView userView = new UserView();
             UserController<User, UserView> userController = new UserController<>(user, userView);
             userMenu(userController, reader);
         }
-
     }
 
     private static void adminMenu(AdminController<Admin, AdminView> adminController, BufferedReader reader) throws IOException {
-        while (true){
-            System.out.println("\n=== Меню Администратора ===");
-            System.out.println("1. Просмотреть профиль");
-            System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Просмотреть статьи");
-            System.out.println("4. Управление пользователями");
-            System.out.println("5. Управление блокировками");
-            System.out.println("6. Выход");
-            System.out.print("Выберите опцию: ");
+        while (true) {
+            printAdminMenu();
             String choice = reader.readLine();
             AdminView adminView = new AdminView();
-            switch (choice){
+            switch (choice) {
                 case "1":
                     adminController.viewProfile();
                     break;
@@ -127,24 +203,60 @@ public class Main {
                     adminView.banMenu(adminController, reader);
                     break;
                 case "6":
-                    System.out.println("Выход из учетной записи администратора.");
+                    changeLanguage(reader);
+                    break;
+                case "7":
+                    printAdminLogoutMessage();
                     return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                    printInvalidChoiceMessage();
             }
         }
     }
 
+    private static void printAdminMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Администратора ===", BLUE);
+        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
+        String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
+        String option4 = "4. " + getLocalizedString("Manage Users", "Управление пользователями", "Пайдаланушыларды басқару");
+        String option5 = "5. " + getLocalizedString("Manage Bans", "Управление блокировками", "Блокировкаларды басқару");
+        String option6 = "6. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String option7 = "7. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
+
+        System.out.println(header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.println(option4);
+        System.out.println(option5);
+        System.out.println(option6);
+        System.out.println(option7);
+        System.out.print(prompt);
+    }
+
+    // Метод для печати сообщения о выходе из учетной записи администратора
+    private static void printAdminLogoutMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из учетной записи администратора.";
+        } else if (lang == Language.ENG) {
+            message = "Admin account logged out.";
+        } else if (lang == Language.KZ) {
+            message = "Әкімші тіркелгісінен шығу.";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    // Метод для отображения меню менеджера
     private static void managerMenu(ManagerController<Manager, ManagerView> managerController, BufferedReader reader) throws IOException {
         while (true){
-            System.out.println("\n=== Меню Менеджера ===");
-            System.out.println("1. Просмотреть профиль");
-            System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Управление проектами");
-            System.out.println("4. Выход");
-            System.out.print("Выберите опцию: ");
+            printManagerMenu();
             String choice = reader.readLine();
-
+            ManagerView managerView = new ManagerView();
             switch (choice){
                 case "1":
                     managerController.viewProfile();
@@ -153,35 +265,83 @@ public class Main {
                     managerController.viewNotifactions();
                     break;
                 case "3":
-                    // Реализуйте методы управления проектами
-                    System.out.println("Функция управления проектами пока не реализована.");
+                    managerController.viewPapers();
                     break;
                 case "4":
-                    System.out.println("Выход из учетной записи менеджера.");
+                    managerView.registrationMenu(managerController, reader);
+                    break;
+                case "5":
+                    managerView.newsMenu(managerController, reader);
+                    break;
+                case "6":
+                    managerView.teacherMenu(managerController, reader);
+                    break;
+                case "7":
+                    managerView.showCourseList();
+                    break;
+                case "8":
+                    managerView.showTeacherList();
+                    break;
+                case "9":
+                    managerView.viewAllRequest();
+                    break;
+                case "10":
+                    printManagerLogoutMessage();
                     return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                    printInvalidChoiceMessage();
             }
         }
     }
-    // for example
-    // login: a_zhumabay
-    // pass: 31dcfd6dfd75eaab11f14cda4bdd4ad334571842e3cedf38cd22628b351e0f55 (while witohut hash)
-    private static void TeacherMenu(TeacherController<Teacher, TeacherView> teacherController, BufferedReader reader) throws IOException {
+
+    // Метод для печати меню менеджера
+    private static void printManagerMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Менеджера ===", BLUE);
+        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
+        String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
+        String option4 = "4. " + getLocalizedString("Manage Registrations", "Управление регистрацией", "Тіркеуді басқару");
+        String option5 = "5. " + getLocalizedString("Manage News", "Управление новостями", "Жаңалықтарды басқару");
+        String option6 = "6. " + getLocalizedString("Manage Teachers", "Управление учительским составом", "Мұғалімдерді басқару");
+        String option7 = "7. " + getLocalizedString("View Courses", "Просмотреть курсы", "Курстарды қарау");
+        String option8 = "8. " + getLocalizedString("View Teachers", "Просмотреть учителей", "Мұғалімдерді қарау");
+        String option9 = "9. " + getLocalizedString("View Requests", "Просмотреть запросы", "Сұраныстарды қарау");
+        String option10 = "10. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
+
+        System.out.println(header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.println(option4);
+        System.out.println(option5);
+        System.out.println(option6);
+        System.out.println(option7);
+        System.out.println(option8);
+        System.out.println(option9);
+        System.out.println(option10);
+        System.out.print(prompt);
+    }
+
+    // Метод для печати сообщения о выходе из учетной записи менеджера
+    private static void printManagerLogoutMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из учетной записи менеджера.";
+        } else if (lang == Language.ENG) {
+            message = "Manager account logged out.";
+        } else if (lang == Language.KZ) {
+            message = "Менеджер тіркелгісінен шығу.";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    // Метод для отображения меню преподавателя
+    private static void teacherMenu(TeacherController<Teacher, TeacherView> teacherController, BufferedReader reader) throws IOException {
         while (true) {
-            System.out.println("\n=== Меню Преподавателя ===");
-            System.out.println("1. Просмотреть профиль");
-            System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Просмотреть статьи");
-            System.out.println("4. Просмотреть новости");
-            System.out.println("5. Просмотреть список студентов");
-            System.out.println("6. Назначить оценки");
-            System.out.println("7. Отправить жалобу декану");
-            System.out.println("8. Отправить сообщение сотруднику");
-            System.out.println("9. Просмотреть сообщения");
-            System.out.println("10. Создать запрос");
-            System.out.println("11. Выход");
-            System.out.print("Выберите опцию: ");
+            printTeacherMenu();
             String choice = reader.readLine();
 
             switch (choice) {
@@ -213,29 +373,72 @@ public class Main {
                     teacherController.viewMessages();
                     break;
                 case "10":
-                    teacherController.createRequest(reader);  // Existing method
+                    teacherController.createRequest(reader);
                     break;
                 case "11":
-                    System.out.println("Выход из учетной записи преподавателя.");
+                    changeLanguage(reader);
+                    break;
+                case "12":
+                    printTeacherLogoutMessage();
                     return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                    printInvalidChoiceMessage();
             }
         }
     }
-    private static void StudentMenu(StudentController studentController, BufferedReader reader) throws IOException {
+
+    // Метод для печати меню преподавателя
+    private static void printTeacherMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Преподавателя ===", BLUE);
+        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
+        String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
+        String option4 = "4. " + getLocalizedString("View News", "Просмотреть новости", "Жаңалықтарды қарау");
+        String option5 = "5. " + getLocalizedString("View Student List", "Просмотреть список студентов", "Студенттер тізімін қарау");
+        String option6 = "6. " + getLocalizedString("Assign Grades", "Назначить оценки", "Бағаларды тағайындау");
+        String option7 = "7. " + getLocalizedString("Send Complaint to Dean", "Отправить жалобу декану", "Деканға шағым жіберу");
+        String option8 = "8. " + getLocalizedString("Send Message to Staff", "Отправить сообщение сотруднику", "Қызметкерге хабарлама жіберу");
+        String option9 = "9. " + getLocalizedString("View Messages", "Просмотреть сообщения", "Хабарламаларды қарау");
+        String option10 = "10. " + getLocalizedString("Create Request", "Создать запрос", "Сұраныс жасау");
+        String option11 = "11. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String option12 = "12. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
+
+        System.out.println(header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.println(option4);
+        System.out.println(option5);
+        System.out.println(option6);
+        System.out.println(option7);
+        System.out.println(option8);
+        System.out.println(option9);
+        System.out.println(option10);
+        System.out.println(option11);
+        System.out.println(option12);
+        System.out.print(prompt);
+    }
+
+    // Метод для печати сообщения о выходе из учетной записи преподавателя
+    private static void printTeacherLogoutMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из учетной записи преподавателя.";
+        } else if (lang == Language.ENG) {
+            message = "Teacher account logged out.";
+        } else if (lang == Language.KZ) {
+            message = "Мұғалім тіркелгісінен шығу.";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    // Метод для отображения меню студента
+    private static void studentMenu(StudentController<Student, StudentView> studentController, BufferedReader reader) throws IOException {
         while (true) {
-            System.out.println("\n=== Меню Студента ===");
-            System.out.println("1. Просмотреть профиль");
-            System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Просмотреть статьи");
-            System.out.println("4. Просмотреть новости");
-            System.out.println("5. Просмотреть список курсов");
-            System.out.println("6. Просмотреть расписание");
-            System.out.println("7. Зарегистрироваться на курс");
-            System.out.println("8. Просмотреть мои оценки");
-            System.out.println("9. Выйти");
-            System.out.print("Выберите опцию: ");
+            printStudentMenu();
             String choice = reader.readLine();
 
             switch (choice) {
@@ -264,30 +467,68 @@ public class Main {
                     studentController.viewMarks();
                     break;
                 case "9":
-                    System.out.println("Выход из учетной записи студента.");
+                    changeLanguage(reader);
+                    break;
+                case "10":
+                    printStudentLogoutMessage();
                     return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                    printInvalidChoiceMessage();
             }
-
-
         }
     }
 
+    // Метод для печати меню студента
+    private static void printStudentMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Студента ===", BLUE);
+        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
+        String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
+        String option4 = "4. " + getLocalizedString("View News", "Просмотреть новости", "Жаңалықтарды қарау");
+        String option5 = "5. " + getLocalizedString("View Course List", "Просмотреть список курсов", "Курстар тізімін қарау");
+        String option6 = "6. " + getLocalizedString("View Schedule", "Просмотреть расписание", "Кестені қарау");
+        String option7 = "7. " + getLocalizedString("Register for Course", "Зарегистрироваться на курс", "Курсты тіркелу");
+        String option8 = "8. " + getLocalizedString("View My Grades", "Просмотреть мои оценки", "Менің бағаларымды қарау");
+        String option9 = "9. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String option10 = "10. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
 
+        System.out.println(header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.println(option4);
+        System.out.println(option5);
+        System.out.println(option6);
+        System.out.println(option7);
+        System.out.println(option8);
+        System.out.println(option9);
+        System.out.println(option10);
+        System.out.print(prompt);
+    }
 
+    // Метод для печати сообщения о выходе из учетной записи студента
+    private static void printStudentLogoutMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из учетной записи студента.";
+        } else if (lang == Language.ENG) {
+            message = "Student account logged out.";
+        } else if (lang == Language.KZ) {
+            message = "Студент тіркелгісінен шығу.";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    // Метод для отображения меню пользователя
     private static void userMenu(UserController<User, UserView> userController, BufferedReader reader) throws IOException {
-        while (true){
-            System.out.println("\n=== Меню Пользователя ===");
-            System.out.println("1. Просмотреть профиль");
-            System.out.println("2. Просмотреть уведомления");
-            System.out.println("3. Просмотреть статьи");
-            System.out.println("4. Просмотреть новости");
-            System.out.println("5. Выход");
-            System.out.print("Выберите опцию: ");
+        while (true) {
+            printUserMenu();
             String choice = reader.readLine();
 
-            switch (choice){
+            switch (choice) {
                 case "1":
                     userController.viewProfile();
                     break;
@@ -301,11 +542,130 @@ public class Main {
                     userController.viewNews();
                     break;
                 case "5":
-                    System.out.println("Выход из учетной записи пользователя.");
+                    changeLanguage(reader);
+                    break;
+                case "6":
+                    printUserLogoutMessage();
                     return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
+                    printInvalidChoiceMessage();
             }
         }
+    }
+
+    // Метод для печати меню пользователя
+    private static void printUserMenu() {
+        Language lang = CoreSystem.getLanguageMode();
+        String header = getColoredText("\n=== Меню Пользователя ===", BLUE);
+        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
+        String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
+        String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
+        String option4 = "4. " + getLocalizedString("View News", "Просмотреть новости", "Жаңалықтарды қарау");
+        String option5 = "5. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String option6 = "6. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
+
+        System.out.println(header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.println(option4);
+        System.out.println(option5);
+        System.out.println(option6);
+        System.out.print(prompt);
+    }
+
+    // Метод для печати сообщения о выходе из учетной записи пользователя
+    private static void printUserLogoutMessage() {
+        Language lang = CoreSystem.getLanguageMode();
+        String message = "";
+        if (lang == Language.RUS) {
+            message = "Выход из учетной записи пользователя.";
+        } else if (lang == Language.ENG) {
+            message = "User account logged out.";
+        } else if (lang == Language.KZ) {
+            message = "Пайдаланушы тіркелгісінен шығу.";
+        }
+        System.out.println(getColoredText(message, PURPLE));
+    }
+
+    // Метод для изменения языка интерфейса
+    private static void changeLanguage(BufferedReader reader) throws IOException {
+        Language currentLang = CoreSystem.getLanguageMode();
+        String header = getColoredText(getLocalizedString("=== Change Language ===", "=== Изменить язык ===", "=== Тілді өзгерту ==="), BLUE);
+        String option1 = "1. Русский";
+        String option2 = "2. English";
+        String option3 = "3. Қазақша";
+        String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), YELLOW);
+
+        System.out.println("\n" + header);
+        System.out.println(option1);
+        System.out.println(option2);
+        System.out.println(option3);
+        System.out.print(prompt);
+
+        String choice = reader.readLine();
+        switch (choice) {
+            case "1":
+                CoreSystem.setLanguageMode(Language.RUS);
+                if (currentLang == Language.RUS) {
+                    System.out.println(getColoredText("Язык уже установлен на Русский.", GREEN));
+                } else if (currentLang == Language.ENG) {
+                    System.out.println(getColoredText("Language changed to Русский.", GREEN));
+                } else if (currentLang == Language.KZ) {
+                    System.out.println(getColoredText("Тіл өзгертілді Русский.", GREEN));
+                }
+                break;
+            case "2":
+                CoreSystem.setLanguageMode(Language.ENG);
+                if (currentLang == Language.RUS) {
+                    System.out.println(getColoredText("Язык изменен на English.", GREEN));
+                } else if (currentLang == Language.ENG) {
+                    System.out.println(getColoredText("Language is already set to English.", GREEN));
+                } else if (currentLang == Language.KZ) {
+                    System.out.println(getColoredText("Тіл өзгертілді English.", GREEN));
+                }
+                break;
+            case "3":
+                CoreSystem.setLanguageMode(Language.KZ);
+                if (currentLang == Language.RUS) {
+                    System.out.println(getColoredText("Язык изменен на Қазақша.", GREEN));
+                } else if (currentLang == Language.ENG) {
+                    System.out.println(getColoredText("Language changed to Қазақша.", GREEN));
+                } else if (currentLang == Language.KZ) {
+                    System.out.println(getColoredText("Тіл уже установлен на Қазақша.", GREEN));
+                }
+                break;
+            default:
+                String errorMsg = "";
+                if (currentLang == Language.RUS) {
+                    errorMsg = "Неверный выбор. Пожалуйста, попробуйте снова.";
+                } else if (currentLang == Language.ENG) {
+                    errorMsg = "Invalid choice. Please try again.";
+                } else if (currentLang == Language.KZ) {
+                    errorMsg = "Қате таңдау. Қайтадан көріңіз.";
+                }
+                System.out.println(getColoredText(errorMsg, RED));
+        }
+    }
+
+    // Вспомогательный метод для получения локализованных строк
+    private static String getLocalizedString(String eng, String rus, String kaz) {
+        Language lang = CoreSystem.getLanguageMode();
+        switch (lang) {
+            case ENG:
+                return eng;
+            case RUS:
+                return rus;
+            case KZ:
+                return kaz;
+            default:
+                return eng;
+        }
+    }
+
+    // Вспомогательный метод для получения цветного текста
+    private static String getColoredText(String text, String color) {
+        return color + text + RESET;
     }
 }

@@ -63,6 +63,14 @@ public class Course {
 	 *
 	 * @return An array where index 0 is the maximum mark and index 1 is the minimum mark.
 	 */
+
+	public boolean deleteTeacher(Teacher teacher){
+		if (this.teacher.equals(teacher)) {
+			this.teacher = null;
+			return true;
+		}
+		return false;
+	}
 	public double[] getCourseMaxAndMin() {
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;

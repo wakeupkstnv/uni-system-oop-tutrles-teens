@@ -1,69 +1,28 @@
 package core;
 
+public class CoreSystem {
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
+	private static CoreSystem instance;
+	public static String systemName = "WSP System";
 
-public class CoreSystem
-{
+	private static Language languageMode = Language.ENG;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public static String systemName;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	@SuppressWarnings("unused")
-	private static CoreSystem SYSTEM_INSTANCE;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	private CoreSystem() {
+		// Приватный конструктор для реализации Singleton
+	}
 
-	private static Language languageMode=Language.ENG;
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-
-	private CoreSystem(){
-		super();
+	public static synchronized CoreSystem getInstance() {
+		if (instance == null) {
+			instance = new CoreSystem();
+		}
+		return instance;
 	}
 
 	public static Language getLanguageMode() {
 		return languageMode;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-
-
-	@SuppressWarnings("static-access")
-	public void setLanguageMode(core.Language languageMode) {
-		this.languageMode = languageMode;
+	public static void setLanguageMode(Language languageMode) {
+		CoreSystem.languageMode = languageMode;
 	}
-	
 }
-
