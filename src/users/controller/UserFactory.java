@@ -41,76 +41,99 @@ public class UserFactory {
      * @return Created User object or null if creation fails
      */
     public static User createUser(String id, String firstName, String lastName, String email, String login, Date birthDate, UserType userType, BufferedReader reader) {
-        String generatedPassword = generatePassword();
-        String hashedPassword = hashPassword(generatedPassword);
-        // TODO: Implement your own hash function if needed
+        String passwordChoice = null;
+        String generatedPassword = "";
+        String hashedPassword = "";
 
-        System.out.println("Generated password for user " + login + ": " + generatedPassword);
-        switch (userType) {
-            case EMPLOYEE:
-                Employee employee = new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                database.getInstance().addUserPassword(employee, hashedPassword);
-                return employee;
+        try {
+            System.out.print("Do you want to (1) generate a password or (2) input your own password? ");
+            passwordChoice = reader.readLine().trim();
 
-            case MANAGER:
-                Manager manager = createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                database.getInstance().addUserPassword(manager, hashedPassword);
-                return manager;
+            if ("1".equals(passwordChoice)) {
+                // Generate password if choice is 1
+                generatedPassword = generatePassword();
+                hashedPassword = hashPassword(generatedPassword);
+                System.out.println("Generated password for user " + login + ": " + generatedPassword);
+            } else if ("2".equals(passwordChoice)) {
+                System.out.print("Enter your password: ");
+                String userInputPassword = reader.readLine().trim();
+                hashedPassword = hashPassword(userInputPassword);
+            } else {
+                System.out.println("Invalid option. Using generated password.");
+                generatedPassword = generatePassword();
+                hashedPassword = hashPassword(generatedPassword);
+                System.out.println("Generated password for user " + login + ": " + generatedPassword);
+            }
 
-            case STUDENT:
-                Student student = createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (student != null) {
-                    database.getInstance().addUserPassword(student, hashedPassword);
-                }
-                return student;
+            switch (userType) {
+                case EMPLOYEE:
+                    Employee employee = new Employee(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                    database.getInstance().addUserPassword(employee, hashedPassword);
+                    return employee;
 
-            case DEAN:
-                Dean dean = createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (dean != null) {
-                    database.getInstance().addUserPassword(dean, hashedPassword);
-                }
-                return dean;
+                case MANAGER:
+                    Manager manager = createManager(id, firstName, lastName, email, login, birthDate, hashedPassword);
+                    database.getInstance().addUserPassword(manager, hashedPassword);
+                    return manager;
 
-            case TEACHER:
-                Teacher teacher = createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (teacher != null) {
-                    database.getInstance().addUserPassword(teacher, hashedPassword);
-                    database.getInstance().addTeacher(teacher);
-                }
-                return teacher;
+                case STUDENT:
+                    Student student = createStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (student != null) {
+                        database.getInstance().addUserPassword(student, hashedPassword);
+                    }
+                    return student;
 
-            case ADMIN:
-                Admin admin = new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
-                // TODO: Save admin in DB if required
-                database.getInstance().addUserPassword(admin, hashedPassword);
-                return admin;
+                case DEAN:
+                    Dean dean = createDean(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (dean != null) {
+                        database.getInstance().addUserPassword(dean, hashedPassword);
+                    }
+                    return dean;
 
-            case GRADUATED_STUDENT:
-                GraduateStudent graduateStudent = createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (graduateStudent != null) {
-                    database.getInstance().addUserPassword(graduateStudent, hashedPassword);
-                    database.getInstance().addStudent(graduateStudent);
-                }
-                return graduateStudent;
+                case TEACHER:
+                    Teacher teacher = createTeacher(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (teacher != null) {
+                        database.getInstance().addUserPassword(teacher, hashedPassword);
+                        database.getInstance().addTeacher(teacher);
+                    }
+                    return teacher;
 
-            case PHD_STUDENT:
-                PhdStudent phdStudent = createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (phdStudent != null) {
-                    database.getInstance().addUserPassword(phdStudent, hashedPassword);
-                    database.getInstance().addStudent(phdStudent);
-                }
-                return phdStudent;
+                case ADMIN:
+                    Admin admin = new Admin(id, firstName, lastName, email, login, birthDate, hashedPassword);
 
-            case MASTER_STUDENT:
-                MasterStudent masterStudent = createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
-                if (masterStudent != null) {
-                    database.getInstance().addUserPassword(masterStudent, hashedPassword);
-                    database.getInstance().addStudent(masterStudent);
-                }
-                return masterStudent;
+                    database.getInstance().addUserPassword(admin, hashedPassword);
+                    return admin;
 
-            default:
-                throw new IllegalArgumentException("Invalid user type");
+                case GRADUATED_STUDENT:
+                    GraduateStudent graduateStudent = createGraduatedStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (graduateStudent != null) {
+                        database.getInstance().addUserPassword(graduateStudent, hashedPassword);
+                        database.getInstance().addStudent(graduateStudent);
+                    }
+                    return graduateStudent;
+
+                case PHD_STUDENT:
+                    PhdStudent phdStudent = createPhDStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (phdStudent != null) {
+                        database.getInstance().addUserPassword(phdStudent, hashedPassword);
+                        database.getInstance().addStudent(phdStudent);
+                    }
+                    return phdStudent;
+
+                case MASTER_STUDENT:
+                    MasterStudent masterStudent = createMasterStudent(id, firstName, lastName, email, login, birthDate, hashedPassword, reader);
+                    if (masterStudent != null) {
+                        database.getInstance().addUserPassword(masterStudent, hashedPassword);
+                        database.getInstance().addStudent(masterStudent);
+                    }
+                    return masterStudent;
+
+                default:
+                    throw new IllegalArgumentException("Invalid user type");
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading input. User creation canceled.");
+            return null;
         }
     }
 

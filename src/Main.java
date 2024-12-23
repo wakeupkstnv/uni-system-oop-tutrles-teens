@@ -8,6 +8,8 @@ import users.view.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -31,9 +33,11 @@ public class Main {
             Admin admin = new Admin("12", "Tamir", "Kustanayev", "t_kustanayev@kbtu.kz",
                     "t_kustanayev", new Date(), "123");
             database.addUserPassword(admin, "123");
+            database.addUser(admin);
 
             while (true) {
                 printMainMenu();
+
                 String choice = reader.readLine();
 
                 switch (choice) {
@@ -101,8 +105,10 @@ public class Main {
             return;
         }
 
-        String storedPassword = database.getUserPasswords().get(u.getLogin());
-        if (storedPassword.equals(password)) {
+        String storedHashedPassword = database.getUserPasswords().get(u.getLogin());
+        String inputHashedPassword = hashPassword(password); // Хэшируем введенный пароль
+
+        if (storedHashedPassword.equals(inputHashedPassword)) { // Сравниваем хэши
             String welcomeMessage = "";
             if (lang == Language.RUS) {
                 welcomeMessage = "Успешный вход! Добро пожаловать, " + u.getFirstName() + "!";
@@ -115,6 +121,20 @@ public class Main {
             navigateUserRole(u, reader, database);
         } else {
             printLoginFailureMessage();
+        }
+    }
+
+    private static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
         }
     }
 
@@ -203,27 +223,49 @@ public class Main {
                     adminView.banMenu(adminController, reader);
                     break;
                 case "6":
-                    changeLanguage(reader);
+                    adminView.newsMenu(adminController, reader);
                     break;
                 case "7":
+                    adminView.teacherMenu(adminController, reader);
+                    break;
+                case "8":
+                    adminView.viewAllRequest();
+                    break;
+                case "9":
+                    adminView.showCourseList();
+                    break;
+                case "10":
+                    changeLanguage(reader);
+                    break;
+                case "11":
+                    adminController.viewNews(); // Only views news
+                    break; // No logout; continue the loop
+                case "12":
                     printAdminLogoutMessage();
-                    return;
+                    return; // Logout explicitly
                 default:
                     printInvalidChoiceMessage();
             }
         }
     }
 
+
+
     private static void printAdminMenu() {
         Language lang = CoreSystem.getLanguageMode();
-        String header = getColoredText("\n=== Меню Администратора ===", BLUE);
+        String header = getColoredText("\n=== Administrator Menu ===", BLUE);
         String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
         String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
         String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");
-        String option4 = "4. " + getLocalizedString("Manage Users", "Управление пользователями", "Пайдаланушыларды басқару");
+        String option4 = "4. " + getLocalizedString("Register Users", "Регистрация пользователей", "Пайдаланушыларды тіркеу");
         String option5 = "5. " + getLocalizedString("Manage Bans", "Управление блокировками", "Блокировкаларды басқару");
-        String option6 = "6. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
-        String option7 = "7. " + getLocalizedString("Logout", "Выход", "Шығу");
+        String option6 = "6. " + getLocalizedString("Manage News", "Управление новостями", "Жаңалықтарды басқару");
+        String option7 = "7. " + getLocalizedString("Manage Teachers", "Управление преподавателями", "Мұғалімдерді басқару");
+        String option8 = "8. " + getLocalizedString("View All Requests", "Просмотреть все запросы", "Барлық сұрауларды қарау");
+        String option9 = "9. " + getLocalizedString("Show Courses", "Просмотреть курсы", "Курстарды қарау");
+        String option10 = "10. " + getLocalizedString("Change Language", "Изменить язык", "Тілді өзгерту");
+        String option11 = "11. " + getLocalizedString("View News", "Просмотреть новости", "Жаңалықтарды қарау");
+        String option12 = "12. " + getLocalizedString("Logout", "Выход", "Шығу");
         String prompt = getColoredText(getLocalizedString("Choose an option: ", "Выберите опцию: ", "Опцияны таңдаңыз: "), CYAN);
 
         System.out.println(header);
@@ -234,6 +276,11 @@ public class Main {
         System.out.println(option5);
         System.out.println(option6);
         System.out.println(option7);
+        System.out.println(option8);
+        System.out.println(option9);
+        System.out.println(option10);
+        System.out.println(option11);
+        System.out.println(option12);
         System.out.print(prompt);
     }
 

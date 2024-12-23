@@ -26,7 +26,7 @@ public class Database implements Serializable{
      * <!--  end-user-doc  -->
      */
 
-    static final String PATH = "./project-x/src/database/data/";
+    static final String PATH = "C:\\Users\\user\\git\\uni-system-oop-tutrles-teens\\src\\database\\data\\";
     private Vector<Course> courses;
 
    
