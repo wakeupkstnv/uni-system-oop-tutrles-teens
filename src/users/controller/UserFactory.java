@@ -31,6 +31,10 @@ public class UserFactory {
         String hashedPassword = "";
 
         try {
+            email = generateEmail(login);  // Call the new method to generate the email
+            System.out.println("Generated email for user " + firstName + " " + lastName + ": " + email);
+
+
             System.out.print("Do you want to (1) generate a password or (2) input your own password? ");
             passwordChoice = reader.readLine().trim();
 
@@ -121,6 +125,15 @@ public class UserFactory {
             return null;
         }
     }
+    public static String generateLogin(String firstName, String lastName) {
+
+        return firstName.toLowerCase() + "." + lastName.toLowerCase();  // Example: john.doe
+    }
+
+    public static String generateEmail(String login) {
+        return login + "@TMNT.com";
+    }
+
 
     private static String generatePassword() {
         SecureRandom random = new SecureRandom();

@@ -258,7 +258,7 @@ public class Main {
         Language lang = CoreSystem.getLanguageMode();
         String header = getColoredText("\n=== Administrator Menu ===", BLUE);
         Language lag = CoreSystem.getLanguageMode();
-        String header = getColoredText("\n=== Меню Администратора ===", BLUE);
+        header = getColoredText("\n=== Меню Администратора ===", BLUE);
        String option1 = "1. " + getLocalizedString("View Profile", "Просмотреть профиль", "Профильді қарау");
         String option2 = "2. " + getLocalizedString("View Notifications", "Просмотреть уведомления", "Хабарландыруларды қарау");
         String option3 = "3. " + getLocalizedString("View Papers", "Просмотреть статьи", "Мақалаларды қарау");

@@ -68,11 +68,12 @@ public class AdminView extends ManagerView {
 					System.out.print("Enter Last Name: ");
 					String lastName = reader.readLine();
 
-					System.out.print("Enter Email: ");
-					String email = reader.readLine();
-
 					System.out.print("Enter Login: ");
 					String login = reader.readLine();
+
+
+					String email = generateEmail(login);
+
 
 					System.out.print("Enter Birth Date (yyyy-MM-dd): ");
 					String birthDateStr = reader.readLine();
@@ -131,11 +132,11 @@ public class AdminView extends ManagerView {
 					System.out.print("Тегі енгізіңіз: ");
 					String lastName = reader.readLine();
 
-					System.out.print("Электрондық пошта енгізіңіз: ");
-					String email = reader.readLine();
 
 					System.out.print("Логин енгізіңіз: ");
 					String login = reader.readLine();
+
+					String email = generateEmail(login);
 
 					System.out.print("Туған күн (yyyy-MM-dd) енгізіңіз: ");
 					String birthDateStr = reader.readLine();
@@ -194,11 +195,12 @@ public class AdminView extends ManagerView {
 					System.out.print("Введите фамилию: ");
 					String lastName = reader.readLine();
 
-					System.out.print("Введите Email: ");
-					String email = reader.readLine();
 
 					System.out.print("Введите логин: ");
 					String login = reader.readLine();
+
+
+					String email = generateEmail(login);
 
 					System.out.print("Введите дату рождения (yyyy-MM-dd): ");
 					String birthDateStr = reader.readLine();
@@ -217,6 +219,9 @@ public class AdminView extends ManagerView {
 				}
 			}
 		}
+	}
+	public static String generateEmail(String login) {
+		return login + "@TMNT.com";
 	}
 
 

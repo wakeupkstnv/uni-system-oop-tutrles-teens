@@ -296,6 +296,7 @@ public class Database implements Serializable{
     }
 
     // Методы для users
+    // Методы для users
     public void addUser(User user) {
         this.users = loadVector(PATH + "users.txt");
         users.add(user);

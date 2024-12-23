@@ -296,7 +296,7 @@ public class ManagerController<Model extends Manager, View extends ManagerView> 
         System.out.print("Вместимость: ");
         int cap = Integer.parseInt(reader.readLine());
         Course newCourse = new Course(uuid, name, null, year, Database.getInstance().getPeriod(), cap);
-        database.getInstance().getCourses().add(newCourse);
+        database.getInstance().addCourse(newCourse);
 
         switch (CoreSystem.getLanguageMode()) {
             case ENG:
